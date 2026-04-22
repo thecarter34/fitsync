@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control — Golf League</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --bg-dark: #0f1419;
+            --bg-card: #1a2332;
+            --bg-hover: #243044;
+            --accent: #00d4aa;
+            --accent-dim: #00d4aa33;
+            --text: #e8eaed;
+            --text-dim: #8899a6;
+            --danger: #f4212e;
+            --success: #00d4aa;
+            --warning: #ffad33;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #2a3a4d;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 0.875rem;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .automations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid #2a3a4d;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-icon {
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+        
+        .card-body {
+            margin-bottom: 1rem;
+        }
+        
+        .file-drop {
+            border: 2px dashed #3a4a5d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 0.75rem;
+        }
+        
+        .file-drop:hover, .file-drop.dragover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+        
+        .file-drop input {
+            display: none;
+        }
+        
+        .file-drop-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        
+        .file-name {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 0.65rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        
+        .btn:active { transform: scale(0.98); }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+        
+        .btn-primary:hover { opacity: 0.9; }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: #2a3a4d;
+            color: var(--text);
+        }
+        
+        .btn-secondary:hover { background: #3a4a5d; }
+        
+        .runs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .runs-table th {
+            text-align: left;
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #2a3a4d;
+        }
+        
+        .runs-table td {
+            padding: 0.85rem 0.75rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #1e2a3a;
+        }
+        
+        .runs-table tr:hover td {
+            background: var(--bg-hover);
+        }
+        
+        .run-success { color: var(--success); }
+        .run-fail { color: var(--danger); }
+        
+        .run-time {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+        
+        .view-log {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        
+        .view-log:hover { text-decoration: underline; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--bg-dark);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            padding: 0.85rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.error { border-color: var(--danger); }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .btn-clear {
+            background: transparent;
+            border: 1px solid #3a4a5d;
+            color: var(--text-dim);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        
+        .btn-clear:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🎛️</span>
+                <div>
+                    <h1>Mission Control</h1>
+                    <p class="subtitle">Golf League Automation Hub</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <span class="status-badge">System Online</span>
+            </div>
+        </header>
+        
+        <section class="section">
+            <h2>⚡ Automations</h2>
+            <div class="automations">
+                {% for auto in automations %}
+                <div class="card" id="card-{{ auto.id }}">
+                    <div class="card-header">
+                        <span class="card-icon">{{ auto.icon }}</span>
+                        <div>
+                            <div class="card-title">{{ auto.name }}</div>
+                            <div class="card-desc">{{ auto.description }}</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if auto.input_type == 'multi' %}
+                        <form class="upload-form" data-automation="{{ auto.id }}">
+                            <div class="file-drop" onclick="document.getElementById('files-{{ auto.id }}').click()">
+                                <input type="file" id="files-{{ auto.id }}" name="files" accept=".json,.csv" multiple>
+                                <div class="file-drop-label">Drop Week_data.json + CSV here, or click to browse</div>
+                                <div class="file-name" id="filename-{{ auto.id }}"></div>
+                            </div>
+                        </form>
+                        {% elif auto.input_type == 'file' %}
+                        <form class="upload-form" data-automation="{{ auto.id }}">
+                            <div class="file-drop" onclick="document.getElementById('file-{{ auto.id }}').click()">
+                                <input type="file" id="file-{{ auto.id }}" name="file" accept=".csv">
+                                <div class="file-drop-label">Drop CSV file here or click to browse</div>
+                                <div class="file-name" id="filename-{{ auto.id }}"></div>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="runUpload('{{ auto.id }}')" id="btn-{{ auto.id }}">
+                            Execute
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
+        <section class="section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>📋 Recent Runs</h2>
+                <button class="btn-clear" onclick="clearRuns()">Clear History</button>
+            </div>
+            <div id="runs-container">
+                {% if runs %}
+                <table class="runs-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Automation</th>
+                            <th>Time</th>
+                            <th>Duration</th>
+                            <th>Input</th>
+                            <th>Log</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for run in runs %}
+                        <tr>
+                            <td>
+                                {% if run.success %}
+                                <span class="run-success">✓ Success</span>
+                                {% else %}
+                                <span class="run-fail">✗ Failed</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ run.automation_name }}</td>
+                            <td class="run-time">{{ run.timestamp[:16].replace('T', ' ') }}</td>
+                            <td class="run-time">{{ run.elapsed_seconds }}s</td>
+                            <td class="run-time" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                {{ run.input_file or '-' }}
+                            </td>
+                            <td><a class="view-log" href="/log/{{ run.id }}" target="_blank">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="empty-state">No runs yet. Execute an automation to get started.</div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+    
+    <div id="toast" class="toast" style="display: none;"></div>
+    
+    <script>
+        // File input handlers
+        document.querySelectorAll('.upload-form input[type="file"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const id = input.id.replace('file-', '').replace('files-', '');
+                const nameEl = document.getElementById('filename-' + id);
+                if (e.target.files.length > 1) {
+                    nameEl.textContent = Array.from(e.target.files).map(f => f.name).join(', ');
+                } else {
+                    nameEl.textContent = e.target.files[0]?.name || '';
+                }
+            });
+        });
+        
+        // Drag and drop
+        document.querySelectorAll('.file-drop').forEach(drop => {
+            drop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                drop.classList.add('dragover');
+            });
+            drop.addEventListener('dragleave', () => {
+                drop.classList.remove('dragover');
+            });
+            drop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                drop.classList.remove('dragover');
+                const input = drop.querySelector('input[type="file"]');
+                input.files = e.dataTransfer.files;
+                const id = input.id.replace('file-', '').replace('files-', '');
+                if (e.dataTransfer.files.length > 1) {
+                    document.getElementById('filename-' + id).textContent = 
+                        Array.from(e.dataTransfer.files).map(f => f.name).join(', ');
+                } else {
+                    document.getElementById('filename-' + id).textContent = e.dataTransfer.files[0]?.name || '';
+                }
+            });
+        });
+        
+        async function runUpload(automationId) {
+            // Check both single and multi file inputs
+            const input = document.getElementById('files-' + automationId) || document.getElementById('file-' + automationId);
+            const btn = document.getElementById('btn-' + automationId);
+            
+            if (!input || !input.files.length) {
+                showToast('Please select file(s) first', 'error');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Running...';
+            
+            const formData = new FormData();
+            for (const f of input.files) {
+                formData.append('files', f);
+            }
+            
+            try {
+                const resp = await fetch('/upload/' + automationId, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await resp.json();
+                
+                if (result.success) {
+                    showToast(`✓ Completed in ${result.elapsed.toFixed(1)}s`);
+                    input.value = '';
+                    document.getElementById('filename-' + automationId).textContent = '';
+                } else {
+                    showToast('✗ ' + (result.error || 'Failed'), 'error');
+                }
+            } catch (e) {
+                showToast('✗ Error: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'Execute';
+            refreshRuns();
+        }
+        
+        async function runAutomation(automationId) {
+            const btn = document.getElementById('btn-' + automationId);
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Running...';
+            
+            try {
+                const resp = await fetch('/run/' + automationId, { method: 'POST' });
+                const result = await resp.json();
+                
+                if (result.success) {
+                    showToast(`✓ Completed in ${result.elapsed.toFixed(1)}s`);
+                } else {
+                    showToast('✗ ' + (result.error || 'Failed'), 'error');
+                }
+            } catch (e) {
+                showToast('✗ Error: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'Run Now';
+            refreshRuns();
+        }
+        
+        async function refreshRuns() {
+            try {
+                const resp = await fetch('/runs');
+                const runs = await resp.json();
+                // Simple reload for now
+                location.reload();
+            } catch (e) {
+                console.error('Failed to refresh:', e);
+            }
+        }
+        
+        async function clearRuns() {
+            if (!confirm('Clear all run history?')) return;
+            await fetch('/clear_runs', { method: 'POST' });
+            location.reload();
+        }
+        
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+    </script>
+</body>
+</html>

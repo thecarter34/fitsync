@@ -1,0 +1,15 @@
+[
+  {
+    "id": "20260422_163026",
+    "automation": "scorecards",
+    "automation_name": "Generate Scorecards",
+    "timestamp": "2026-04-22T16:30:26.021055",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "No _data.json found. Drop a PDF in and I'll process it first.\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/development/GolfLeague/mission_control/runs/run_20260422_163026.log",
+    "input_file": "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Week_2_April_22_2026.csv"
+  }
+]

@@ -8,7 +8,7 @@ import os
 import sys
 import json
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timezone
 from pathlib import Path
 from flask import send_from_directory,  Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -486,6 +486,7 @@ def ai_ask():
                 "steps": player.get('steps', 0),
                 "coins": player.get('coins', 0),
                 "achievement_points": player.get('achievement_points', 0),
+                "collectibles": player.get('collectibles', []),
                 "skills": skills,
                 "gear": gear,
                 "currencies": currencies,
@@ -496,10 +497,12 @@ def ai_ask():
     
     # Build the AI task prompt
     sorted_skills = sorted(skills.items(), key=lambda x: x[1], reverse=True)
+    collectibles = context.get('collectibles', [])
     prompt_lines = f"""Player: {context.get('player_name', 'Unknown')}
 Total Steps: {context.get('steps', 0):,}
 Coins: {context.get('coins', 0):,}
 Achievement Points: {context.get('achievement_points', 0)}
+Collectibles ({len(collectibles)}): {', '.join(collectibles[:50])}
 
 === TOP SKILLS (by XP) ===
 """
@@ -619,6 +622,7 @@ def ai_answer():
                 "steps": player.get('steps', 0),
                 "coins": player.get('coins', 0),
                 "achievement_points": player.get('achievement_points', 0),
+                "collectibles": player.get('collectibles', []),
                 "skills": skills,
                 "gear": gear,
                 "currencies": currencies,
@@ -628,10 +632,12 @@ def ai_answer():
     
     # Build the task prompt
     sorted_skills = sorted(skills.items(), key=lambda x: x[1], reverse=True)
+    collectibles = context.get('collectibles', [])
     prompt_lines = f"""Player: {context.get('player_name', 'Unknown')}
 Total Steps: {context.get('steps', 0):,}
 Coins: {context.get('coins', 0):,}
 Achievement Points: {context.get('achievement_points', 0)}
+Collectibles ({len(collectibles)}): {', '.join(collectibles[:50])}
 
 === TOP SKILLS (by XP) ===
 """
@@ -651,13 +657,13 @@ Achievement Points: {context.get('achievement_points', 0)}
         prompt_lines += f"  {item}: {count}\n"
     
     # Build task without f-string to avoid $ACTIVITY being interpreted as Python vars
-    task = "You are a WalkScape Advisor. Answer the player's question with a specific activity recommendation.\n\n"
+    task = "You are a WalkScape Advisor. Answer the player's question directly and specifically. Do NOT repeat generic advice from previous turns.\n\n"
     task += prompt_lines + "\n\n"
     task += "=== PLAYER'S QUESTION ===\n"
     task += user_message + "\n\n"
-    task += "Your response must end with this EXACT JSON block (nothing else after it):\n"
+    task += "Your response must end with this EXACT JSON block on its own line (no markdown, no code blocks):\n"
     task += '{"activity": "...", "reason": "...", "skill": "...", "location": "...", "est_xp": "...", "why": "...", "missing_requirements": "...", "updated_at": "ISO timestamp"}\n\n'
-    task += "After your recommendation text, output the JSON on its own line. No markdown code blocks. No explanations after the JSON."
+    task += "Output the JSON on a single line at the end. Nothing after it."
 
     # Spawn via openclaw agent command (async - no waiting for response)
     try:
@@ -666,7 +672,7 @@ Achievement Points: {context.get('achievement_points', 0)}
         def run_agent_and_save():
             result = subprocess.run([
                 'openclaw', 'agent', '--local',
-                '--session-id', 'main',
+                '--session-id', 'walkscape-' + str(int(datetime.now(timezone.utc).timestamp())),
                 '--message', task,
                 '--timeout', '90'
             ], capture_output=True, text=True, timeout=95)
@@ -681,14 +687,15 @@ Achievement Points: {context.get('achievement_points', 0)}
                     try:
                         parsed = json.loads(candidate)
                         if 'activity' in parsed and 'reason' in parsed:
-                            # Valid JSON with our fields — write it
+                            # Overwrite updated_at with current time (AI ignores the instruction)
+                            parsed['updated_at'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
                             with open(WALKSCAPE_ADVISOR_FILE, 'w') as f:
                                 json.dump(parsed, f, indent=2)
                             # Answer text is everything BEFORE the JSON block
                             answer_text = stdout[:start_idx].strip()
                             if answer_text:
                                 with open(RUNS_DIR / "walkscape_chat.json", 'w') as f:
-                                    json.dump({"answer": answer_text, "ts": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}, f)
+                                    json.dump({"answer": answer_text, "ts": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}, f)
                             break
                     except json.JSONDecodeError:
                         pass

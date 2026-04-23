@@ -8,7 +8,7 @@ import os
 import sys
 import json
 import subprocess
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from flask import send_from_directory,  Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -390,14 +390,24 @@ Your responses should be:
 - Always call out MISSING requirements (skill level minimums, required gear, etc.) in a dedicated field
 - Suggest concrete alternatives when requirements aren't met
 
-Game knowledge reference:
+## Achievement Reference (from wiki.walkscape.app/wiki/Achievements)
+Achievement difficulty tiers and AP values:
+- **Easy** (1 AP): Touch The Grass (level up any skill), Treasure Hunter (gain Chest from activity), Under The Sea (catch Fish 100x), Walk Of Shame (10,000 travel steps), Ooh Shiny!, Sell to 20 shops, Tailoring 1 at 130%+ efficiency, My Back Hurts, No Trashing, You Shall Not Pass!, etc.
+- **Normal** (3 AP): They Grow Up So Fast (raise pet to Adult), Travel-ized (100,000 travel steps), Undersea Chef (5x Underwater salads), Chop down 5000 trees, Mine 10k ore, Fully Prepared, Pride And Accomplishment (100 chest openings), etc.
+- **Hard** (5 AP): Jack Of All Trades (every skill at 50+), Maid Of The Dead (5000 Ectoplasm), Make A Man Out Of You (Agility 80+), And My Axe!, Rock And Stone!, Trinketry level 67, It's A Trap! (full loot rarity equip), Doomsday Prepper (1000 food stack), I Just Felt Like Running (30,000 steps in one day), etc.
+- **Extreme** (10 AP): Character level 80, 12 million steps, 10 million gold
+
+Cape rewards: Cape of Half-Achiever at 50% of total AP, Cape of Achiever at 100%. As of v0.3.0-beta, 240 AP from achievements required for Cape of Achiever (total possible: 285 AP including collectibles).
+
+When a player asks about achievements, cross-reference their current AP, skill levels, and activity history to find the easiest unearned achievements they CAN complete with their current stats.
+
+## Game Knowledge
 - Skills: Agility, Carpentry, Cooking, Crafting, Fishing, Foraging, Hunting, Mining, Smithing, Tailoring, Trinketry, Woodcutting
 - Activities award XP in primary + sometimes secondary skills
 - Work Efficiency caps vary by activity (150%-300%)
 - Mining activities at Underwater Cave and Crown of Cinders offer highest XP/step for high-level miners
 - Cave Diving (Mining 55+, Agility 55+) = dual skill activity at Underwater Cave
 - Agility chips, foraging chips, mining chips, fishing chips are currencies earned through activities
-- Achievement Points are earned by completing achievements — often tied to skill levels or activities
 
 When given player stats, analyze and recommend the single best next activity with:
 1. Activity name and location
@@ -662,28 +672,28 @@ Achievement Points: {context.get('achievement_points', 0)}
             ], capture_output=True, text=True, timeout=95)
             import re, json
             try:
-                # Split stdout into lines, find the last {...} JSON block
-                lines = result.stdout.strip().split('\n')
-                json_lines = []
-                in_json = False
-                for line in lines:
-                    stripped = line.strip()
-                    if stripped.startswith('{') and '"activity"' in stripped:
-                        in_json = True
-                    if in_json:
-                        json_lines.append(line)
-                        if stripped.endswith('}') and len(json_lines) > 1:
+                stdout = result.stdout
+                # Find the last {...} JSON block containing "activity"
+                start_idx = stdout.rfind('{')
+                while start_idx != -1:
+                    # Try parsing from this `{` to the end of stdout
+                    candidate = stdout[start_idx:]
+                    try:
+                        parsed = json.loads(candidate)
+                        if 'activity' in parsed and 'reason' in parsed:
+                            # Valid JSON with our fields — write it
+                            with open(WALKSCAPE_ADVISOR_FILE, 'w') as f:
+                                json.dump(parsed, f, indent=2)
+                            # Answer text is everything BEFORE the JSON block
+                            answer_text = stdout[:start_idx].strip()
+                            if answer_text:
+                                with open(RUNS_DIR / "walkscape_chat.json", 'w') as f:
+                                    json.dump({"answer": answer_text, "ts": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}, f)
                             break
-                if json_lines:
-                    json_str = '\n'.join(json_lines)
-                    with open(WALKSCAPE_ADVISOR_FILE, 'w') as f:
-                        f.write(json_str)
-                # Save chat answer text (everything BEFORE the JSON block)
-                if json_lines:
-                    answer_text = '\n'.join(lines[:len(lines) - len(json_lines)]).strip()
-                    if answer_text:
-                        with open(RUNS_DIR / "walkscape_chat.json", 'w') as f:
-                            json.dump({"answer": answer_text, "ts": datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z')}, f)
+                    except json.JSONDecodeError:
+                        pass
+                    # Move to previous `{` if this wasn't valid JSON
+                    start_idx = stdout.rfind('{', 0, start_idx)
             except Exception:
                 pass
 

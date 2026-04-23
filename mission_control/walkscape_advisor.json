@@ -1,1 +1,10 @@
-{"activity": "Forage herbs at Darkgrove", "reason": "You are at 332 nettle and 322 thistle — 500 tier is within reach. Herb achievements pay flat AP chunks per tier. Foraging is your #3 skill at 1M+ XP, so there's zero overhead to get there.", "skill": "foraging", "location": "Darkgrove (Forest region)", "est_xp": "800-1200 XP/hr", "why": "You have 195 AG tokens and 7 log baskets in bank. Each herb tier (100/250/500) gives flat AP. After nettle/thistle 500 done, rare herb achievements open up.", "missing_requirements": "Equip a log basket from your 7 in bank for better yield. Otherwise no blockers.", "updated_at": "2025-01-27T12:00:00Z"}
+{
+  "activity": "Forage herbs at Darkgrove",
+  "reason": "332 nettle and 322 thistle means the 500-tier herb achievements are ~168 herbs away each. No new grind \u2014 keep walking and picking. Flat AP per tier.",
+  "skill": "foraging",
+  "location": "Darkgrove (Forest region)",
+  "est_xp": "800-1200 XP/hr",
+  "why": "You have 7 log baskets and 195 AG tokens. Herb tiers (100/250/500) give flat AP. After Nettle/Thistle 500 done, rare herbs and agility milestones are next.",
+  "missing_requirements": "Equip a log basket from your 7 in bank for better yield. No other blockers.",
+  "updated_at": "2025-01-27T12:00:00Z"
+}

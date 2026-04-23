@@ -178,12 +178,6 @@ def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
     text-transform: uppercase;
     margin: 0 0 2px;
   }}
-  .card-header .standings-note {{
-    font-size: 8pt;
-    color: #a8d4b4;
-    font-style: italic;
-    margin: 0;
-  }}
   .gold-divider {{
     height: 2px;
     background: linear-gradient(90deg, transparent, #d4af37 20%, #d4af37 80%, transparent);
@@ -287,8 +281,7 @@ def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
     <div class="card-header">
       <div class="card-header-inner">
         <h2>{league_name}</h2>
-        <p class="card-subtitle">Wednesday Night Men's Golf League</p>
-        <p class="standings-note">Standings end of week {week_count}</p>
+        <p class="card-subtitle">Standings end of week {week_count}</p>
       </div>
     </div>
     <div class="gold-divider"></div>

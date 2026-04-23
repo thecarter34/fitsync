@@ -51,8 +51,7 @@ def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
         team = row['team']
         total = row['total']
         rank_class = f"rank-{rank}" if rank <= 3 else ""
-        medal = {'rank-1': ' 🥇', 'rank-2': ' 🥈', 'rank-3': ' 🥉'}.get(rank_class, '')
-        rows_html += f"""<tr class="{rank_class}"><td class="td-pos">{pos}{medal}</td><td class="td-team">{team}</td><td class="td-total">{total}</td></tr>\n"""
+        rows_html += f"""<tr class="{rank_class}"><td class="td-pos">{pos}</td><td class="td-team">{team}</td><td class="td-total">{total}</td></tr>\n"""
 
     return f"""<!doctype html>
 <html lang="en">

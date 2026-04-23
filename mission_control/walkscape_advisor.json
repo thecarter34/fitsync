@@ -1,10 +1,10 @@
 {
-  "activity": "unknown",
-  "reason": "Question is incomplete - player said 'that' without specifying activity",
-  "skill": "none specified",
-  "location": "unknown",
-  "est_xp": "unknown",
-  "why": "Player needs to clarify what goal they are trying to achieve",
-  "missing_requirements": "Activity or goal not specified in the question",
-  "updated_at": "2025-01-25T00:00:00.000Z"
+  "activity": "foraging_mining_agility",
+  "reason": "balances your existing fire/ocean/ancient collectibles with nature or agility-themed rare",
+  "skill": "agility or foraging",
+  "location": "high-level agility courses or rare foraging nodes",
+  "est_xp": "varies by activity",
+  "why": "you have 3.8M agility XP with no rare agility collectible; adds diversity to your artifact collection",
+  "missing_requirements": "check specific rare spawn rates at your current level",
+  "updated_at": "2026-04-23T19:06:11Z"
 }

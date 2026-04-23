@@ -127,6 +127,10 @@ def run_automation(automation_id, uploaded_files=None):
                     scorecard_input = Path(automation["working_dir"]) / "input" / filename
                     shutil.copy(input_path, scorecard_input)
                     input_paths.append(scorecard_input)
+                elif automation_id == "leaderboard":
+                    leaderboard_input = Path(automation["working_dir"]) / "input" / filename
+                    shutil.copy(input_path, leaderboard_input)
+                    input_paths.append(leaderboard_input)
                 else:
                     input_paths.append(input_path)
     
@@ -135,9 +139,12 @@ def run_automation(automation_id, uploaded_files=None):
     output_file = RUNS_DIR / f"run_{run_id}.log"
     
     try:
-        # Run without arguments - script finds files in INPUT_DIR
+        if automation_id == "leaderboard" and input_paths:
+            cmd = [sys.executable, script, str(input_paths[0])]
+        else:
+            cmd = [sys.executable, script]
         result = subprocess.run(
-            [sys.executable, script],
+            cmd,
             cwd=automation["working_dir"],
             capture_output=True,
             text=True,

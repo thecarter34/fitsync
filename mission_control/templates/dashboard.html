@@ -805,27 +805,26 @@
         <!-- Leaderboard Generator -->
         <div class="golf-card">
             <h3>📊 Season Leaderboard</h3>
-            <p>Regenerates the full season standings HTML — reads match results, scores, and team data directly from the Golf League app data files. Run this after any match updates.</p>
+            <p>Upload a Squabbit CSV export with standings data. Parses the standings table and generates a print-ready season leaderboard HTML.</p>
             <div class="card-details">
                 <div class="detail-row">
                     <span class="detail-label">Reads</span>
-                    <span class="detail-value"><code>matches.json</code>, <code>scores.json</code>, <code>teams.json</code></span>
+                    <span class="detail-value"><code>*.csv</code> — standings section from Squabbit export</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Output</span>
                     <span class="detail-value"><code>output/leaderboard.html</code></span>
                 </div>
-                <div class="detail-row">
-                    <span class="detail-label">Note</span>
-                    <span class="detail-value">Golf League app should have generated data files</span>
-                </div>
+                
             </div>
-            <div>
+            <div class="golf-actions">
+                <input type="file" id="golf-leaderboard-file" accept=".csv" style="display:none" onchange="document.getElementById('golf-leaderboard-name').textContent = this.files[0]?.name || ''">
+                <button class="btn btn-primary" onclick="document.getElementById('golf-leaderboard-file').click()">Choose CSV</button>
+                <span id="golf-leaderboard-name" style="font-size:0.8rem;color:var(--text-dim);align-self:center"></span>
+            </div>
+            <div style="margin-top:0.75rem;">
                 <button class="btn btn-primary" id="btn-leaderboard" onclick="runGolfLeaderboard()">
                     Generate Leaderboard
-                </button>
-                <button class="btn" style="background:rgba(255,255,255,0.08);color:var(--text);margin-left:0.5rem" onclick="window.open('http://localhost:1234', '_blank')">
-                    Open Golf App ↗
                 </button>
             </div>
         </div>
@@ -843,7 +842,7 @@
         <div class="section">
             <div class="automations">
                 {% for auto in automations %}
-                {% if auto.id == 'walkscape_advisor' %}
+                {% if auto.id in ('walkscape_advisor', 'scorecards', 'leaderboard', 'scorecards_batch') %}
                 {% else %}
                 <div class="card" id="card-{{ auto.id }}">
                     <div class="card-header">
@@ -879,7 +878,7 @@
                             <hr class="detail-divider">
                             <div class="detail-row">
                                 <span class="detail-label">Reads</span>
-                                <span class="detail-value"><code>matches.json</code>, <code>scores.json</code>, <code>teams.json</code></span>
+                                <span class="detail-value"><code>*.csv</code> — standings section from Squabbit export</span>
                             </div>
                             <div class="detail-row">
                                 <span class="detail-label">Output</span>
@@ -1065,11 +1064,16 @@
     }
 
     async function runGolfLeaderboard() {
+        const fileInput = document.getElementById('golf-leaderboard-file');
+        const file = fileInput.files[0];
+        if (!file) { showToast('✗ No file selected', 'error'); return; }
         const btn = document.getElementById('btn-leaderboard');
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner"></span>Generating...';
         try {
-            const r = await fetch('/run/leaderboard', { method: 'POST' });
+            const fd = new FormData();
+            fd.append('files', file);
+            const r = await fetch('/upload/leaderboard', { method: 'POST', body: fd });
             const result = await r.json();
             if (result.success) {
                 showToast('✓ Leaderboard generated in ' + result.elapsed.toFixed(1) + 's');

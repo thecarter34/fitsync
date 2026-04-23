@@ -1,5 +1,20 @@
 [
   {
+    "id": "20260423_144649",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T14:46:49.559497",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "  Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_144649.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026_1.csv"
+    ]
+  },
+  {
     "id": "20260423_072023",
     "automation": "leaderboard",
     "automation_name": "Generate Leaderboard",

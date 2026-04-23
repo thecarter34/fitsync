@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Generate season standings leaderboard HTML from a Squabbit CSV export.
-Extracts the standings table at the bottom of the CSV and produces a print-ready HTML page.
+Reads the standings section (Pos, Player, Week 1, Week 2, Week 3, Total)
+and produces a print-ready HTML page with Pos, Team, Total columns.
 """
 
-import re
 import sys
 from pathlib import Path
 
@@ -12,126 +12,58 @@ SCRIPT_DIR = Path(__file__).parent
 OUTPUT_DIR = SCRIPT_DIR / "output"
 
 
-def parse_standings_from_csv(csv_path: Path) -> list[dict]:
+def parse_standings(csv_path: Path) -> list[dict]:
     """
-    Parse the standings section at the bottom of a Squabbit CSV export.
-    Returns a list of dicts: {pos, team, week1, week2, week3, total}
+    Parse the standings table from a Squabbit CSV export.
+    Returns [{pos, team, total}, ...]
     """
-    content = csv_path.read_text(encoding="utf-8", errors="replace")
+    lines = csv_path.read_text(encoding="utf-8", errors="replace").split('\n')
 
-    # Find the standings section — look for the header line that starts with "Pos Player"
-    lines = content.split('\n')
-    standings_start = -1
+    # Find the standings header line
+    header_idx = -1
     for i, line in enumerate(lines):
         stripped = line.strip()
-        if stripped.startswith('Pos ') or stripped.startswith('Pos,Player'):
-            standings_start = i
+        if stripped.startswith("Pos,") or "Week 1" in stripped:
+            header_idx = i
             break
 
-    if standings_start == -1:
-        # Try to find by content pattern: lines that look like "T1 SomeName 5 7 5 13.5 36"
-        for i, line in enumerate(lines):
-            stripped = line.strip()
-            if stripped and stripped.split()[0] in ('T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','1','2','3','4','5','6','7','8','9','10'):
-                parts = [p.strip() for p in stripped.split()]
-                if len(parts) >= 6:
-                    try:
-                        float(parts[-1])  # total should be numeric
-                        standings_start = i
-                        break
-                    except ValueError:
-                        continue
-
-    if standings_start == -1:
-        raise ValueError(f"Could not find standings section in {csv_path.name}")
-
-    # Determine header offset
-    header_line = lines[standings_start]
-    stripped_header = header_line.strip()
-    has_header = stripped_header.startswith('Pos')
-
-    if has_header:
-        data_start = standings_start + 1
-    else:
-        data_start = standings_start
+    if header_idx == -1:
+        raise ValueError(f"Could not find standings header in {csv_path.name}")
 
     rows = []
-    for line in lines[data_start:]:
+    for line in lines[header_idx + 1:]:
         line = line.strip()
-        if not line:
-            continue
-        # Skip separator lines or non-data lines
-        if line.startswith('Round') or line.startswith('Hickory') or line.startswith('Week'):
+        if not line or line.startswith("Round") or line.startswith("Hickory"):
             break
-        # Parse: T1 Everhart/Fladten 5 7 5 13.5 36
-        parts = line.split(',')
-        if len(parts) < 2:
+        parts = [p.strip() for p in line.split(',')]
+        if len(parts) < 6:
             continue
-
-        pos_raw = parts[0].strip()
-        team_raw = parts[1].strip()
-
-        # Weekly points and total
+        pos = parts[0].strip()
+        team = parts[1].strip()
         try:
-            week1 = float(parts[2].strip()) if len(parts) > 2 and parts[2].strip() else 0.0
-            week2 = float(parts[3].strip()) if len(parts) > 3 and parts[3].strip() else 0.0
-            week3 = float(parts[4].strip()) if len(parts) > 4 and parts[4].strip() else 0.0
-            total = float(parts[5].strip()) if len(parts) > 5 and parts[5].strip() else 0.0
+            total = float(parts[-1].strip())
         except ValueError:
             continue
-
-        rows.append({
-            'pos_raw': pos_raw,
-            'team': team_raw,
-            'week1': week1,
-            'week2': week2,
-            'week3': week3,
-            'total': total,
-        })
-
-        if len(rows) >= 30:
-            break
+        rows.append({'pos': pos, 'team': team, 'total': total})
 
     return rows
 
 
-def format_pos(pos_raw: str) -> str:
-    """Return clean position string."""
-    return pos_raw  # T1, T9, etc.
-
-
-def build_html(rows: list[dict], output_path: Path) -> str:
+def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
     league_name = "Hickory Hills Wednesday Night Men's League"
 
-    # Determine max week from data
-    max_week = 3  # default
-    for row in rows:
-        if row['week2'] > 0:
-            max_week = 3
-            break
-        elif row['week1'] > 0:
-            max_week = 2
-            break
-
-    # Build HTML rows
     rows_html = ""
     for i, row in enumerate(rows):
         rank = i + 1
-        pos = row['pos_raw']
+        pos = row['pos']
         team = row['team']
-        w1 = row['week1']
-        w2 = row['week2']
-        w3 = row['week3']
         total = row['total']
 
         rank_class = f"rank-{rank}" if rank <= 3 else ""
         rows_html += f"""      <tr class="{rank_class}">
         <td class="td-pos">{pos}</td>
         <td class="td-team">{team}</td>
-        <td class="td-score">{format_score(w1)}</td>
-        <td class="td-score">{format_score(w2)}</td>
-        <td class="td-score">{format_score(w3)}</td>
-        <td class="td-total">{format_score(total)}</td>
+        <td class="td-total">{total}</td>
       </tr>\n"""
 
     return f"""<!doctype html>
@@ -170,7 +102,6 @@ def build_html(rows: list[dict], output_path: Path) -> str:
   }}
   .subtitle {{
     font-size: 9pt;
-    font-weight: 400;
     color: #666;
     margin-top: 2px;
   }}
@@ -181,40 +112,35 @@ def build_html(rows: list[dict], output_path: Path) -> str:
   thead th {{
     background: #0d2318;
     color: #d4af37;
-    font-size: 7pt;
+    font-size: 7.5pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 5px 6px;
+    padding: 6px 10px;
     border: 1px solid #0d2318;
     text-align: center;
   }}
-  thead th.pos-col {{ width: 38px; text-align: left; }}
+  thead th.pos-col {{ text-align: left; width: 46px; }}
   thead th.team-col {{ text-align: left; }}
-  thead th.score-col {{ width: 54px; }}
-  thead th.total-col {{ width: 60px; }}
+  thead th.total-col {{ width: 80px; }}
   tbody tr {{ border-bottom: 1px solid #dcdcdc; }}
   tbody tr:nth-child(even) {{ background: #f6f6f6; }}
   tbody td {{
-    padding: 4px 6px;
-    font-size: 9pt;
+    padding: 5px 10px;
+    font-size: 10pt;
     color: #111;
     vertical-align: middle;
   }}
   tbody td.td-pos {{
-    font-size: 10pt;
+    font-size: 11pt;
     font-weight: 900;
     color: #0d2318;
     text-align: left;
   }}
-  tbody td.td-team {{ font-weight: 700; font-size: 9.5pt; }}
-  tbody td.td-score {{
-    text-align: center;
-    font-size: 9pt;
-  }}
+  tbody td.td-team {{ font-weight: 700; font-size: 10.5pt; }}
   tbody td.td-total {{
     text-align: center;
-    font-size: 11pt;
+    font-size: 12pt;
     font-weight: 900;
     color: #0d2318;
   }}
@@ -246,16 +172,13 @@ def build_html(rows: list[dict], output_path: Path) -> str:
 <div class="wrapper">
   <div class="header">
     <div class="league-name">{league_name}</div>
-    <div class="subtitle">Season Standings — Week {max_week}</div>
+    <div class="subtitle">Season Standings — Week {week_count}</div>
   </div>
   <table>
     <thead>
       <tr>
         <th class="pos-col">Pos</th>
         <th class="team-col">Team</th>
-        <th class="score-col">Week 1</th>
-        <th class="score-col">Week 2</th>
-        <th class="score-col">Week 3</th>
         <th class="total-col">Total</th>
       </tr>
     </thead>
@@ -268,31 +191,20 @@ def build_html(rows: list[dict], output_path: Path) -> str:
 </html>"""
 
 
-def format_score(val: float) -> str:
-    if val == 0.0:
-        return "—"
-    return str(val)
-
-
 def run(csv_path: Path) -> str:
-    rows = parse_standings_from_csv(csv_path)
+    rows = parse_standings(csv_path)
+    if not rows:
+        raise ValueError("No standings data found in CSV")
+
     output_path = OUTPUT_DIR / "leaderboard.html"
     html = build_html(rows, output_path)
     output_path.write_text(html, encoding="utf-8")
-    print(f"  Wrote: {output_path}")
+    print(f"Wrote: {output_path}")
     return str(output_path)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        # Run on most recent CSV in input/
-        input_dir = SCRIPT_DIR / "input"
-        csv_files = sorted(input_dir.glob("*.csv"))
-        if not csv_files:
-            print("No CSV files found in input/")
-            sys.exit(1)
-        csv_path = csv_files[-1]
-    else:
-        csv_path = Path(sys.argv[1])
-
-    run(csv_path)
+        print("Usage: generate_leaderboard.py <csv_path>")
+        sys.exit(1)
+    run(Path(sys.argv[1]))

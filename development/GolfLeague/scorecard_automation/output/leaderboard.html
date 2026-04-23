@@ -21,9 +21,9 @@
   }
   .header {
     text-align: center;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #0d2318;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .league-name {
     font-size: 13pt;
@@ -34,7 +34,6 @@
   }
   .subtitle {
     font-size: 9pt;
-    font-weight: 400;
     color: #666;
     margin-top: 2px;
   }
@@ -45,45 +44,46 @@
   thead th {
     background: #0d2318;
     color: #d4af37;
-    font-size: 7pt;
+    font-size: 7.5pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 5px 8px;
+    padding: 6px 10px;
     border: 1px solid #0d2318;
+    text-align: center;
   }
-  thead th.pos-col { text-align: left; width: 40px; }
-  thead th.player-col { text-align: left; }
-  thead th.total-col { text-align: center; width: 68px; }
+  thead th.pos-col { text-align: left; width: 46px; }
+  thead th.team-col { text-align: left; }
+  thead th.total-col { width: 80px; }
   tbody tr { border-bottom: 1px solid #dcdcdc; }
   tbody tr:nth-child(even) { background: #f6f6f6; }
   tbody td {
-    padding: 4px 8px;
-    font-size: 9pt;
+    padding: 5px 10px;
+    font-size: 10pt;
     color: #111;
     vertical-align: middle;
   }
   tbody td.td-pos {
-    font-size: 10pt;
+    font-size: 11pt;
     font-weight: 900;
     color: #0d2318;
     text-align: left;
   }
-  tr.rank-1 td.td-pos { color: #8b7000; }
-  tr.rank-2 td.td-pos { color: #666; }
-  tr.rank-3 td.td-pos { color: #8b5000; }
-  tbody td.td-player { font-weight: 700; font-size: 9.5pt; }
+  tbody td.td-team { font-weight: 700; font-size: 10.5pt; }
   tbody td.td-total {
     text-align: center;
-    font-size: 11pt;
+    font-size: 12pt;
     font-weight: 900;
     color: #0d2318;
   }
+  tr.rank-1 td.td-pos { color: #8b7000; }
   tr.rank-1 td.td-total { color: #8b7000; }
-  tr.rank-2 td.td-total { color: #666; }
-  tr.rank-3 td.td-total { color: #8b5000; }
   tr.rank-1 { background: #fdf5e0; }
+  tr.rank-2 td.td-pos { color: #555; }
+  tr.rank-2 td.td-total { color: #555; }
   tr.rank-2 { background: #f4f4f4; }
+  tr.rank-3 td.td-pos { color: #8b5000; }
+  tr.rank-3 td.td-total { color: #8b5000; }
   tr.rank-3 { background: #faf5ef; }
   .footer-note {
     margin-top: 10px;
@@ -104,40 +104,147 @@
 <div class="wrapper">
   <div class="header">
     <div class="league-name">Hickory Hills Wednesday Night Men's League</div>
-    <div class="subtitle">Season Standings — Through Week 1</div>
+    <div class="subtitle">Season Standings — Week 3</div>
   </div>
   <table>
     <thead>
       <tr>
         <th class="pos-col">Pos</th>
-        <th class="player-col">Team</th>
-        <th class="total-col">Total Pts</th>
+        <th class="team-col">Team</th>
+        <th class="total-col">Total</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="rank-1"><td class="td-pos">T1</td><td class="td-player">VanderWegen-Carter</td><td class="td-total">17.0</td></tr>
-      <tr class="rank-1"><td class="td-pos">T1</td><td class="td-player">Sessions-Plomedahl</td><td class="td-total">17.0</td></tr>
-      <tr class="rank-3"><td class="td-pos">3</td><td class="td-player">Walker-Dodge</td><td class="td-total">16.5</td></tr>
-      <tr class=""><td class="td-pos">4</td><td class="td-player">Verbracken-Larson</td><td class="td-total">6.5</td></tr>
-      <tr class=""><td class="td-pos">T5</td><td class="td-player">Steffen-Steffen</td><td class="td-total">6.0</td></tr>
-      <tr class=""><td class="td-pos">T5</td><td class="td-player">Sorenson-Biermeier</td><td class="td-total">6.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Hanson-Topper</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Hoyord-Wollum</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Kelm-Holden</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Blackburn-Degrasse</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Fladten-Everhart</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Johnson-Hill</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Maher-Fladten</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Malnory-Freseth</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Brantner-Ehrhard</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Wold-Anderson</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Tyler-Sorenson</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Welke-Berg</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Thompson-Kjelstad</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Bilyeu-Young</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Schretenthaler-Schretenthaler</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Christy-Blattner</td><td class="td-total">0.0</td></tr>
-      <tr class=""><td class="td-pos">T7</td><td class="td-player">Nussbaum-Carlson</td><td class="td-total">0.0</td></tr>
+      <tr class="rank-1">
+        <td class="td-pos">T1</td>
+        <td class="td-team">Everhart/Fladten</td>
+        <td class="td-total">36.0</td>
+      </tr>
+      <tr class="rank-2">
+        <td class="td-pos">T1</td>
+        <td class="td-team">Hoyord/Wollum</td>
+        <td class="td-total">36.0</td>
+      </tr>
+      <tr class="rank-3">
+        <td class="td-pos">3</td>
+        <td class="td-team">Holden/Kelm</td>
+        <td class="td-total">32.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">4</td>
+        <td class="td-team">Steffen/Steffen</td>
+        <td class="td-total">32.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">5</td>
+        <td class="td-team">Hill/Johnson</td>
+        <td class="td-total">31.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">6</td>
+        <td class="td-team">Fladten/Maher</td>
+        <td class="td-total">30.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">7</td>
+        <td class="td-team">Becker/Brantner/Ehrhard</td>
+        <td class="td-total">29.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">8</td>
+        <td class="td-team">Blackburn/Degrasse/Prasher</td>
+        <td class="td-total">28.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T9</td>
+        <td class="td-team">Freseth/Malnory</td>
+        <td class="td-total">27.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T9</td>
+        <td class="td-team">Hanson/Topper</td>
+        <td class="td-total">27.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">11</td>
+        <td class="td-team">Boehne/Holt/Maher</td>
+        <td class="td-total">25.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">12</td>
+        <td class="td-team">Faupl/Larson/Verbracken</td>
+        <td class="td-total">24.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">13</td>
+        <td class="td-team">Irvine/Schuh</td>
+        <td class="td-total">23.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T14</td>
+        <td class="td-team">Carter/VanderWegen</td>
+        <td class="td-total">21.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T14</td>
+        <td class="td-team">Dodge/Walker</td>
+        <td class="td-total">21.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">16</td>
+        <td class="td-team">Anderson/Biermeier/Nelson</td>
+        <td class="td-total">20.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">17</td>
+        <td class="td-team">Schretenthaler's</td>
+        <td class="td-total">19.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">18</td>
+        <td class="td-team">Anderson/Goss/Wold</td>
+        <td class="td-total">18.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T19</td>
+        <td class="td-team">Carlson/Nussbaum</td>
+        <td class="td-total">17.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T19</td>
+        <td class="td-team">Brummond/Kohlhepp</td>
+        <td class="td-total">17.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">21</td>
+        <td class="td-team">Blattner/Christy</td>
+        <td class="td-total">16.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">22</td>
+        <td class="td-team">Tyler/Sorenson</td>
+        <td class="td-total">14.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">23</td>
+        <td class="td-team">Bilyeu/Young</td>
+        <td class="td-total">13.0</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T24</td>
+        <td class="td-team">Berg/Welke</td>
+        <td class="td-total">12.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">T24</td>
+        <td class="td-team">Plomedahl/Sessions</td>
+        <td class="td-total">12.5</td>
+      </tr>
+      <tr class="">
+        <td class="td-pos">26</td>
+        <td class="td-team">Kjelstad/Thompson</td>
+        <td class="td-total">8.0</td>
+      </tr>
     </tbody>
   </table>
   <div class="footer-note">Hickory Hills Wednesday Night Men's League 2026</div>

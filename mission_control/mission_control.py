@@ -212,6 +212,71 @@ def upload_file(automation_id):
     return jsonify(result)
 
 
+@app.route("/upload/leaderboard", methods=["POST"])
+def upload_leaderboard_csv():
+    """Handle CSV upload for the leaderboard generation."""
+    if 'file' not in request.files:
+        return jsonify({"success": False, "error": "No file provided"})
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"success": False, "error": "No file selected"})
+    
+    if not allowed_file(file.filename):
+        return jsonify({"success": False, "error": f"File type not allowed: {file.filename}"})
+    
+    filename = secure_filename(file.filename)
+    csv_path = UPLOAD_DIR / filename
+    file.save(str(csv_path))
+    
+    # Run the leaderboard script with the CSV
+    import shutil
+    scorecard_input = Path(AUTOMATIONS_DIR) / "input" / filename
+    shutil.copy(csv_path, scorecard_input)
+    
+    run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+    start_time = datetime.now()
+    output_file = RUNS_DIR / f"run_{run_id}.log"
+    
+    try:
+        result = subprocess.run(
+            [sys.executable, str(Path(AUTOMATIONS_DIR) / "generate_leaderboard.py"), "--csv", str(scorecard_input)],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=str(AUTOMATIONS_DIR),
+        )
+        elapsed = (datetime.now() - start_time).total_seconds()
+        with open(output_file, 'w') as f:
+            f.write(f"STDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}\n")
+        success = result.returncode == 0
+        run_record = {
+            "id": run_id,
+            "automation": "leaderboard",
+            "automation_name": "Generate Leaderboard",
+            "timestamp": start_time.isoformat(),
+            "elapsed_seconds": round(elapsed, 1),
+            "success": success,
+            "return_code": result.returncode,
+            "stdout": result.stdout[:2000],
+            "stderr": result.stderr[:2000],
+            "log_file": str(output_file),
+            "input_files": [str(scorecard_input)],
+        }
+        save_run(run_record)
+        return jsonify({
+            "success": success,
+            "run_id": run_id,
+            "elapsed": elapsed,
+            "stdout": result.stdout[:1000],
+            "stderr": result.stderr[:1000],
+            "return_code": result.returncode,
+        })
+    except subprocess.TimeoutExpired:
+        return jsonify({"success": False, "error": "Automation timed out after 60 seconds"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)})
+
+
 @app.route("/run/<automation_id>", methods=["POST"])
 def run_now(automation_id):
     result = run_automation(automation_id)
@@ -232,6 +297,24 @@ def get_log(run_id):
             content = f.read()
         return f"<pre>{content}</pre>"
     return "Log not found", 404
+
+
+@app.route("/download/leaderboard")
+def download_leaderboard():
+    """Download the latest leaderboard HTML file."""
+    leaderboard_path = Path("/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html")
+    if not leaderboard_path.exists():
+        return "Leaderboard not found. Run Generate Leaderboard first.", 404
+    return send_file(leaderboard_path, mimetype="text/html", as_attachment=True, download_name="leaderboard.html")
+
+
+@app.route("/view/leaderboard")
+def view_leaderboard():
+    """View the latest leaderboard HTML file in browser."""
+    leaderboard_path = Path("/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html")
+    if not leaderboard_path.exists():
+        return "Leaderboard not found. Run Generate Leaderboard first.", 404
+    return send_file(leaderboard_path, mimetype="text/html", as_attachment=False, download_name="leaderboard.html")
 
 
 
@@ -735,6 +818,100 @@ def clear_runs():
     for log_file in RUNS_DIR.glob("run_*.log"):
         log_file.unlink()
     return redirect(url_for("index"))
+
+
+@app.route("/chat/send", methods=["POST"])
+def chat_send():
+    """Handle chat messages with optional file attachment."""
+    from werkzeug.datastructures import FileStorage
+    import uuid, threading, re, json as json_mod
+
+    # Get message
+    message = request.form.get("message", "").strip()
+    if not message:
+        return jsonify({"success": False, "error": "No message"})
+
+    # Handle file attachment
+    attachment_path = None
+    file = request.files.get("file")
+    if file and file.filename:
+        filename = secure_filename(file.filename)
+        attachment_path = UPLOAD_DIR / f"chat_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+        file.save(attachment_path)
+
+    request_id = str(int(datetime.now(timezone.utc).timestamp() * 1000))
+
+    def run_agent_and_save():
+        import subprocess, json as json_mod, re
+        session_id = f"chat-{int(datetime.now(timezone.utc).timestamp())}"
+        prompt = message
+        if attachment_path:
+            suffix = attachment_path.suffix.lower()
+            if suffix in (".jpg", ".jpeg", ".png", ".gif", ".webp"):
+                prompt = message + "\n\n[User uploaded an image: " + attachment_path.name + ". Analyze it and respond to: " + message + "]"
+            elif suffix == ".pdf":
+                prompt = message + "\n\n[User uploaded a PDF: " + attachment_path.name + ". Read and summarize it, then respond to: " + message + "]"
+            else:
+                prompt = message + "\n\n[User uploaded a file: " + attachment_path.name + ". Respond to: " + message + "]"
+
+        result = subprocess.run(
+            ["openclaw", "agent", "--local", "--session-id", session_id],
+            input=prompt.encode(),
+            capture_output=True, timeout=120
+        )
+        stdout = result.stdout.decode(errors="replace")
+
+        # Try to find JSON block at end
+        last_brace = stdout.rfind("{")
+        last_bracket = stdout.rfind("[")
+        json_start = max(last_brace, last_bracket)
+        chat_answer = stdout[:json_start].strip() if json_start != -1 else stdout.strip()
+        json_block = stdout[json_start:] if json_start != -1 else "{}"
+        try:
+            parsed = json_mod.loads(json_block)
+        except:
+            parsed = {}
+
+        save_path = BASE_DIR / "chat_history.json"
+        history = []
+        if save_path.exists():
+            try:
+                with open(save_path) as f:
+                    history = json_mod.load(f)
+            except: pass
+        history.append({
+            "role": "user",
+            "message": message,
+            "attachment": str(attachment_path) if attachment_path else None,
+            "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        })
+        history.append({
+            "role": "jules",
+            "message": chat_answer,
+            "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        })
+        with open(save_path, "w") as f:
+            json_mod.dump(history[-50:], f, indent=2)
+
+    threading.Thread(target=run_agent_and_save, daemon=True).start()
+    return jsonify({"success": True, "request_id": request_id})
+
+
+@app.route("/chat/history", methods=["GET"])
+def chat_history():
+    """Return chat history."""
+    save_path = BASE_DIR / "chat_history.json"
+    import json as json_mod
+    if save_path.exists():
+        with open(save_path) as f:
+            return jsonify(json_mod.load(f))
+    return jsonify([])
+
+
+@app.route("/chat/status/<request_id>", methods=["GET"])
+def chat_status(request_id):
+    """Poll for completion (stub — returns ready after a delay)."""
+    return jsonify({"status": "done"})
 
 
 if __name__ == "__main__":

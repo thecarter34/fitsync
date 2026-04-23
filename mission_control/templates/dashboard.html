@@ -804,29 +804,35 @@
 
         <!-- Leaderboard Generator -->
         <div class="golf-card">
-            <h3>📊 Season Leaderboard</h3>
-            <p>Upload a Squabbit CSV export with standings data. Parses the standings table and generates a print-ready season leaderboard HTML.</p>
+            <h3>📊 Season Standings</h3>
+            <p>Upload your Squabbit CSV export to generate a print-ready season standings page.</p>
             <div class="card-details">
                 <div class="detail-row">
-                    <span class="detail-label">Reads</span>
-                    <span class="detail-value"><code>*.csv</code> — standings section from Squabbit export</span>
+                    <span class="detail-label">Input</span>
+                    <span class="detail-value">Squabbit CSV export — standings at bottom of file</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Output</span>
-                    <span class="detail-value"><code>output/leaderboard.html</code></span>
+                    <span class="detail-value"><code>output/leaderboard.html</code> — auto-downloads after run</span>
                 </div>
-                
+                <div class="detail-row">
+                    <span class="detail-label">Print</span>
+                    <span class="detail-value">Open downloaded file in browser → Print</span>
+                </div>
             </div>
             <div class="golf-actions">
-                <input type="file" id="golf-leaderboard-file" accept=".csv" style="display:none" onchange="document.getElementById('golf-leaderboard-name').textContent = this.files[0]?.name || ''">
+                <input type="file" id="golf-leaderboard-file" accept=".csv" style="display:none" onchange="document.getElementById('golf-leaderboard-name').textContent = this.files[0]?.name || ''; runGolfLeaderboard()">
                 <button class="btn btn-primary" onclick="document.getElementById('golf-leaderboard-file').click()">Choose CSV</button>
                 <span id="golf-leaderboard-name" style="font-size:0.8rem;color:var(--text-dim);align-self:center"></span>
-            </div>
-            <div style="margin-top:0.75rem;">
-                <button class="btn btn-primary" id="btn-leaderboard" onclick="runGolfLeaderboard()">
-                    Generate Leaderboard
+                <button class="btn btn-primary" id="btn-leaderboard" style="display:none;margin-left:0.5rem" disabled>
+                    <span class="spinner"></span>Generating...
                 </button>
-                <button class="btn" style="background:rgba(255,255,255,0.08);color:var(--text);margin-left:0.5rem" onclick="window.open('http://localhost:5050/leaderboard', '_blank')">
+            </div>
+            <div style="margin-top:0.75rem; display:none" id="leaderboard-actions">
+                <button class="btn btn-primary" onclick="downloadLeaderboard()">
+                    Download
+                </button>
+                <button class="btn" style="background:rgba(255,255,255,0.08);color:var(--text);margin-left:0.5rem" onclick="window.open('http://localhost:5050/view/leaderboard', '_blank')">
                     Open ↗
                 </button>
             </div>
@@ -839,14 +845,44 @@
         </div>
     </div>
 
+    <!-- ── Chat ─────────────────────────────────────────── -->
+    <div id="tab-chat" class="tab-content">
+        <div class="section-header">
+            <h2>💬 Chat with Jules</h2>
+            <p>Ask me anything — I can read images, PDFs, and documents you upload.</p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-welcome">
+                    <div class="chat-welcome-icon">🤖</div>
+                    <h3>Hey, I'm Jules</h3>
+                    <p>Upload anything — screenshots, PDFs, WalkScape exports, golf scorecards — and ask me about it. I can analyze images and read documents, then give you a full answer.</p>
+                    <p style="margin-top:0.5rem;color:var(--text-dim);font-size:0.8rem">Or just chat — whatever's on your mind.</p>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="chat-attachment">
+                    <input type="file" id="chat-file" accept="image/*,.pdf" style="display:none" onchange="document.getElementById('chat-file-name').textContent = this.files[0]?.name || ''">
+                    <button class="btn" style="background:rgba(255,255,255,0.08);padding:6px 12px;font-size:0.8rem;cursor:pointer;border-radius:6px" onclick="document.getElementById('chat-file').click()">📎 Attach</button>
+                    <span id="chat-file-name" style="font-size:0.75rem;color:var(--text-dim);margin-left:6px"></span>
+                </div>
+                <div class="chat-input-row">
+                    <input type="text" id="chat-input" placeholder="Ask Jules something..." onkeydown="if(event.key==='Enter' && !event.shiftKey){sendChatMessage();return false}">
+                    <button class="btn btn-primary" id="chat-send-btn" onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ── Automations ────────────────────────────────── -->
     <div id="tab-automations" class="tab-content">
         <h2>⚡ Automations</h2>
         <div class="section">
             <div class="automations">
                 {% for auto in automations %}
-                {% if auto.id in ('walkscape_advisor', 'scorecards', 'leaderboard', 'scorecards_batch') %}
-                {% else %}
+                {% if auto.id not in ('scorecards', 'leaderboard', 'scorecards_batch') %}
                 <div class="card" id="card-{{ auto.id }}">
                     <div class="card-header">
                         <span class="card-icon">{{ auto.icon }}</span>
@@ -881,11 +917,15 @@
                             <hr class="detail-divider">
                             <div class="detail-row">
                                 <span class="detail-label">Reads</span>
-                                <span class="detail-value"><code>*.csv</code> — standings section from Squabbit export</span>
+                                <span class="detail-value"><code>matches.json</code>, <code>scores.json</code>, <code>teams.json</code></span>
                             </div>
                             <div class="detail-row">
                                 <span class="detail-label">Output</span>
-                                <span class="detail-value"><code>output/leaderboard.html</code></span>
+                                <span class="detail-value"><code>output/leaderboard.html</code> — auto-downloads after run</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Print</span>
+                                <span class="detail-value">Open downloaded file in browser → Print</span>
                             </div>
                         </div>
                         {% elif auto.id == 'scorecards_batch' %}
@@ -1023,8 +1063,20 @@
         try {
             const r = await fetch('/run/' + automationId, { method: 'POST' });
             const result = await r.json();
-            if (result.success) showToast('✓ Completed in ' + result.elapsed.toFixed(1) + 's');
-            else showToast('✗ ' + (result.error || 'Failed'), 'error');
+            if (result.success) {
+                showToast('✓ Completed in ' + result.elapsed.toFixed(1) + 's');
+                // Auto-download leaderboard after generation
+                if (automationId === 'leaderboard') {
+                    const link = document.createElement('a');
+                    link.href = '/download/leaderboard';
+                    link.download = 'leaderboard.html';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            } else {
+                showToast('✗ ' + (result.error || 'Failed'), 'error');
+            }
         } catch(e) { showToast('✗ ' + e.message, 'error'); }
         btn.disabled = false;
         btn.textContent = 'Run Now';
@@ -1075,11 +1127,13 @@
         btn.innerHTML = '<span class="spinner"></span>Generating...';
         try {
             const fd = new FormData();
-            fd.append('files', file);
+            fd.append('file', file);
             const r = await fetch('/upload/leaderboard', { method: 'POST', body: fd });
             const result = await r.json();
             if (result.success) {
                 showToast('✓ Leaderboard generated in ' + result.elapsed.toFixed(1) + 's');
+                // Show download and open buttons
+                document.getElementById('leaderboard-actions').style.display = 'block';
             } else {
                 showToast('✗ ' + (result.error || 'Failed'), 'error');
             }
@@ -1088,12 +1142,117 @@
         btn.textContent = 'Generate Leaderboard';
     }
 
+    function downloadLeaderboard() {
+        const link = document.createElement('a');
+        link.href = '/download/leaderboard';
+        link.download = 'leaderboard.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     async function checkGolfData() {
         const el = document.getElementById('golf-data-info');
         const dataDir = '/home/thecarter34/.openclaw/workspace/development/GolfLeague/golf_league_app/data';
         // We can't check server filesystem from JS, so just show static text
         el.innerHTML = 'Data files should be at:<br><code>' + dataDir + '</code><br><br>Golf League app must be running to generate match data.';
     }
+
+    // ── Chat Functions ─────────────────────────────────
+    let chatPolling = null;
+
+    async function sendChatMessage() {
+        const input = document.getElementById('chat-input');
+        const fileInput = document.getElementById('chat-file');
+        const msg = input.value.trim();
+        if (!msg && !fileInput.files[0]) return;
+
+        const fd = new FormData();
+        fd.append('message', msg);
+        if (fileInput.files[0]) fd.append('file', fileInput.files[0]);
+
+        // Show user message immediately
+        addChatMessage('user', msg);
+
+        // Reset
+        input.value = '';
+        fileInput.value = '';
+        document.getElementById('chat-file-name').textContent = '';
+
+        const sendBtn = document.getElementById('chat-send-btn');
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Thinking...';
+
+        try {
+            const r = await fetch('/chat/send', { method: 'POST', body: fd });
+            const result = await r.json();
+            if (result.success) {
+                // Poll for completion
+                pollChat(result.request_id);
+            } else {
+                addChatMessage('jules', '❌ ' + (result.error || 'Something went wrong.'));
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send';
+            }
+        } catch(e) {
+            addChatMessage('jules', '❌ ' + e.message);
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Send';
+        }
+    }
+
+    function pollChat(request_id) {
+        clearInterval(chatPolling);
+        chatPolling = setInterval(async () => {
+            try {
+                const r = await fetch('/chat/status/' + request_id);
+                const s = await r.json();
+                if (s.status === 'done') {
+                    clearInterval(chatPolling);
+                    loadChatHistory();
+                    document.getElementById('chat-send-btn').textContent = 'Send';
+                    document.getElementById('chat-send-btn').disabled = false;
+                }
+            } catch(e) { clearInterval(chatPolling); }
+        }, 1500);
+    }
+
+    function addChatMessage(role, text) {
+        const container = document.getElementById('chat-messages');
+        // Remove welcome if present
+        const welcome = container.querySelector('.chat-welcome');
+        if (welcome) welcome.remove();
+
+        const div = document.createElement('div');
+        div.className = 'chat-msg ' + role;
+        div.innerHTML = text + '<div class="chat-time">' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + '</div>';
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    async function loadChatHistory() {
+        try {
+            const r = await fetch('/chat/history');
+            const history = await r.json();
+            const container = document.getElementById('chat-messages');
+            container.innerHTML = '';
+            if (history.length === 0) {
+                container.innerHTML = '<div class="chat-welcome"><div class="chat-welcome-icon">🤖</div><h3>Hey, I'm Jules</h3><p>Upload anything — screenshots, PDFs, WalkScape exports, golf scorecards — and ask me about it. I can analyze images and read documents, then give you a full answer.</p><p style="margin-top:0.5rem;color:var(--text-dim);font-size:0.8rem">Or just chat — whatever's on your mind.</p></div>';
+                return;
+            }
+            history.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = 'chat-msg ' + msg.role;
+                const time = msg.at ? new Date(msg.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+                div.innerHTML = msg.message + '<div class="chat-time">' + time + '</div>';
+                container.appendChild(div);
+            });
+            container.scrollTop = container.scrollHeight;
+        } catch(e) { console.error('Failed to load chat history', e); }
+    }
+
+    // Load chat history on page load
+    loadChatHistory();
 
     // ── WalkScape Functions ─────────────────────────────
     let wsPlayerData = null;

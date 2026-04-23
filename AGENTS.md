@@ -212,5 +212,11 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+### Ongoing Cleanup Rule
+**Always delete test/temp scripts and files after verifying they work.** When I create test scripts, one-off helpers, or debugging files during a session, delete them before finishing the task. Don't leave test artifacts cluttering the workspace.
+
+### Project Conventions
+- GolfLeague folder: no test files, no `$null` artifacts, no planning docs from old feature work (delete as you go)
 - **Marius** – Fitness-focused agent (see /workspace/Marius/) | Strength coach named after Pudzianowski
 

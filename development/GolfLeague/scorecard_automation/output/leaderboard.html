@@ -7,195 +7,94 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: #0a1f14;
+    background: #f4f6f4;
     padding: 16px 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
   }
-
-  /* ── Trophy Banner ── */
-  .trophy-banner {
-    text-align: center;
-    margin-bottom: 8px;
-    user-select: none;
-  }
-  .trophy-banner .trophy-icon {
-    font-size: 28px;
-    line-height: 1;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .trophy-banner h1 {
-    font-size: 9pt;
-    font-weight: 900;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #d4af37;
-    margin: 0 0 2px;
-  }
-  .trophy-banner .as-of {
-    font-size: 7pt;
-    color: #5a8a6a;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-style: italic;
-  }
-
-  /* ── Card ── */
   .wrapper {
-    width: 100%;
+    width: 8.5in;
+    max-width: 100%;
     background: #ffffff;
     border-radius: 10px;
     box-shadow:
-      0 2px 4px rgba(0,0,0,0.10),
-      0 8px 24px rgba(0,0,0,0.35),
-      0 24px 60px rgba(0,0,0,0.25);
+      0 2px 4px rgba(0,0,0,0.08),
+      0 8px 24px rgba(0,0,0,0.12);
     overflow: hidden;
   }
-
-  /* ── Card Header ── */
   .card-header {
-    background: linear-gradient(135deg, #0d2318 0%, #1a3d2a 100%);
+    background: #ffffff;
     padding: 14px 20px 12px;
+    border-bottom: 3px solid #0d2318;
     position: relative;
-    overflow: hidden;
   }
   .card-header::before {
     content: '';
     position: absolute;
-    top: -30px;
-    right: -10px;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0d2318 0%, #1a3d2a 50%, #0d2318 100%);
   }
-  .card-header-inner { position: relative; z-index: 1; }
-  .card-header h2 {
-    font-size: 14pt;
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: 0.04em;
-    margin: 0 0 2px;
-  }
-  .card-header .card-subtitle {
-    font-size: 7.5pt;
-    color: #7ab892;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin: 0 0 2px;
-  }
-  .gold-divider {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #d4af37 20%, #d4af37 80%, transparent);
-  }
-
-  /* ── Table ── */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
+  .card-header-inner { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
+  .card-header-titles { width: 100%; }
+  .card-header h2 { font-size: 16pt; font-weight: 900; color: #0d2318; letter-spacing: 0.04em; margin: 0 0 3px; }
+  .card-header .card-subtitle { font-size: 10pt; color: #3d6652; letter-spacing: 0.12em; text-transform: uppercase; margin: 0; }
+  .card-header .standings-date { font-size: 10pt; color: #0d2318; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; text-align: center; white-space: nowrap; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
   thead tr { background: #0d2318; }
-  thead th {
-    color: #d4af37;
-    font-size: 6.5pt;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    padding: 5px 10px;
-    border: none;
-  }
+  thead th { color: #d4af37; font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; padding: 6px 10px; border: none; }
   thead th.pos-col { text-align: left; width: 44px; }
   thead th.team-col { text-align: left; }
   thead th.total-col { text-align: center; width: 80px; }
-
   tbody tr { border-bottom: 1px solid #ebebeb; }
   tbody tr:nth-child(even) { background: #f3f6f3; }
-  tbody td {
-    padding: 3px 10px;
-    font-size: 9pt;
-    color: #111;
-    vertical-align: middle;
-  }
-  tbody td.td-pos {
-    font-size: 9pt;
-    font-weight: 700;
-    color: #1a2e1a;
-    text-align: left;
-    white-space: nowrap;
-  }
-  tbody td.td-team {
-    font-weight: 600;
-    font-size: 9.5pt;
-    color: #1a2e1a;
-    letter-spacing: 0.01em;
-  }
-  tbody td.td-total {
-    text-align: center;
-    font-size: 10.5pt;
-    font-weight: 800;
-    color: #0d2318;
-  }
-
-  /* ── Rank 1-3: bold only ── */
+  tbody td { padding: 4px 10px; font-size: 11pt; color: #111; vertical-align: middle; }
+  tbody td.td-pos { font-size: 11pt; font-weight: 700; color: #1a2e1a; text-align: left; white-space: nowrap; }
+  tbody td.td-team { font-weight: 700; font-size: 12pt; color: #1a2e1a; letter-spacing: 0.01em; }
+  tbody td.td-total { text-align: center; font-size: 12pt; font-weight: 800; color: #0d2318; }
   tr.rank-1 td.td-pos, tr.rank-2 td.td-pos, tr.rank-3 td.td-pos { font-weight: 900; }
   tr.rank-1 td.td-total, tr.rank-2 td.td-total, tr.rank-3 td.td-total { font-weight: 800; }
-
-  /* Ties */
   tr[class*="T"] td.td-pos { font-style: italic; }
   tr[class*="T"] td.td-team { font-style: italic; color: #2d4f2d; }
-
-  /* ── Footer ── */
-  .card-footer {
-    background: #0d2318;
-    padding: 7px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .card-footer .footer-left { font-size: 6pt; color: #5a8a6a; letter-spacing: 0.06em; text-transform: uppercase; }
-  .card-footer .footer-right { font-size: 6pt; color: #3d6652; letter-spacing: 0.04em; }
-
-  /* ── Print: Portrait, single page ── */
+  .card-footer { background: #ffffff; padding: 6px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ddd; }
+  .card-footer .footer-left { font-size: 6pt; color: #888; letter-spacing: 0.06em; text-transform: uppercase; }
+  .card-footer .footer-right { font-size: 6pt; color: #aaa; letter-spacing: 0.04em; }
   @page { size: portrait letter; margin: 0.2in; }
   @media print {
     body { background: white; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .wrapper { box-shadow: none; border-radius: 0; width: 100%; }
-    .trophy-banner { margin-bottom: 5px; }
-    .trophy-banner .trophy-icon { font-size: 22px; }
-    tr.rank-1, tr.rank-2, tr.rank-3 { background: inherit !important; }
+    .card-header { padding: 14px 20px 12px; }
     .card-header::before { display: none; }
+    .card-header h2 { font-size: 16pt; }
+    .card-header .card-subtitle { font-size: 10pt; }
+    .card-header .standings-date { font-size: 10pt; }
+    tr.rank-1, tr.rank-2, tr.rank-3 { background: inherit !important; }
     table { table-layout: fixed; }
-    thead th { font-size: 7pt; padding: 4px 8px; }
-    tbody td { padding: 2.5px 8px; font-size: 9pt; }
-    tbody td.td-team { font-size: 9.5pt; }
-    tbody td.td-total { font-size: 10.5pt; }
+    thead th { font-size: 9pt; padding: 5px 8px; }
+    tbody td { padding: 4px 8px; font-size: 11pt; }
+    tbody td.td-pos { font-size: 11pt; }
+    tbody td.td-team { font-size: 12pt; font-weight: 700; }
+    tbody td.td-total { font-size: 12pt; }
+    .card-footer { padding: 8px 20px; }
+    .card-footer .footer-left, .card-footer .footer-right { font-size: 8pt; }
   }
 </style>
 </head>
 <body>
-
-  <!-- Trophy Banner -->
-  <div class="trophy-banner">
-    <span class="trophy-icon">🏆</span>
-    <h1>Season Standings</h1>
-    <div class="as-of">Standings end of week 2</div>
-  </div>
-
-  <!-- Card -->
   <div class="wrapper">
     <div class="card-header">
       <div class="card-header-inner">
-        <h2>Hickory Hills Golf Course</h2>
-        <p class="card-subtitle">Standings end of week 2</p>
+        <div class="card-header-titles">
+          <h2>Hickory Hills Golf Course</h2>
+          <p class="card-subtitle">Wednesday Night Men's Golf League</p>
+        </div>
+        <div class="standings-date">Standings End<br>of Week 2</div>
       </div>
     </div>
-    <div class="gold-divider"></div>
-
     <table>
       <thead>
         <tr>
@@ -206,7 +105,7 @@
       </thead>
       <tbody>
 <tr class="rank-1"><td class="td-pos">T1</td><td class="td-team">Everhart/Fladten</td><td class="td-total">36.0</td></tr>
-<tr class="rank-2"><td class="td-pos">T1</td><td class="td-team">Hoyord/Wollum</td><td class="td-total">36.0</td></tr>
+<tr class="rank-1"><td class="td-pos">T1</td><td class="td-team">Hoyord/Wollum</td><td class="td-total">36.0</td></tr>
 <tr class="rank-3"><td class="td-pos">3</td><td class="td-team">Holden/Kelm</td><td class="td-total">32.5</td></tr>
 <tr class=""><td class="td-pos">4</td><td class="td-team">Steffen/Steffen</td><td class="td-total">32.0</td></tr>
 <tr class=""><td class="td-pos">5</td><td class="td-team">Hill/Johnson</td><td class="td-total">31.0</td></tr>
@@ -233,12 +132,10 @@
 <tr class=""><td class="td-pos">26</td><td class="td-team">Kjelstad/Thompson</td><td class="td-total">8.0</td></tr>
       </tbody>
     </table>
-
     <div class="card-footer">
       <span class="footer-left">Hickory Hills GC &nbsp;·&nbsp; 2026 Season</span>
       <span class="footer-right">Generated Apr 23, 2026</span>
     </div>
   </div>
-
 </body>
 </html>

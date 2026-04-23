@@ -1,5 +1,153 @@
 [
   {
+    "id": "20260423_160111",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T16:01:11.508644",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_160111.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026.csv"
+    ]
+  },
+  {
+    "id": "20260423_155725",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:57:25.887092",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_155725.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026.csv"
+    ]
+  },
+  {
+    "id": "20260423_155645",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:56:45.299808",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_155645.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026.csv"
+    ]
+  },
+  {
+    "id": "20260423_155540",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:55:40.951842",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_155540.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026.csv"
+    ]
+  },
+  {
+    "id": "20260423_155333",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:53:33.592266",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_155333.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026.csv"
+    ]
+  },
+  {
+    "id": "20260423_155040",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:50:40.481900",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_155040.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026.csv"
+    ]
+  },
+  {
+    "id": "20260423_154615",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:46:15.926262",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_154615.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026_1.csv"
+    ]
+  },
+  {
+    "id": "20260423_154505",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:45:05.665478",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_154505.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026_1.csv"
+    ]
+  },
+  {
+    "id": "20260423_154154",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:41:54.152164",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_154154.log",
+    "input_files": null
+  },
+  {
+    "id": "20260423_153024",
+    "automation": "leaderboard",
+    "automation_name": "Generate Leaderboard",
+    "timestamp": "2026-04-23T15:30:24.280281",
+    "elapsed_seconds": 0.0,
+    "success": true,
+    "return_code": 0,
+    "stdout": "Wrote: /home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html\n",
+    "stderr": "",
+    "log_file": "/home/thecarter34/.openclaw/workspace/mission_control/runs/run_20260423_153024.log",
+    "input_files": [
+      "/home/thecarter34/.openclaw/workspace/development/GolfLeague/scorecard_automation/input/Hickory_Hills_Mens_April_14_2026_1.csv"
+    ]
+  },
+  {
     "id": "20260423_145610",
     "automation": "leaderboard",
     "automation_name": "Generate Leaderboard",

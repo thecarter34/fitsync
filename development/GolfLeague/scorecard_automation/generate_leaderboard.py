@@ -5,7 +5,7 @@ Reads the standings section (Pos, Player, Week 1, Week 2, Week 3, Total)
 and produces a print-ready, single-page HTML leaderboard.
 """
 
-import sys, re
+import sys
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
@@ -16,25 +16,45 @@ def parse_standings(csv_path: Path) -> tuple[list[dict], int]:
     """
     Parse the standings table from a Squabbit CSV export.
     Returns ([{pos, team, total}, ...], detected_week).
-    Detects the highest week number from the header (e.g. "Week 2") to label the standings.
+    Detects the actual latest played week by checking which week column has data.
     """
     lines = csv_path.read_text(encoding="utf-8", errors="replace").split('\n')
 
     header_idx = -1
-    week_count = 3
+    week_header_count = 3
     for i, line in enumerate(lines):
         stripped = line.strip()
         if stripped.startswith("Pos,") or "Week 1" in stripped:
             header_idx = i
-            # Detect week count from header: Pos,Player,Week 1,Week 2,Week 3,Total
             if "Week 3" in stripped:
-                week_count = 3
+                week_header_count = 3
             elif "Week 2" in stripped:
-                week_count = 2
+                week_header_count = 2
             break
 
     if header_idx == -1:
         raise ValueError(f"Could not find standings header in {csv_path.name}")
+
+    # Detect actual latest week from first few data rows.
+    # Header columns: Pos(0), Player(1), Week1(2), Week2(3), Week3(4), Total(5)
+    # Week 3 data lives in parts[4], Week 2 in parts[3].
+    # If parts[4] has non-empty/non-"0" data → week 3 is active.
+    # Otherwise check parts[3] → week 2.
+    latest_week = 1
+    for line in lines[header_idx + 1: header_idx + 10]:
+        line = line.strip()
+        if not line or line.startswith("Round") or line.startswith("Hickory"):
+            break
+        parts = [p.strip() for p in line.split(',')]
+        if len(parts) < 6:
+            continue
+        week3_val = parts[4] if len(parts) > 4 else ''
+        week2_val = parts[3] if len(parts) > 3 else ''
+        if week3_val and week3_val != '0':
+            latest_week = 3
+            break
+        elif week2_val and week2_val != '0':
+            latest_week = 2
 
     rows = []
     for line in lines[header_idx + 1:]:
@@ -52,12 +72,12 @@ def parse_standings(csv_path: Path) -> tuple[list[dict], int]:
             continue
         rows.append({'pos': pos, 'team': team, 'total': total})
 
-    return rows, week_count
+    return rows, latest_week
 
 
 def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
-    league_name = "Hickory Hills Wednesday Night Men's League"
-    as_of = f"Standings as of close of week {week_count}"
+    league_name = "Hickory Hills Golf Course"
+    as_of = f"Standings end of week {week_count}"
 
     rows_html = ""
     for i, row in enumerate(rows):
@@ -156,6 +176,12 @@ def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
     color: #7ab892;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin: 0 0 2px;
+  }}
+  .card-header .standings-note {{
+    font-size: 8pt;
+    color: #a8d4b4;
+    font-style: italic;
     margin: 0;
   }}
   .gold-divider {{
@@ -262,6 +288,7 @@ def build_html(rows: list[dict], output_path: Path, week_count: int = 3) -> str:
       <div class="card-header-inner">
         <h2>{league_name}</h2>
         <p class="card-subtitle">Wednesday Night Men's Golf League</p>
+        <p class="standings-note">Standings end of week {week_count}</p>
       </div>
     </div>
     <div class="gold-divider"></div>

@@ -10,7 +10,7 @@ import json
 import subprocess
 from datetime import datetime, timezone, timezone
 from pathlib import Path
-from flask import send_from_directory,  Flask, render_template, request, jsonify, redirect, url_for
+from flask import send_from_directory, send_file, Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 
 BASE_DIR = Path(__file__).parent
@@ -233,6 +233,15 @@ def get_log(run_id):
         return f"<pre>{content}</pre>"
     return "Log not found", 404
 
+
+
+@app.route("/leaderboard")
+def leaderboard():
+    """Serve the generated leaderboard HTML."""
+    path = Path(AUTOMATIONS_DIR) / "output" / "leaderboard.html"
+    if not path.exists():
+        return "No leaderboard generated yet. Upload a CSV and run the generator.", 404
+    return send_file(path, mimetype="text/html")
 
 @app.route("/walkscape_advisor")
 def walkscape_advisor_page():

@@ -1,0 +1,270 @@
+/* ==============================
+   SIMPLIFIED LAYOUT SYSTEM
+   ============================== */
+
+/* Reset */
+.page-grid {
+  background: var(--dark-bg);
+  min-height: 100vh;
+}
+
+/* Base Mobile & Desktop - Shared Styles */
+.nav-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--dark-bg);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-color);
+  min-height: 56px;
+  max-height: 72px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  max-height: 40px;
+  height: 40px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nav-logo a {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  max-height: 40px;
+}
+
+.nav-logo img {
+  all: unset;
+  height: 40px !important;
+  width: auto !important;
+  max-height: 40px !important;
+  max-width: 150px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  font-size: var(--text-sm);
+}
+
+.nav-links a:hover {
+  background: var(--primary);
+  color: var(--black);
+}
+
+/* Hero Section */
+.hero-grid {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--dark-bg);
+  overflow: hidden;
+}
+
+/* Content Sections - Centered with max-width */
+.vision,
+.services,
+.services-section,
+.about,
+.about-section,
+.testimonials,
+.testimonials-section,
+.contact,
+.contact-section {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3rem 1.5rem;
+  background: var(--dark-bg);
+  box-sizing: border-box;
+}
+
+/* Desktop adjustments */
+@media (min-width: 1024px) {
+  .nav-grid {
+    padding: 0.75rem 2rem;
+  }
+  
+  .nav-links {
+    gap: 2rem;
+  }
+  
+  .vision,
+  .services,
+  .services-section,
+  .about,
+  .about-section,
+  .testimonials,
+  .testimonials-section,
+  .contact,
+  .contact-section {
+    padding: 4rem 2rem;
+  }
+  
+  footer {
+    padding: 3rem 2rem;
+  }
+}
+
+/* Hero Specific Styles */
+.hero-grid {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--dark-bg);
+  overflow: hidden;
+}
+
+/* Services Grid */
+.services {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.services-section {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .services-grid {
+    padding: 0 2rem;
+  }
+}
+
+/* About Section */
+.about {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.about-section {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.about-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .about-container {
+    grid-template-columns: 1fr 2fr;
+    align-items: start;
+    padding: 0 2rem;
+  }
+}
+
+/* Contact Section */
+.contact {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.contact-section {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.contact-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.testimonials-section {
+  padding: 4rem 0;
+  background: var(--dark-bg);
+}
+
+.testimonials-slider {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0 1.5rem;
+}
+
+/* Container Centering */
+.container,
+.hero-overlay,
+.about-container,
+.services-grid,
+.testimonials-slider,
+.contact-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive Image Handling */
+.page-grid img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

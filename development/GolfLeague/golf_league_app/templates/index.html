@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% block title %}Dashboard - Golf League Manager{%
+endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-masters-green-dark border-2 border-masters-green">
+    <h1 class="text-3xl font-black text-masters-white tracking-tight">DASHBOARD</h1>
+    <p class="text-masters-gold font-light mt-2">
+      Welcome to the Golf League Manager
+    </p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="glass-card p-6 text-center bg-masters-white border-2 border-masters-green">
+      <div class="text-4xl font-black text-masters-green">
+        {{ players_count }}
+      </div>
+      <div class="text-masters-green-medium text-sm mt-2 font-light">Players</div>
+    </div>
+    <div class="glass-card p-6 text-center bg-masters-white border-2 border-masters-green">
+      <div class="text-4xl font-black text-masters-green">
+        {{ teams_count }}
+      </div>
+      <div class="text-masters-green-medium text-sm mt-2 font-light">Teams</div>
+    </div>
+    <div class="glass-card p-6 text-center bg-masters-white border-2 border-masters-green">
+      <div class="text-4xl font-black text-masters-green">
+        {{ matches_count }}
+      </div>
+      <div class="text-masters-green-medium text-sm mt-2 font-light">Total Matches</div>
+    </div>
+    <div class="glass-card p-6 text-center bg-masters-white border-2 border-masters-green">
+      <div class="text-4xl font-black text-masters-green">
+        {{ completed_count }}
+      </div>
+      <div class="text-masters-green-medium text-sm mt-2 font-light">Completed</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="glass-card p-6 bg-masters-green-dark border-2 border-masters-green">
+    <h2 class="text-2xl font-black text-masters-white mb-6 tracking-tight">
+      QUICK ACTIONS
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <a
+        href="/new/players"
+        class="glass-card-hover flex items-center p-4 transition-all bg-masters-white border-2 border-masters-green"
+      >
+        <span class="text-3xl mr-4">👥</span>
+        <div>
+          <div class="font-bold text-masters-green">Add Player</div>
+          <div class="text-sm text-masters-green-medium font-light">
+            Manage player roster
+          </div>
+        </div>
+      </a>
+      <a
+        href="/new/teams"
+        class="glass-card-hover flex items-center p-4 transition-all bg-masters-white border-2 border-masters-green"
+      >
+        <span class="text-3xl mr-4">🏌️</span>
+        <div>
+          <div class="font-bold text-masters-green">Create Teams</div>
+          <div class="text-sm text-masters-green-medium font-light">Pair up players</div>
+        </div>
+      </a>
+      <a
+        href="/new/season-setup"
+        class="glass-card-hover flex items-center p-4 transition-all bg-masters-white border-2 border-masters-green"
+      >
+        <span class="text-3xl mr-4">⚙️</span>
+        <div>
+          <div class="font-bold text-masters-green">Setup Season</div>
+          <div class="text-sm text-masters-green-medium font-light">Configure league</div>
+        </div>
+      </a>
+      <a
+        href="/new/match-entry"
+        class="glass-card-hover flex items-center p-4 transition-all bg-masters-white border-2 border-masters-green"
+      >
+        <span class="text-3xl mr-4">📝</span>
+        <div>
+          <div class="font-bold text-masters-green">Enter Scores</div>
+          <div class="text-sm text-masters-green-medium font-light">
+            Record match results
+          </div>
+        </div>
+      </a>
+      <a
+        href="/new/standings"
+        class="glass-card-hover flex items-center p-4 transition-all bg-masters-white border-2 border-masters-green"
+      >
+        <span class="text-3xl mr-4">🏆</span>
+        <div>
+          <div class="font-bold text-masters-green">View Standings</div>
+          <div class="text-sm text-masters-green-medium font-light">Team rankings</div>
+        </div>
+      </a>
+      <a
+        href="/new/schedule"
+        class="glass-card-hover flex items-center p-4 transition-all bg-masters-white border-2 border-masters-green"
+      >
+        <span class="text-3xl mr-4">📅</span>
+        <div>
+          <div class="font-bold text-masters-green">View Schedule</div>
+          <div class="text-sm text-masters-green-medium font-light">Match calendar</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block title %}Standings - Golf League Manager{% endblock %} {% block body_class %}page-standings{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10 flex items-center gap-3 mb-2">
+      <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+      <h1 class="text-3xl font-black text-white tracking-tight">STANDINGS</h1>
+    </div>
+    <p class="text-masters-gold font-semibold ml-5">Team rankings by total points</p>
+  </div>
+
+  <!-- Season Selector -->
+  <div class="glass-card p-5 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex items-center gap-4">
+      <label class="text-sm font-bold text-masters-gold">Season:</label>
+      <select id="season-select" onchange="loadStandings()" class="glass-select flex-1 max-w-xs text-white font-semibold py-3 px-4">
+        <option value="">Select a season...</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Standings Table -->
+  <div class="glass-card p-0 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="overflow-x-auto">
+      <table class="min-w-full">
+        <thead>
+          <tr class="bg-masters-gold/10">
+            <th class="px-4 py-4 text-center"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Rank</span></th>
+            <th class="px-4 py-4 text-left"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Team</span></th>
+            <th class="px-4 py-4 text-center"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Pts</span></th>
+            <th class="px-4 py-4 text-center"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Played</span></th>
+            <th class="px-4 py-4 text-center"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Won</span></th>
+            <th class="px-4 py-4 text-center"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Lost</span></th>
+            <th class="px-4 py-4 text-center"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Tied</span></th>
+          </tr>
+        </thead>
+        <tbody id="standings-tbody" class="divide-y divide-white/5"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  async function loadStandings() {
+    const seasonId = document.getElementById("season-select").value;
+    if (!seasonId) { document.getElementById("standings-tbody").innerHTML = '<tr><td colspan="7" class="px-6 py-12 text-center text-white/40 text-lg">Please select a season</td></tr>'; return; }
+    try {
+      const response = await fetch(`/api/standings?season_id=${seasonId}`);
+      const data = await response.json();
+      renderStandings(data.standings);
+    } catch (error) { console.error("Error loading standings:", error); showAlert("Failed to load standings"); }
+  }
+
+  function renderStandings(standings) {
+    const tbody = document.getElementById("standings-tbody");
+    tbody.innerHTML = "";
+    if (standings.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-12 text-center text-white/40 text-lg">No standings yet</td></tr>'; return; }
+    standings.forEach((team, index) => {
+      const rank = index + 1;
+      let rankDisplay = `<span class="text-xl">${rank}</span>`;
+      if (rank === 1) rankDisplay = "🥇";
+      else if (rank === 2) rankDisplay = "🥈";
+      else if (rank === 3) rankDisplay = "🥉";
+      const record = team.matches_won + team.matches_lost + team.matches_tied;
+      const winRate = record > 0 ? ((team.matches_won / record) * 100).toFixed(0) : "—";
+      const row = document.createElement("tr");
+      row.className = index % 2 === 0 ? "bg-white/5" : "bg-white/2";
+      row.innerHTML = `
+        <td class="px-4 py-5 text-center text-xl">${rankDisplay}</td>
+        <td class="px-4 py-5"><div class="font-bold text-white text-lg">${team.team_name}</div><div class="text-xs text-white/50">Win rate: ${winRate}%</div></td>
+        <td class="px-4 py-5 text-center text-xl font-black text-masters-gold">${team.total_points.toFixed(1)}</td>
+        <td class="px-4 py-5 text-center text-white/70">${team.matches_played}</td>
+        <td class="px-4 py-5 text-center text-green-400 font-semibold">${team.matches_won}</td>
+        <td class="px-4 py-5 text-center text-red-400 font-semibold">${team.matches_lost}</td>
+        <td class="px-4 py-5 text-center text-white/50">${team.matches_tied}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  async function loadSeasons() {
+    try {
+      const response = await fetch("/api/seasons");
+      const seasons = await response.json();
+      const select = document.getElementById("season-select");
+      select.innerHTML = '<option value="">Select a season...</option>';
+      seasons.forEach(season => { const opt = document.createElement("option"); opt.value = season.id; opt.textContent = season.name; select.appendChild(opt); });
+      if (seasons.length === 1) { select.value = seasons[0].id; await loadStandings(); }
+    } catch (error) { console.error("Error loading seasons:", error); }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { loadSeasons(); });
+</script>
+{% endblock %}

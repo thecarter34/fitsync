@@ -1,0 +1,40 @@
+{
+  "Sb1c520d2": {
+    "id": "Sb1c520d2",
+    "name": "HH",
+    "course_id": "default",
+    "team_ids": [
+      "Tfec82916",
+      "T721fec25",
+      "T4b14d83f",
+      "Tedbb3f8b",
+      "T1d14bd57",
+      "Tf4914769",
+      "Tae5bd6be",
+      "Tbaf81b0e",
+      "T6606d041",
+      "Tf76b27c5",
+      "T8c41fbb6",
+      "T41556559",
+      "T4fff423c",
+      "T9cad0dcd",
+      "T21ec57ff",
+      "T9ef1733b",
+      "Ta8a84569",
+      "Ta009cd20",
+      "T7c861691",
+      "T954b37cf",
+      "T7da640c3",
+      "T03fc3c11",
+      "T682fb4c6"
+    ],
+    "created_at": "2026-04-06T13:47:15.533942"
+  },
+  "Sb39b308c": {
+    "id": "Sb39b308c",
+    "name": "Dropdown Test Season",
+    "course_id": "default",
+    "team_ids": [],
+    "created_at": "2026-04-07T15:53:17.185044"
+  }
+}

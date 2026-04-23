@@ -1,0 +1,22 @@
+{
+	"mcpServers": {
+		"playwright": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@playwright/mcp@0.0.38"
+			],
+			"disabled": true,
+			"alwaysAllow": []
+		},
+		"open_website": {
+			"command": "npx",
+			"args": [
+				"open-cli",
+				"http://localhost:1234"
+			],
+			"disabled": true,
+			"alwaysAllow": []
+		}
+	}
+}

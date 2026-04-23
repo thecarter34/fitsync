@@ -1,0 +1,1590 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Golf League" />
+    <link rel="manifest" href="/static/manifest.json" />
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
+    <title>{% block title %}Golf League Manager{% endblock %}</title>
+
+    <!-- Inter Font from Google Fonts with display=swap for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+            colors: {
+              "golf-green": "#076652",
+              "golf-dark": "#0a3f36",
+              "golf-gold": "#fbbf24",
+              "golf-light": "#E8F5E9",
+              "golf-card": "#FFFFFF",
+              "slate-900": "#0f172a",
+              "slate-800": "#1e293b",
+              "slate-700": "#334155",
+              "slate-600": "#475569",
+              "electric-green": "#076652",
+              "masters-green": "#076652",
+              "masters-green-dark": "#0A3F36",
+              "masters-green-light": "#1C2C2A",
+              "masters-charcoal": "#1C2C2A",
+              "masters-gold": "#D4AF37",
+            },
+            boxShadow: {
+              glass: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+              glow: "0 0 20px rgba(7, 102, 82, 0.5)",
+            },
+            backdropBlur: {
+              glass: "12px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a3f36 0%,
+          #076652 50%,
+          #0a3f36 100%
+        );
+        min-height: 100vh;
+        overflow-x: hidden;
+        /* Safe area insets for notched devices */
+        padding-left: max(env(safe-area-inset-left), 4px);
+        padding-right: max(env(safe-area-inset-right), 4px);
+        padding-bottom: max(env(safe-area-inset-bottom), 4px);
+      }
+
+      @supports (padding: max(0px)) {
+        body {
+          padding-left: max(env(safe-area-inset-left), 8px);
+          padding-right: max(env(safe-area-inset-right), 8px);
+        }
+      }
+
+      html {
+        overflow-x: hidden;
+        /* Fluid font scaling base */
+        font-size: 16px;
+      }
+
+      @media (max-width: 768px) {
+        html {
+          font-size: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        html {
+          font-size: 15px;
+        }
+      }
+
+      /* ============================================
+         GLASSMORPHISM DESIGN SYSTEM
+         ============================================ */
+
+      /* Base Glass Card */
+      .glass-card {
+        background: rgba(10, 63, 54, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(7, 102, 82, 0.2);
+        border-radius: 1rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      }
+
+      /* Masters Color Utilities */
+      .text-masters-green {
+        color: #076652 !important;
+      }
+      .text-masters-green-dark {
+        color: #0a3f36 !important;
+      }
+      .text-masters-green-light {
+        color: #1c2c2a !important;
+      }
+      .text-masters-charcoal {
+        color: #1c2c2a !important;
+      }
+      .text-masters-gold {
+        color: #d4af37 !important;
+      }
+      .bg-masters-green {
+        background-color: #076652 !important;
+      }
+      .bg-masters-green-dark {
+        background-color: #0a3f36 !important;
+      }
+      .bg-masters-green-light {
+        background-color: #1c2c2a !important;
+      }
+      .bg-masters-charcoal {
+        background-color: #1c2c2a !important;
+      }
+      .bg-masters-gold {
+        background-color: #d4af37 !important;
+      }
+      .border-masters-green {
+        border-color: #076652 !important;
+      }
+      .border-masters-green-dark {
+        border-color: #0a3f36 !important;
+      }
+      .border-masters-green-light {
+        border-color: #1c2c2a !important;
+      }
+      .border-masters-charcoal {
+        border-color: #1c2c2a !important;
+      }
+      .border-masters-gold {
+        border-color: #d4af37 !important;
+      }
+
+      /* Glass Card with Hover Effect */
+      .glass-card-hover {
+        background: rgba(10, 63, 54, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(7, 102, 82, 0.3);
+        border-radius: 1rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        transition: all 0.3s ease;
+      }
+
+      .glass-card-hover:hover {
+        border-color: rgba(7, 102, 82, 0.5);
+        box-shadow: 0 8px 32px 0 rgba(7, 102, 82, 0.2);
+      }
+
+      /* Glass Card Active/Selected State */
+      .glass-card-active {
+        background: rgba(10, 63, 54, 0.85);
+        border: 1px solid rgba(7, 102, 82, 0.6);
+        box-shadow:
+          0 20px 50px rgba(7, 102, 82, 0.2),
+          0 0 40px rgba(7, 102, 82, 0.1);
+        transform: scale(1.02);
+      }
+
+      /* ============================================
+         BUTTONS
+         ============================================ */
+
+      .btn-primary {
+        background: linear-gradient(135deg, #076652 0%, #0a3f36 100%);
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 0.75rem 2rem;
+        box-shadow: 0 4px 15px rgba(7, 102, 82, 0.4);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        /* WCAG 2.5.5 - Minimum touch target 44×44px */
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(7, 102, 82, 0.5);
+      }
+
+      .btn-primary:active {
+        transform: translateY(0) scale(0.96);
+      }
+
+      .btn-secondary {
+        background: rgba(51, 65, 85, 0.6);
+        color: white;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        padding: 0.75rem 2rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        /* WCAG 2.5.5 - Minimum touch target 44×44px */
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(51, 65, 85, 0.8);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-secondary:active {
+        transform: scale(0.96);
+      }
+
+      /* Action buttons in tables */
+      .action-btn {
+        min-height: 40px;
+        min-width: 80px;
+        padding: 10px 16px;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .action-btn:active {
+        transform: scale(0.96);
+      }
+
+      /* ============================================
+         FORM ELEMENTS
+         ============================================ */
+
+      /* Glass Select Dropdown */
+      .glass-select {
+        background: rgba(51, 65, 85, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0.75rem;
+        color: white;
+        padding: 0.5rem 0.75rem; /* Optimized for mobile */
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .glass-select:focus {
+        outline: none;
+        border-color: #076652;
+        box-shadow: 0 0 15px rgba(7, 102, 82, 0.3);
+      }
+
+      .glass-select option {
+        background: #1e293b;
+        color: white;
+      }
+
+      /* Glass Input */
+      .glass-input {
+        background: rgba(51, 65, 85, 0.5);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        color: white;
+        padding: 0.5rem 0.75rem; /* Optimized for mobile */
+        transition: all 0.2s ease;
+      }
+
+      .glass-input:focus {
+        outline: none;
+        border-color: #076652;
+        box-shadow: 0 0 15px rgba(7, 102, 82, 0.3);
+        background: rgba(7, 102, 82, 0.1);
+      }
+
+      .glass-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* ============================================
+         SCORE INPUTS & TILES
+         ============================================ */
+
+      .score-input {
+        width: 3.5rem;
+        height: 3.5rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 900;
+        background: rgba(51, 65, 85, 0.5);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        color: white;
+        transition: all 0.2s ease;
+        /* WCAG touch target - desktop already meets with 3.5rem (56px) */
+      }
+
+      .score-input:focus {
+        outline: none;
+        border-color: #076652;
+        box-shadow: 0 0 20px rgba(7, 102, 82, 0.5);
+        background: rgba(7, 102, 82, 0.2);
+      }
+
+      .score-input.active-hole {
+        border-color: #076652;
+        box-shadow: 0 0 25px rgba(7, 102, 82, 0.6);
+        background: rgba(7, 102, 82, 0.25);
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(7, 102, 82, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(7, 102, 82, 0.7);
+        }
+      }
+
+      .score-tile {
+        background: linear-gradient(
+          145deg,
+          rgba(51, 65, 85, 0.7) 0%,
+          rgba(30, 41, 59, 0.85) 100%
+        );
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.3s ease;
+        text-align: center;
+        padding: 0.75rem;
+      }
+
+      .score-tile:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .score-tile.current-hole {
+        border-color: #076652;
+        box-shadow:
+          0 0 25px rgba(7, 102, 82, 0.3),
+          inset 0 0 20px rgba(7, 102, 82, 0.05);
+      }
+
+      /* ============================================
+         BADGES & LABELS
+         ============================================ */
+
+      /* Stroke Index Badge */
+      .si-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.25rem 0.5rem;
+        border-radius: 9999px;
+        font-size: 0.625rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .si-badge.hard {
+        background: linear-gradient(
+          135deg,
+          rgba(248, 113, 113, 0.3) 0%,
+          rgba(220, 38, 38, 0.2) 100%
+        );
+        color: #fca5a5;
+        border: 1px solid rgba(248, 113, 113, 0.4);
+      }
+
+      .si-badge.medium {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.3) 0%,
+          rgba(217, 119, 6, 0.2) 100%
+        );
+        color: #fcd34d;
+        border: 1px solid rgba(251, 191, 36, 0.4);
+      }
+
+      .si-badge.easy {
+        background: linear-gradient(
+          135deg,
+          rgba(7, 102, 82, 0.3) 0%,
+          rgba(22, 163, 74, 0.2) 100%
+        );
+        color: #d4af37;
+        border: 1px solid rgba(7, 102, 82, 0.4);
+      }
+
+      /* Net Score Badge */
+      .net-score-badge {
+        background: linear-gradient(135deg, #076652 0%, #0a3f36 100%);
+        color: black;
+        padding: 0.375rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 4px 15px rgba(7, 102, 82, 0.4);
+      }
+
+      /* Status Badges */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .status-badge.completed {
+        background: rgba(7, 102, 82, 0.2);
+        color: #d4af37;
+        border: 1px solid rgba(7, 102, 82, 0.3);
+      }
+
+      .status-badge.scheduled {
+        background: rgba(251, 191, 36, 0.2);
+        color: #fcd34d;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+      }
+
+      /* ============================================
+         TYPOGRAPHY
+         ============================================ */
+
+      .text-hierarchy-title {
+        font-weight: 900;
+        letter-spacing: -0.025em;
+      }
+
+      .text-hierarchy-subtitle {
+        font-weight: 300;
+        letter-spacing: 0.025em;
+      }
+
+      .text-electric-green {
+        color: #076652;
+      }
+
+      /* ============================================
+         SPECIALIZED COMPONENTS
+         ============================================ */
+
+      /* Hole Header Gradient */
+      .hole-header-gradient {
+        background: linear-gradient(
+          135deg,
+          rgba(7, 102, 82, 0.25) 0%,
+          rgba(7, 102, 82, 0.08) 50%,
+          rgba(7, 102, 82, 0.02) 100%
+        );
+        border: 1px solid rgba(7, 102, 82, 0.35);
+        border-radius: 1rem;
+      }
+
+      /* Player Scorecard */
+      .player-scorecard {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.5rem;
+        padding: 1rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        transition: all 0.3s ease;
+      }
+
+      .player-scorecard.active {
+        background: rgba(30, 41, 59, 0.85);
+        border: 1px solid rgba(7, 102, 82, 0.4);
+        box-shadow:
+          0 20px 50px rgba(7, 102, 82, 0.2),
+          0 0 40px rgba(7, 102, 82, 0.1);
+        transform: scale(1.02);
+      }
+
+      /* Stroke Count Badge */
+      .stroke-count-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.25rem;
+        height: 1.25rem;
+        padding: 0 0.375rem;
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.25) 0%,
+          rgba(251, 191, 36, 0.15) 100%
+        );
+        border: 1px solid rgba(251, 191, 36, 0.5);
+        border-radius: 0.75rem;
+        color: #fbbf24;
+        font-size: 0.625rem;
+        font-weight: 700;
+        margin-top: 0.25rem;
+        box-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+      }
+
+      /* Results Modal Glass */
+      .results-modal-glass {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .results-content-glass {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.5rem;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Results Table Glass */
+      .results-table-glass {
+        background: rgba(51, 65, 85, 0.3);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+
+      .results-table-glass th {
+        background: rgba(7, 102, 82, 0.1);
+        border-bottom: 1px solid rgba(7, 102, 82, 0.2);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.625rem;
+      }
+
+      .results-table-glass td {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .results-table-glass tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Team Score Display */
+      .team-score-display {
+        background: rgba(7, 102, 82, 0.1);
+        border: 1px solid rgba(7, 102, 82, 0.3);
+        border-radius: 1rem;
+        padding: 1rem;
+      }
+
+      .team-score-display.winner {
+        background: rgba(7, 102, 82, 0.2);
+        border-color: #076652;
+        box-shadow: 0 0 20px rgba(7, 102, 82, 0.3);
+      }
+
+      /* ============================================
+         NAV LINK BASE STYLES
+         ============================================ */
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .nav-link:hover {
+        color: #d4af37;
+        background: rgba(212, 175, 55, 0.1);
+      }
+
+      .nav-link.active {
+        color: #d4af37;
+        background: rgba(212, 175, 55, 0.15);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+      }
+
+      /* ============================================
+         TABLE STYLES
+         ============================================ */
+
+      .glass-table {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+
+      .glass-table thead {
+        background: rgba(7, 102, 82, 0.1);
+      }
+
+      .glass-table th {
+        padding: 0.75rem;
+        text-align: left;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.75rem;
+        color: #d4af37;
+        border-bottom: 1px solid rgba(7, 102, 82, 0.2);
+      }
+
+      .glass-table tbody tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background 0.2s ease;
+      }
+
+      .glass-table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .glass-table tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      .glass-table td {
+        padding: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ============================================
+         CUSTOM SCROLLBAR
+         ============================================ */
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(15, 23, 42, 0.5);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(7, 102, 82, 0.3);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(7, 102, 82, 0.5);
+      }
+
+      /* ============================================
+         MOBILE MENU
+         ============================================ */
+
+      .mobile-menu-item {
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s ease;
+      }
+
+      .mobile-menu-item:hover,
+      .mobile-menu-item.active {
+        color: #076652;
+        background: rgba(7, 102, 82, 0.1);
+      }
+
+      /* ============================================
+         CHECKBOXES - WCAG TOUCH TARGETS
+         ============================================ */
+
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        background: rgba(51, 65, 85, 0.6);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        position: relative;
+        transition: all 0.2s ease;
+      }
+
+      input[type="checkbox"]:checked {
+        background: #076652;
+        border-color: #076652;
+      }
+
+      input[type="checkbox"]:checked::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      input[type="checkbox"]:focus {
+        outline: none;
+        border-color: #076652;
+        box-shadow: 0 0 0 3px rgba(7, 102, 82, 0.3);
+      }
+
+      /* Hamburger menu button touch target */
+      #mobile-menu-btn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ============================================
+         RESPONSIVE DESIGN
+         ============================================ */
+
+      /* Small phones (320px - 640px) */
+      @media (max-width: 640px) {
+        /* Further optimize for very small screens */
+        .glass-card {
+          padding: 0.75rem;
+          margin: 0.25rem;
+        }
+
+        .nav-link {
+          font-size: 0.75rem;
+          padding: 0.5rem 0.75rem;
+        }
+
+        .page-header h1 {
+          font-size: 1.5rem;
+        }
+
+        /* Ensure tables are fully responsive */
+        .glass-table {
+          border-radius: 0.75rem;
+        }
+
+        /* Compact modals */
+        .results-content-glass {
+          padding: 1rem;
+        }
+      }
+
+      /* Standard tablets and large phones (641px - 768px) */
+      @media (max-width: 768px) {
+        .score-input {
+          width: 4rem;
+          height: 4rem;
+          font-size: 1.75rem;
+        }
+
+        .score-tile {
+          padding: 0.5rem;
+        }
+
+        .hole-number-display {
+          font-size: 1rem;
+        }
+
+        .player-scorecard {
+          padding: 0.75rem;
+        }
+
+        .player-name {
+          font-size: 1rem;
+        }
+
+        .hole-header-gradient {
+          padding: 1rem;
+        }
+
+        #hole-info-header > div {
+          padding: 0.25rem 0;
+        }
+
+        .si-badge {
+          padding: 0.2rem 0.4rem;
+          font-size: 0.5rem;
+        }
+
+        /* Mobile table optimizations */
+        .glass-table th,
+        .glass-table td {
+          padding: 0.75rem 0.5rem;
+          font-size: 0.9375rem; /* 15px for readability */
+          line-height: 1.5;
+        }
+
+        /* Increase form input/select touch targets on mobile */
+        .glass-input,
+        .glass-select {
+          padding: 12px 16px;
+          min-height: 44px;
+          font-size: 1rem;
+        }
+
+        /* Ensure select dropdowns have adequate touch area */
+        select.glass-select {
+          /* Use larger touch area while maintaining visual proportions */
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        /* Keep tables as tables on Players, Teams, and Schedule pages for mobile */
+        body.page-players .glass-table thead,
+        body.page-teams .glass-table thead,
+        body.page-schedule .glass-table thead {
+          display: table-header-group !important;
+        }
+
+        body.page-players .glass-table tbody tr,
+        body.page-teams .glass-table tbody tr,
+        body.page-schedule .glass-table tbody tr {
+          display: table-row !important;
+        }
+
+        body.page-players .glass-table td,
+        body.page-teams .glass-table td,
+        body.page-schedule .glass-table td {
+          display: table-cell !important;
+        }
+
+        body.page-players .glass-table thead {
+          display: table-header-group;
+        }
+
+        body.page-players .glass-table tbody tr {
+          display: table-row;
+          margin-bottom: 0;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          transition: none;
+        }
+
+        body.page-players .glass-table tbody tr:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        body.page-players .glass-table td {
+          display: table-cell;
+          justify-content: normal;
+          align-items: normal;
+          padding: 0.75rem;
+          text-align: left;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        body.page-players .glass-table td::before {
+          display: none;
+        }
+
+        body.page-players .glass-table td:last-child {
+          justify-content: flex-end;
+          gap: 0.75rem;
+          flex-wrap: nowrap;
+          padding-top: 0;
+        }
+
+        body.page-players .glass-table td:last-child::before {
+          display: none;
+        }
+
+        body.page-teams .glass-table thead {
+          display: table-header-group;
+        }
+
+        body.page-teams .glass-table tbody tr {
+          display: table-row;
+          margin-bottom: 0;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          transition: none;
+        }
+
+        body.page-teams .glass-table tbody tr:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        body.page-teams .glass-table td {
+          display: table-cell;
+          justify-content: normal;
+          align-items: normal;
+          padding: 0.75rem;
+          text-align: left;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        body.page-teams .glass-table td::before {
+          display: none;
+        }
+
+        body.page-teams .glass-table td:last-child {
+          justify-content: flex-end;
+          gap: 0.75rem;
+          flex-wrap: nowrap;
+          padding-top: 0;
+        }
+
+        body.page-teams .glass-table td:last-child::before {
+          display: none;
+        }
+
+        body.page-schedule .glass-table thead {
+          display: table-header-group;
+        }
+
+        body.page-schedule .glass-table tbody tr {
+          display: table-row;
+          margin-bottom: 0;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          transition: none;
+        }
+
+        body.page-schedule .glass-table tbody tr:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        body.page-schedule .glass-table td {
+          display: table-cell;
+          justify-content: normal;
+          align-items: normal;
+          padding: 1rem 0.75rem;
+          text-align: left;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          position: relative;
+        }
+
+        body.page-schedule .glass-table .view-results-btn {
+          position: relative;
+          z-index: 10;
+        }
+
+        body.page-schedule .glass-table td::before {
+          display: none;
+        }
+
+        body.page-schedule .glass-table td:last-child {
+          justify-content: flex-end;
+          gap: 0.75rem;
+          flex-wrap: nowrap;
+          padding-top: 0;
+        }
+
+        body.page-schedule .glass-table td:last-child::before {
+          display: none;
+        }
+
+        body.page-standings .glass-table thead {
+          display: table-header-group;
+        }
+
+        body.page-standings .glass-table tbody tr {
+          display: table-row;
+          margin-bottom: 0;
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          transition: none;
+        }
+
+        body.page-standings .glass-table tbody tr:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        body.page-standings .glass-table td {
+          display: table-cell;
+          justify-content: normal;
+          align-items: normal;
+          padding: 1rem 0.75rem;
+          text-align: left;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        body.page-standings .glass-table td::before {
+          display: none;
+        }
+
+        body.page-standings .glass-table td:last-child {
+          justify-content: flex-end;
+          gap: 0.75rem;
+          flex-wrap: nowrap;
+          padding-top: 0;
+        }
+
+        body.page-standings .glass-table td:last-child::before {
+          display: none;
+        }
+
+        /* Original card layout for other pages */
+        .glass-table thead {
+          display: none;
+        }
+
+        .glass-table tbody tr {
+          display: block;
+          margin-bottom: 1.25rem; /* Increased spacing */
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 0.875rem;
+          padding: 1rem; /* More breathing room */
+          transition: all 0.2s ease;
+        }
+
+        .glass-table tbody tr:hover {
+          background: rgba(255, 255, 255, 0.05);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-table td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.625rem 0; /* Vertical padding only */
+          text-align: right;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-table td::before {
+          content: attr(data-label);
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 0.8125rem; /* 13px - readable on mobile */
+          color: #d4af37;
+          margin-right: 1rem;
+          text-align: left;
+          min-width: 100px; /* Consistent label width */
+          flex-shrink: 0;
+        }
+
+        .glass-table td:last-child {
+          border-bottom: none;
+          justify-content: flex-start; /* Left-align for thumb reach */
+          gap: 0.75rem; /* Larger spacing between buttons */
+          flex-wrap: wrap; /* Allow wrapping on very small screens */
+          padding-top: 0.75rem;
+        }
+
+        .glass-table td:last-child::before {
+          display: none;
+        }
+
+        /* Action buttons in mobile card layout */
+        .glass-table td:last-child .action-btn {
+          min-width: 80px;
+          min-height: 40px;
+          padding: 10px 16px;
+          font-size: 0.875rem;
+          border-radius: 0.5rem;
+        }
+
+        /* Checkbox cell in mobile - ensure adequate touch area */
+        .glass-table td:first-child {
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+          /* Total touch area: 16px checkbox + 12px padding top/bottom = 44px */
+        }
+
+        /* Smooth scrolling on iOS */
+        .glass-table {
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+
+      /* Large tablets and small desktops (769px - 1024px) */
+      @media (max-width: 1024px) {
+        .glass-table {
+          font-size: 0.875rem;
+        }
+
+        .glass-table th,
+        .glass-table td {
+          padding: 0.75rem;
+        }
+
+        /* Adjust header for medium screens */
+        .nav-link {
+          font-size: 0.8125rem;
+          padding: 0.5rem 0.75rem;
+        }
+
+        /* Slightly smaller cards */
+        .glass-card {
+          padding: 1.25rem;
+        }
+      }
+
+      /* Extra small phones (321px and below) */
+      @media (max-width: 480px) {
+        .score-input {
+          width: 4.5rem;
+          height: 4.5rem;
+          font-size: 2rem;
+        }
+
+        .glass-card {
+          border-radius: 0.75rem;
+          padding: 0.75rem;
+        }
+
+        .btn-primary {
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+        }
+
+        /* Further reduce table padding on very small screens */
+        .glass-table th,
+        .glass-table td {
+          padding: 0.625rem 0.375rem;
+          font-size: 0.875rem; /* Maintain 14px readability */
+        }
+
+        .glass-table tbody tr {
+          padding: 0.75rem;
+          margin-bottom: 1rem;
+        }
+
+        .glass-table td::before {
+          font-size: 0.75rem; /* 12px minimum */
+          min-width: 80px; /* Smaller on very small screens */
+        }
+
+        /* Action buttons on very small screens */
+        .glass-table td:last-child .action-btn {
+          min-width: 70px;
+          min-height: 38px;
+          padding: 8px 12px;
+          font-size: 0.8125rem;
+        }
+
+        /* Reduce header button size on mobile */
+        #delete-selected-players-btn,
+        #delete-selected-teams-btn {
+          padding: 0.5rem 0.75rem;
+          font-size: 0.75rem;
+          min-height: 36px;
+        }
+
+        .btn-primary {
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+        }
+      }
+
+      /* ============================================
+         MODAL MOBILE OPTIMIZATIONS
+         ============================================ */
+
+      @media (max-width: 480px) {
+        .results-content-glass {
+          max-width: calc(100vw - 32px);
+          margin: 16px;
+          padding: 1.25rem;
+          max-height: 90vh;
+          overflow-y: auto;
+        }
+
+        .modal-close-btn {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          z-index: 10;
+        }
+
+        .modal-close-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: scale(1.1);
+        }
+
+        .modal-close-btn:active {
+          transform: scale(0.95);
+        }
+
+        /* Larger form inputs on mobile */
+        .glass-input,
+        .glass-select {
+          font-size: 1rem;
+          padding: 14px 16px;
+          min-height: 48px;
+        }
+
+        /* Modal button spacing */
+        #modal-buttons {
+          gap: 0.75rem;
+        }
+
+        .modal-btn {
+          min-height: 44px;
+          padding: 12px 24px;
+          flex: 1;
+        }
+      }
+
+      /* ============================================
+         TOUCH FEEDBACK ANIMATIONS
+         ============================================ */
+
+      /* Add touch ripple effect for better feedback */
+      @media (hover: none) {
+        button:active,
+        .btn-primary:active,
+        .btn-secondary:active,
+        .action-btn:active {
+          transform: scale(0.96);
+          transition: transform 0.1s ease;
+        }
+      }
+
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* ============================================
+         PERFORMANCE OPTIMIZATIONS
+         ============================================ */
+
+      @media (max-width: 768px) {
+        /* Reduce backdrop-filter on mobile for better performance */
+        .glass-card,
+        .glass-table,
+        .results-content-glass {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Optimize font rendering */
+        body {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body class="text-white {% block body_class %}{% endblock %}">
+    <nav class="glass-card sticky top-0 z-50 mx-1 sm:mx-2 mt-1 sm:mt-2 border-2 border-masters-green/40">
+      <div class="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4">
+        <div class="flex justify-between h-16 sm:h-20 lg:h-24">
+          <div class="flex items-center">
+            <picture>
+              <source srcset="/static/logo.webp" type="image/webp" />
+              <img
+                src="/static/logo.jpg"
+                alt="Golf League Logo"
+                class="h-16 sm:h-20 lg:h-24 w-auto max-w-[200px] sm:max-w-[250px] object-contain mr-3 sm:mr-6 rounded-lg shadow-lg border-2 border-masters-gold/30"
+                loading="lazy"
+              />
+            </picture>
+            <div class="flex flex-col justify-center">
+              <span class="text-lg sm:text-2xl lg:text-3xl font-black text-white tracking-tight">GOLF LEAGUE</span>
+              <p class="text-xs sm:text-sm text-masters-gold font-bold tracking-widest uppercase">Hickory Hills</p>
+            </div>
+          </div>
+          <div class="hidden md:flex items-center space-x-1 sm:space-x-2">
+            <a href="/new/" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new' %}active{% endif %}">Dashboard</a>
+            <a href="/new/course-settings" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/course-settings' %}active{% endif %}">Course</a>
+            <a href="/new/players" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/players' %}active{% endif %}">Players</a>
+            <a href="/new/teams" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/teams' %}active{% endif %}">Teams</a>
+            <a href="/new/season-setup" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/season-setup' %}active{% endif %}">Season</a>
+            <a href="/new/schedule" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/schedule' %}active{% endif %}">Schedule</a>
+            <a href="/new/match-entry" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/match-entry' %}active{% endif %}">Match</a>
+            <a href="/new/standings" class="nav-link px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold {% if request.url.path == '/new/standings' %}active{% endif %}">Standings</a>
+          </div>
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center">
+            <button
+              id="mobile-menu-btn"
+              class="text-white focus:outline-none p-2"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden glass-card mt-2 mx-4 rounded-xl overflow-hidden"
+      >
+        <div class="px-4 py-3 space-y-1">
+          <a
+            href="/new/"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new' %}active{% endif %}"
+            >Dashboard</a
+          >
+          <a
+            href="/new/course-settings"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/course-settings' %}active{% endif %}"
+            >Course Settings</a
+          >
+          <a
+            href="/new/players"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/players' %}active{% endif %}"
+            >Players</a
+          >
+          <a
+            href="/new/teams"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/teams' %}active{% endif %}"
+            >Teams</a
+          >
+          <a
+            href="/new/season-setup"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/season-setup' %}active{% endif %}"
+            >Season Setup</a
+          >
+          <a
+            href="/new/schedule"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/schedule' %}active{% endif %}"
+            >Schedule</a
+          >
+          <a
+            href="/new/match-entry"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/match-entry' %}active{% endif %}"
+            >Match Entry</a
+          >
+          <a
+            href="/new/standings"
+            class="mobile-menu-item block px-4 py-3 rounded-lg text-base font-medium {% if request.url.path == '/new/standings' %}active{% endif %}"
+            >Standings</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-3 px-2 sm:px-3 lg:px-4">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <div
+        class="glass-card bg-electric-green/20 border border-electric-green/40 text-electric-green px-4 py-3 rounded-xl mb-4"
+        role="alert"
+      >
+        <span class="block sm:inline font-medium">{{ message }}</span>
+      </div>
+      {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </main>
+
+    <footer class="glass-card mt-4 mx-1 sm:mx-2">
+      <div class="max-w-7xl mx-auto py-2 px-2 sm:px-3 lg:px-4">
+        <p class="text-center text-masters-gold text-sm font-light">
+          Golf League Manager
+          <span class="text-masters-green-light">•</span> Hickory Hills Golf
+          Course
+        </p>
+      </div>
+    </footer>
+
+    <!-- Custom Modal -->
+    <div
+      id="custom-modal"
+      class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden overflow-y-auto h-full w-full z-50"
+    >
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div
+          id="modal-content"
+          class="results-content-glass w-full max-w-md p-6 transform transition-all relative"
+        >
+          <!-- Close button for mobile -->
+          <button
+            id="modal-close-btn"
+            class="modal-close-btn hidden md:hidden"
+            aria-label="Close modal"
+          >
+            ×
+          </button>
+          <div class="mt-3">
+            <h3
+              id="modal-title"
+              class="text-2xl font-black text-white mb-4 tracking-tight"
+            ></h3>
+            <p id="modal-message" class="text-slate-300 mb-6"></p>
+            <div id="modal-buttons" class="flex justify-end space-x-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Custom Modal Utility Functions
+      function showAlert(message, title = "Alert") {
+        const modal = document.getElementById("custom-modal");
+        const titleEl = document.getElementById("modal-title");
+        const messageEl = document.getElementById("modal-message");
+        const buttonsContainer = document.getElementById("modal-buttons");
+
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+
+        // Clear previous buttons
+        buttonsContainer.innerHTML = "";
+
+        // Create OK button
+        const okBtn = document.createElement("button");
+        okBtn.textContent = "OK";
+        okBtn.className = "btn-primary py-2 px-6";
+        okBtn.onclick = () => {
+          modal.classList.add("hidden");
+        };
+        buttonsContainer.appendChild(okBtn);
+
+        // Show modal
+        modal.classList.remove("hidden");
+      }
+
+      function showConfirm(message, title = "Please Confirm", onConfirm) {
+        const modal = document.getElementById("custom-modal");
+        const titleEl = document.getElementById("modal-title");
+        const messageEl = document.getElementById("modal-message");
+        const buttonsContainer = document.getElementById("modal-buttons");
+
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+
+        // Clear previous buttons
+        buttonsContainer.innerHTML = "";
+
+        // Create Cancel button
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.className = "btn-secondary py-2 px-6 modal-btn";
+        cancelBtn.onclick = () => {
+          modal.classList.add("hidden");
+        };
+        buttonsContainer.appendChild(cancelBtn);
+
+        // Create Confirm button
+        const confirmBtn = document.createElement("button");
+        confirmBtn.textContent = "Confirm";
+        confirmBtn.className =
+          "bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition-colors modal-btn";
+        confirmBtn.onclick = () => {
+          modal.classList.add("hidden");
+          if (onConfirm) onConfirm();
+        };
+        buttonsContainer.appendChild(confirmBtn);
+
+        // Show modal
+        modal.classList.remove("hidden");
+      }
+
+      // Modal close button functionality
+      document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("custom-modal");
+        const closeBtn = document.getElementById("modal-close-btn");
+
+        if (closeBtn) {
+          closeBtn.addEventListener("click", () => {
+            modal.classList.add("hidden");
+          });
+        }
+
+        // Close modal on backdrop click
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.add("hidden");
+          }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+          }
+        });
+      });
+      // Mobile menu toggle
+      document
+        .getElementById("mobile-menu-btn")
+        .addEventListener("click", function () {
+          const menu = document.getElementById("mobile-menu");
+          menu.classList.toggle("hidden");
+        });
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("mobile-menu").classList.add("hidden");
+        });
+      });
+    </script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

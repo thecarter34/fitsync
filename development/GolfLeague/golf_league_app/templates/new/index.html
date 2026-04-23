@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block title %}Dashboard - Golf League Manager{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+        <h1 class="text-3xl font-black text-white tracking-tight">DASHBOARD</h1>
+      </div>
+      <p class="text-masters-gold font-semibold text-lg">Welcome to the Golf League Manager</p>
+      <p class="text-white/60 text-sm mt-1">Hickory Hills Golf Course — Chippewa Valley</p>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="glass-card p-5 text-center bg-gradient-to-br from-masters-green-dark to-masters-green border-2 border-masters-gold/20 hover:border-masters-gold/40 transition-all hover:scale-105">
+      <div class="text-5xl font-black text-masters-gold mb-1">{{ players_count }}</div>
+      <div class="text-white/70 text-sm font-semibold uppercase tracking-widest">Players</div>
+    </div>
+    <div class="glass-card p-5 text-center bg-gradient-to-br from-masters-green-dark to-masters-green border-2 border-masters-gold/20 hover:border-masters-gold/40 transition-all hover:scale-105">
+      <div class="text-5xl font-black text-masters-gold mb-1">{{ teams_count }}</div>
+      <div class="text-white/70 text-sm font-semibold uppercase tracking-widest">Teams</div>
+    </div>
+    <div class="glass-card p-5 text-center bg-gradient-to-br from-masters-green-dark to-masters-green border-2 border-masters-gold/20 hover:border-masters-gold/40 transition-all hover:scale-105">
+      <div class="text-5xl font-black text-masters-gold mb-1">{{ matches_count }}</div>
+      <div class="text-white/70 text-sm font-semibold uppercase tracking-widest">Matches</div>
+    </div>
+    <div class="glass-card p-5 text-center bg-gradient-to-br from-masters-green-dark to-masters-green border-2 border-masters-gold/20 hover:border-masters-gold/40 transition-all hover:scale-105">
+      <div class="text-5xl font-black text-masters-gold mb-1">{{ completed_count }}</div>
+      <div class="text-white/70 text-sm font-semibold uppercase tracking-widest">Done</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/30">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+      <h2 class="text-2xl font-black text-white tracking-tight">QUICK ACTIONS</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <a href="/new/players" class="glass-card-hover flex items-center p-4 transition-all bg-gradient-to-br from-white to-masters-green-light border-2 border-masters-green/30 hover:border-masters-gold/50 hover:shadow-lg hover:shadow-masters-gold/20">
+        <span class="text-3xl mr-4">👥</span>
+        <div>
+          <div class="font-bold text-masters-green">Add Player</div>
+          <div class="text-sm text-masters-green-dark/70 font-medium">Manage roster</div>
+        </div>
+      </a>
+      <a href="/new/teams" class="glass-card-hover flex items-center p-4 transition-all bg-gradient-to-br from-white to-masters-green-light border-2 border-masters-green/30 hover:border-masters-gold/50 hover:shadow-lg hover:shadow-masters-gold/20">
+        <span class="text-3xl mr-4">🏌️</span>
+        <div>
+          <div class="font-bold text-masters-green">Create Teams</div>
+          <div class="text-sm text-masters-green-dark/70 font-medium">Pair players</div>
+        </div>
+      </a>
+      <a href="/new/season-setup" class="glass-card-hover flex items-center p-4 transition-all bg-gradient-to-br from-white to-masters-green-light border-2 border-masters-green/30 hover:border-masters-gold/50 hover:shadow-lg hover:shadow-masters-gold/20">
+        <span class="text-3xl mr-4">⚙️</span>
+        <div>
+          <div class="font-bold text-masters-green">Setup Season</div>
+          <div class="text-sm text-masters-green-dark/70 font-medium">Configure league</div>
+        </div>
+      </a>
+      <a href="/new/match-entry" class="glass-card-hover flex items-center p-4 transition-all bg-gradient-to-br from-white to-masters-green-light border-2 border-masters-green/30 hover:border-masters-gold/50 hover:shadow-lg hover:shadow-masters-gold/20">
+        <span class="text-3xl mr-4">📝</span>
+        <div>
+          <div class="font-bold text-masters-green">Enter Scores</div>
+          <div class="text-sm text-masters-green-dark/70 font-medium">Record results</div>
+        </div>
+      </a>
+      <a href="/new/standings" class="glass-card-hover flex items-center p-4 transition-all bg-gradient-to-br from-white to-masters-green-light border-2 border-masters-green/30 hover:border-masters-gold/50 hover:shadow-lg hover:shadow-masters-gold/20">
+        <span class="text-3xl mr-4">🏆</span>
+        <div>
+          <div class="font-bold text-masters-green">Standings</div>
+          <div class="text-sm text-masters-green-dark/70 font-medium">Team rankings</div>
+        </div>
+      </a>
+      <a href="/new/schedule" class="glass-card-hover flex items-center p-4 transition-all bg-gradient-to-br from-white to-masters-green-light border-2 border-masters-green/30 hover:border-masters-gold/50 hover:shadow-lg hover:shadow-masters-gold/20">
+        <span class="text-3xl mr-4">📅</span>
+        <div>
+          <div class="font-bold text-masters-green">Schedule</div>
+          <div class="text-sm text-masters-green-dark/70 font-medium">Match calendar</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

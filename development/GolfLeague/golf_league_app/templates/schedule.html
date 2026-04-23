@@ -1,0 +1,176 @@
+{% extends "base.html" %} {% block title %}Schedule - Golf League Manager{% endblock %} {% block body_class %}page-schedule{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10 flex flex-wrap gap-4 items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+        <div>
+          <h1 class="text-3xl font-black text-white tracking-tight">SCHEDULE</h1>
+          <p class="text-masters-gold font-semibold mt-1">View and generate match schedule</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="glass-card p-5 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex flex-wrap gap-4 items-center justify-between">
+      <div class="flex items-center gap-3">
+        <label class="text-sm font-bold text-masters-gold">Filter by Week:</label>
+        <select id="week-filter" class="glass-select text-white font-semibold py-3 px-4 min-w-[140px]">
+          <option value="all">All Weeks</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="loadSchedule()" class="btn-secondary py-2 px-4">🔄 Refresh</button>
+        <button onclick="clearAllMatches()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm">🗑️ Clear All</button>
+        <button onclick="deleteSelected()" class="bg-masters-gold hover:bg-yellow-600 text-masters-green-dark font-bold py-2 px-4 rounded-lg transition-colors text-sm" id="delete-selected-btn" disabled>Delete Selected</button>
+      </div>
+    </div>
+    <p class="text-white/50 text-sm mt-3">ℹ️ Schedule is generated in the Season Setup tab. This view is read-only.</p>
+  </div>
+
+  <!-- Schedule Table -->
+  <div class="glass-card p-0 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="overflow-x-auto">
+      <table class="min-w-full">
+        <thead>
+          <tr class="bg-masters-gold/10">
+            <th class="px-4 py-4 text-left"><input type="checkbox" id="select-all" class="w-5 h-5 accent-masters-gold cursor-pointer" onchange="toggleSelectAll()" /></th>
+            <th class="px-4 py-4 text-left"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Week</span></th>
+            <th class="px-4 py-4 text-left"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Team 1</span></th>
+            <th class="px-4 py-4 text-left"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Team 2</span></th>
+            <th class="px-4 py-4 text-left"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Status</span></th>
+            <th class="px-4 py-4 text-left"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Score</span></th>
+            <th class="px-4 py-4 text-right"><span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody id="schedule-tbody" class="divide-y divide-white/5"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  let matches = [];
+  let teams = {};
+  let selectedMatches = new Set();
+  let programmaticChange = false;
+
+  function populateWeekDropdown() {
+    try {
+      const select = document.getElementById("week-filter");
+      if (!select) return;
+      if (!matches || matches.length === 0) { select.innerHTML = '<option value="all">All Weeks</option>'; return; }
+      select.innerHTML = "";
+      const allOption = document.createElement("option"); allOption.value = "all"; allOption.textContent = "All Weeks"; select.appendChild(allOption);
+      const weeks = [...new Set(matches.map(m => m.week_number !== undefined ? m.week_number : m.week).filter(w => w !== null))].sort((a, b) => a - b);
+      weeks.forEach(week => { const option = document.createElement("option"); option.value = week; option.textContent = `Week ${week}`; select.appendChild(option); });
+    } catch (error) { console.error("Error in populateWeekDropdown:", error); }
+  }
+
+  async function loadSchedule() {
+    try {
+      const [matchesRes, teamsRes] = await Promise.all([fetch("/api/matches"), fetch("/api/teams")]);
+      matches = await matchesRes.json();
+      teams = (await teamsRes.json()).reduce((acc, t) => ({ ...acc, [t.id]: t }), {});
+      populateWeekDropdown();
+      const weekFilter = document.getElementById("week-filter").value;
+      if (weekFilter !== "all") {
+        const weekNum = parseInt(weekFilter);
+        matches = matches.filter(m => (m.week_number !== undefined ? m.week_number : m.week) === weekNum);
+      }
+      matches.sort((a, b) => {
+        const weekA = a.week_number !== undefined ? a.week_number : a.week !== undefined ? a.week : 0;
+        const weekB = b.week_number !== undefined ? b.week_number : b.week !== undefined ? b.week : 0;
+        return weekA - weekB;
+      });
+      selectedMatches.clear();
+      updateDeleteSelectedButton();
+      renderSchedule();
+    } catch (error) { console.error("Error loading schedule:", error); showAlert("Failed to load schedule"); }
+  }
+
+  function renderSchedule() {
+    const tbody = document.getElementById("schedule-tbody");
+    tbody.innerHTML = "";
+    if (matches.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-12 text-center text-white/40 text-lg">No matches scheduled</td></tr>'; return; }
+    matches.forEach((match, index) => {
+      const team1 = teams[match.team1_id] || { name: "Unknown" };
+      const team2 = teams[match.team2_id] || { name: "Unknown" };
+      const status = match.completed
+        ? '<span class="px-3 py-1.5 inline-flex text-xs leading-5 font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">Completed</span>'
+        : '<span class="px-3 py-1.5 inline-flex text-xs leading-5 font-bold rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">Scheduled</span>';
+      let scoreDisplay = '<span class="text-white/30">—</span>';
+      if (match.completed) { scoreDisplay = `<a href="/new/match-entry?match_id=${encodeURIComponent(match.id)}&show_results=true" class="bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark font-bold py-2 px-4 rounded-lg text-sm inline-flex items-center hover:shadow-lg hover:shadow-masters-gold/30 transition-all">View Results</a>`; }
+      const row = document.createElement("tr");
+      row.className = index % 2 === 0 ? "bg-white/5" : "bg-white/2";
+      row.innerHTML = `
+        <td class="px-4 py-4"><input type="checkbox" class="w-5 h-5 accent-masters-gold cursor-pointer" value="${match.id}" ${selectedMatches.has(match.id) ? 'checked' : ''} onchange="handleCheckboxChange('${match.id}', this.checked)" /></td>
+        <td class="px-4 py-4 font-bold text-masters-gold">Week ${match.week_number !== undefined ? match.week_number : match.week}</td>
+        <td class="px-4 py-4 font-semibold text-white">${team1.name}</td>
+        <td class="px-4 py-4 font-semibold text-white">${team2.name}</td>
+        <td class="px-4 py-4">${status}</td>
+        <td class="px-4 py-4">${scoreDisplay}</td>
+        <td class="px-4 py-4 text-right"><button onclick="deleteMatches(['${match.id}'])" class="text-red-400 hover:text-red-300 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-red-500/10 transition-all">🗑️</button></td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function handleCheckboxChange(matchId, isChecked) { if (isChecked) selectedMatches.add(matchId); else selectedMatches.delete(matchId); updateDeleteSelectedButton(); }
+
+  function toggleSelectAll() {
+    const isChecked = document.getElementById("select-all").checked;
+    document.querySelectorAll('#schedule-tbody input[type="checkbox"]').forEach(cb => { cb.checked = isChecked; if (isChecked) selectedMatches.add(cb.value); else selectedMatches.delete(cb.value); });
+    updateDeleteSelectedButton();
+  }
+
+  function updateDeleteSelectedButton() { document.getElementById("delete-selected-btn").disabled = selectedMatches.size === 0; }
+
+  async function deleteMatches(matchIds) {
+    if (matchIds.length === 0) return;
+    showConfirm(`Delete ${matchIds.length} match(es)? This will also delete any recorded scores.`, "Delete Matches", async () => {
+      try { await Promise.all(matchIds.map(id => fetch(`/api/matches/${id}`, { method: "DELETE" }))); showAlert(`Deleted ${matchIds.length} matches`); loadSchedule(); }
+      catch (error) { console.error("Error deleting matches:", error); showAlert("Failed to delete matches"); }
+    });
+  }
+
+  async function clearAllMatches() {
+    showConfirm("Delete ALL matches? This will also delete all recorded scores. This action cannot be undone.", "Delete All Matches", async () => {
+      try {
+        const allMatches = await (await fetch("/api/matches")).json();
+        const allIds = allMatches.map(m => m.id);
+        if (allIds.length === 0) { showAlert("No matches to delete."); return; }
+        await Promise.all(allIds.map(id => fetch(`/api/matches/${id}`, { method: "DELETE" })));
+        showAlert(`Deleted ${allIds.length} matches`);
+        loadSchedule();
+      } catch (error) { console.error("Error clearing all matches:", error); showAlert("Failed to delete matches"); }
+    });
+  }
+
+  function deleteSelected() {
+    if (selectedMatches.size === 0) return;
+    const count = selectedMatches.size;
+    showConfirm(`Delete ${count} selected match(es)?`, "Delete Selected", async () => {
+      try {
+        const matchIds = Array.from(selectedMatches);
+        await Promise.all(matchIds.map(id => fetch(`/api/matches/${id}`, { method: "DELETE" })));
+        showAlert(`Deleted ${matchIds.length} matches`);
+        selectedMatches.clear();
+        updateDeleteSelectedButton();
+        loadSchedule();
+      } catch (error) { console.error("Error deleting matches:", error); showAlert("Failed to delete matches"); }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("week-filter").addEventListener("change", () => { if (!programmaticChange) loadSchedule(); });
+    loadSchedule();
+  });
+</script>
+{% endblock %}

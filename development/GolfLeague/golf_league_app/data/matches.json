@@ -1,0 +1,2279 @@
+{
+  "M3cf9755d": {
+    "id": "M3cf9755d",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "T721fec25",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": true
+  },
+  "Mf50257be": {
+    "id": "Mf50257be",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "T4b14d83f",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": true
+  },
+  "M796877c2": {
+    "id": "M796877c2",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mca840d95": {
+    "id": "Mca840d95",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "T1d14bd57",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma828e787": {
+    "id": "Ma828e787",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "Tf4914769",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mffd601cd": {
+    "id": "Mffd601cd",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6e03974d": {
+    "id": "M6e03974d",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc18072bc": {
+    "id": "Mc18072bc",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "T6606d041",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Maf5f37d7": {
+    "id": "Maf5f37d7",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4477cbf3": {
+    "id": "M4477cbf3",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3d845472": {
+    "id": "M3d845472",
+    "season_id": "Sb1c520d2",
+    "week_number": 1,
+    "team1_id": "T41556559",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": true
+  },
+  "M1d381b26": {
+    "id": "M1d381b26",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "Tfec82916",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M108a3a04": {
+    "id": "M108a3a04",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "T721fec25",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M7b5c5e7a": {
+    "id": "M7b5c5e7a",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "T4b14d83f",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M5a821118": {
+    "id": "M5a821118",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc418c7fb": {
+    "id": "Mc418c7fb",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "T1d14bd57",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb5129f5e": {
+    "id": "Mb5129f5e",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "Tf4914769",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M690acc04": {
+    "id": "M690acc04",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M075b09af": {
+    "id": "M075b09af",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf84f6f21": {
+    "id": "Mf84f6f21",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "T6606d041",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9c2bb242": {
+    "id": "M9c2bb242",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M87cd8aab": {
+    "id": "M87cd8aab",
+    "season_id": "Sb1c520d2",
+    "week_number": 2,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4b7557b8": {
+    "id": "M4b7557b8",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "Tfec82916",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md05df2a3": {
+    "id": "Md05df2a3",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M5a74343a": {
+    "id": "M5a74343a",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "T721fec25",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9c601eff": {
+    "id": "M9c601eff",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "T4b14d83f",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4729763d": {
+    "id": "M4729763d",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M372e13d2": {
+    "id": "M372e13d2",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "T1d14bd57",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mea97d1c9": {
+    "id": "Mea97d1c9",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "Tf4914769",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me8566ab0": {
+    "id": "Me8566ab0",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc6f36a50": {
+    "id": "Mc6f36a50",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc1a096c6": {
+    "id": "Mc1a096c6",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "T6606d041",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9569eab0": {
+    "id": "M9569eab0",
+    "season_id": "Sb1c520d2",
+    "week_number": 3,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M5e2595ee": {
+    "id": "M5e2595ee",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "Tfec82916",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb66f12fb": {
+    "id": "Mb66f12fb",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "T03fc3c11",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6e91e5e6": {
+    "id": "M6e91e5e6",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M32f84dae": {
+    "id": "M32f84dae",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "T721fec25",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M2e0135c4": {
+    "id": "M2e0135c4",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "T4b14d83f",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M32e47c7b": {
+    "id": "M32e47c7b",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M78dfbed0": {
+    "id": "M78dfbed0",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "T1d14bd57",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M474c5c98": {
+    "id": "M474c5c98",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "Tf4914769",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc6951546": {
+    "id": "Mc6951546",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M320984fd": {
+    "id": "M320984fd",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M10248ef7": {
+    "id": "M10248ef7",
+    "season_id": "Sb1c520d2",
+    "week_number": 4,
+    "team1_id": "T6606d041",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1517591b": {
+    "id": "M1517591b",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "Tfec82916",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mcabf7c9b": {
+    "id": "Mcabf7c9b",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "T7da640c3",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M5b0f3c1c": {
+    "id": "M5b0f3c1c",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "T03fc3c11",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M7efd797d": {
+    "id": "M7efd797d",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "T682fb4c6",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc894f1b5": {
+    "id": "Mc894f1b5",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "T721fec25",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf139fdf7": {
+    "id": "Mf139fdf7",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "T4b14d83f",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M2acf91c9": {
+    "id": "M2acf91c9",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M75592d23": {
+    "id": "M75592d23",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "T1d14bd57",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9b6158ab": {
+    "id": "M9b6158ab",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "Tf4914769",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M15754b16": {
+    "id": "M15754b16",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6bd1b044": {
+    "id": "M6bd1b044",
+    "season_id": "Sb1c520d2",
+    "week_number": 5,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M431e69d1": {
+    "id": "M431e69d1",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "Tfec82916",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md37db97f": {
+    "id": "Md37db97f",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T954b37cf",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1f88de6d": {
+    "id": "M1f88de6d",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T7da640c3",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M928546e3": {
+    "id": "M928546e3",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T03fc3c11",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma21cfc59": {
+    "id": "Ma21cfc59",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M70ddabfc": {
+    "id": "M70ddabfc",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T721fec25",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc6e4045f": {
+    "id": "Mc6e4045f",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T4b14d83f",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb585a25d": {
+    "id": "Mb585a25d",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M12d936fc": {
+    "id": "M12d936fc",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "T1d14bd57",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M2d6c2ec2": {
+    "id": "M2d6c2ec2",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "Tf4914769",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4ff10cec": {
+    "id": "M4ff10cec",
+    "season_id": "Sb1c520d2",
+    "week_number": 6,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mdc880e61": {
+    "id": "Mdc880e61",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "Tfec82916",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mcd5c0ee3": {
+    "id": "Mcd5c0ee3",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T7c861691",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mdf005d10": {
+    "id": "Mdf005d10",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T954b37cf",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb6a980ee": {
+    "id": "Mb6a980ee",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T7da640c3",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me1fcb809": {
+    "id": "Me1fcb809",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T03fc3c11",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1e5e8d85": {
+    "id": "M1e5e8d85",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9b1c85d0": {
+    "id": "M9b1c85d0",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T721fec25",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M077f66da": {
+    "id": "M077f66da",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T4b14d83f",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1aa26791": {
+    "id": "M1aa26791",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf8e1e27f": {
+    "id": "Mf8e1e27f",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "T1d14bd57",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M45df1338": {
+    "id": "M45df1338",
+    "season_id": "Sb1c520d2",
+    "week_number": 7,
+    "team1_id": "Tf4914769",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M21056f26": {
+    "id": "M21056f26",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "Tfec82916",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9af82d30": {
+    "id": "M9af82d30",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Madf3d2de": {
+    "id": "Madf3d2de",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T7c861691",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M8ca556d9": {
+    "id": "M8ca556d9",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T954b37cf",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mea531e66": {
+    "id": "Mea531e66",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T7da640c3",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1641456d": {
+    "id": "M1641456d",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T03fc3c11",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M8c8366ac": {
+    "id": "M8c8366ac",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M8734c9e6": {
+    "id": "M8734c9e6",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T721fec25",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Maf37505f": {
+    "id": "Maf37505f",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T4b14d83f",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mdd298c38": {
+    "id": "Mdd298c38",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md629c53d": {
+    "id": "Md629c53d",
+    "season_id": "Sb1c520d2",
+    "week_number": 8,
+    "team1_id": "T1d14bd57",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M10586542": {
+    "id": "M10586542",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "Tfec82916",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M032dc60a": {
+    "id": "M032dc60a",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M97f2c7c7": {
+    "id": "M97f2c7c7",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3f7d921b": {
+    "id": "M3f7d921b",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T7c861691",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfc2fd3e7": {
+    "id": "Mfc2fd3e7",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T954b37cf",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc0aa785c": {
+    "id": "Mc0aa785c",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T7da640c3",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf60c4c8b": {
+    "id": "Mf60c4c8b",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T03fc3c11",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M415d9f71": {
+    "id": "M415d9f71",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4151504b": {
+    "id": "M4151504b",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T721fec25",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M13a8c456": {
+    "id": "M13a8c456",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "T4b14d83f",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb3b055ed": {
+    "id": "Mb3b055ed",
+    "season_id": "Sb1c520d2",
+    "week_number": 9,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M613e6c5c": {
+    "id": "M613e6c5c",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "Tfec82916",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M19434edf": {
+    "id": "M19434edf",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T9ef1733b",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc50aa0c8": {
+    "id": "Mc50aa0c8",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me76d5b49": {
+    "id": "Me76d5b49",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M2ea0193e": {
+    "id": "M2ea0193e",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T7c861691",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6af107c3": {
+    "id": "M6af107c3",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T954b37cf",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M80ccb3ca": {
+    "id": "M80ccb3ca",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T7da640c3",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb3a729e4": {
+    "id": "Mb3a729e4",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T03fc3c11",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mbe4a8aae": {
+    "id": "Mbe4a8aae",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T682fb4c6",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md0774588": {
+    "id": "Md0774588",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T721fec25",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc3ab3f7d": {
+    "id": "Mc3ab3f7d",
+    "season_id": "Sb1c520d2",
+    "week_number": 10,
+    "team1_id": "T4b14d83f",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M28e3cedb": {
+    "id": "M28e3cedb",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "Tfec82916",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6151cb2d": {
+    "id": "M6151cb2d",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M2969cf3f": {
+    "id": "M2969cf3f",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T9ef1733b",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6c724c87": {
+    "id": "M6c724c87",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M155aafe1": {
+    "id": "M155aafe1",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "Ta009cd20",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me2574a7c": {
+    "id": "Me2574a7c",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T7c861691",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M41c02e6d": {
+    "id": "M41c02e6d",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T954b37cf",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M59774b31": {
+    "id": "M59774b31",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T7da640c3",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md45ae68d": {
+    "id": "Md45ae68d",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T03fc3c11",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9ccf15f8": {
+    "id": "M9ccf15f8",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb0b73a69": {
+    "id": "Mb0b73a69",
+    "season_id": "Sb1c520d2",
+    "week_number": 11,
+    "team1_id": "T721fec25",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M21db01d3": {
+    "id": "M21db01d3",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "Tfec82916",
+    "team2_id": "T4fff423c",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M92d81176": {
+    "id": "M92d81176",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mdad6bf94": {
+    "id": "Mdad6bf94",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4cebf0da": {
+    "id": "M4cebf0da",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T9ef1733b",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Meb6fc7cb": {
+    "id": "Meb6fc7cb",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M0e2cd401": {
+    "id": "M0e2cd401",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "Ta009cd20",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9b1ec338": {
+    "id": "M9b1ec338",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T7c861691",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me06d47c1": {
+    "id": "Me06d47c1",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T954b37cf",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mae1848e9": {
+    "id": "Mae1848e9",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T7da640c3",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3bd0eb1d": {
+    "id": "M3bd0eb1d",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T03fc3c11",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb49383ce": {
+    "id": "Mb49383ce",
+    "season_id": "Sb1c520d2",
+    "week_number": 12,
+    "team1_id": "T682fb4c6",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md003d91a": {
+    "id": "Md003d91a",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "Tfec82916",
+    "team2_id": "T41556559",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mef7a4ccf": {
+    "id": "Mef7a4ccf",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T4fff423c",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc05bc744": {
+    "id": "Mc05bc744",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1046d2d8": {
+    "id": "M1046d2d8",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3e6a47d7": {
+    "id": "M3e6a47d7",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T9ef1733b",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M2f5bc6af": {
+    "id": "M2f5bc6af",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "Ta8a84569",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mef3d87c5": {
+    "id": "Mef3d87c5",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "Ta009cd20",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1f662c0c": {
+    "id": "M1f662c0c",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T7c861691",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mff8f492d": {
+    "id": "Mff8f492d",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T954b37cf",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M56d723d4": {
+    "id": "M56d723d4",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T7da640c3",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M404fb802": {
+    "id": "M404fb802",
+    "season_id": "Sb1c520d2",
+    "week_number": 13,
+    "team1_id": "T03fc3c11",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M394a240a": {
+    "id": "M394a240a",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "Tfec82916",
+    "team2_id": "T8c41fbb6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfeeaece8": {
+    "id": "Mfeeaece8",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T41556559",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfa520b18": {
+    "id": "Mfa520b18",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T4fff423c",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3e50f02c": {
+    "id": "M3e50f02c",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M91a4a826": {
+    "id": "M91a4a826",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T21ec57ff",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf7e70e7e": {
+    "id": "Mf7e70e7e",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T9ef1733b",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M66a19926": {
+    "id": "M66a19926",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mcf8e85b5": {
+    "id": "Mcf8e85b5",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "Ta009cd20",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md05d4e36": {
+    "id": "Md05d4e36",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T7c861691",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me7fb25f6": {
+    "id": "Me7fb25f6",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T954b37cf",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6e4998b7": {
+    "id": "M6e4998b7",
+    "season_id": "Sb1c520d2",
+    "week_number": 14,
+    "team1_id": "T03fc3c11",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me39727db": {
+    "id": "Me39727db",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "Tfec82916",
+    "team2_id": "Tf76b27c5",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md8efdd8a": {
+    "id": "Md8efdd8a",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma478c275": {
+    "id": "Ma478c275",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T41556559",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1dd30a88": {
+    "id": "M1dd30a88",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T4fff423c",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Maeeabfe6": {
+    "id": "Maeeabfe6",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M5aba7aee": {
+    "id": "M5aba7aee",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M04634c75": {
+    "id": "M04634c75",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T9ef1733b",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma4e69d88": {
+    "id": "Ma4e69d88",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc8fb9d04": {
+    "id": "Mc8fb9d04",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb829b7af": {
+    "id": "Mb829b7af",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T954b37cf",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6abf6723": {
+    "id": "M6abf6723",
+    "season_id": "Sb1c520d2",
+    "week_number": 15,
+    "team1_id": "T7da640c3",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M06601da5": {
+    "id": "M06601da5",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "Tfec82916",
+    "team2_id": "T6606d041",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mdcbae25b": {
+    "id": "Mdcbae25b",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M80964662": {
+    "id": "M80964662",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me817ddef": {
+    "id": "Me817ddef",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T41556559",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me4c24055": {
+    "id": "Me4c24055",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T4fff423c",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf45152f7": {
+    "id": "Mf45152f7",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M9653c0b4": {
+    "id": "M9653c0b4",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma4f071b9": {
+    "id": "Ma4f071b9",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T9ef1733b",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Med277229": {
+    "id": "Med277229",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb5096437": {
+    "id": "Mb5096437",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T7c861691",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3f7c2ad0": {
+    "id": "M3f7c2ad0",
+    "season_id": "Sb1c520d2",
+    "week_number": 16,
+    "team1_id": "T954b37cf",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb4be209f": {
+    "id": "Mb4be209f",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "Tfec82916",
+    "team2_id": "Tbaf81b0e",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma5483e9f": {
+    "id": "Ma5483e9f",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T6606d041",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc8f725b7": {
+    "id": "Mc8f725b7",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mcef5c832": {
+    "id": "Mcef5c832",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mafa1e901": {
+    "id": "Mafa1e901",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T41556559",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M09c48158": {
+    "id": "M09c48158",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T4fff423c",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma23d2563": {
+    "id": "Ma23d2563",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me63de3dc": {
+    "id": "Me63de3dc",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T9ef1733b",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M591647fb": {
+    "id": "M591647fb",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M42fe4966": {
+    "id": "M42fe4966",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4305e4e0": {
+    "id": "M4305e4e0",
+    "season_id": "Sb1c520d2",
+    "week_number": 17,
+    "team1_id": "T7c861691",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M14a40e3c": {
+    "id": "M14a40e3c",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "Tfec82916",
+    "team2_id": "Tae5bd6be",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M14f8c58b": {
+    "id": "M14f8c58b",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Medeab4c1": {
+    "id": "Medeab4c1",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "T6606d041",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Me8eb9d01": {
+    "id": "Me8eb9d01",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md32265f2": {
+    "id": "Md32265f2",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Meebc29e4": {
+    "id": "Meebc29e4",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "T41556559",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M8c635a94": {
+    "id": "M8c635a94",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M89f1fcbe": {
+    "id": "M89f1fcbe",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M313f6c89": {
+    "id": "M313f6c89",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "T9ef1733b",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mbf258f64": {
+    "id": "Mbf258f64",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "Ta8a84569",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Md0cff2a1": {
+    "id": "Md0cff2a1",
+    "season_id": "Sb1c520d2",
+    "week_number": 18,
+    "team1_id": "Ta009cd20",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf8063026": {
+    "id": "Mf8063026",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "Tfec82916",
+    "team2_id": "Tf4914769",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M42aa1f76": {
+    "id": "M42aa1f76",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M663d47a9": {
+    "id": "M663d47a9",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M0dfc6380": {
+    "id": "M0dfc6380",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "T6606d041",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M28458ef7": {
+    "id": "M28458ef7",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M65eb0ca3": {
+    "id": "M65eb0ca3",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "T41556559",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mb648f50c": {
+    "id": "Mb648f50c",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "T4fff423c",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M972afcf8": {
+    "id": "M972afcf8",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M8d399fc6": {
+    "id": "M8d399fc6",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mce5d2594": {
+    "id": "Mce5d2594",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "T9ef1733b",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mce9960ab": {
+    "id": "Mce9960ab",
+    "season_id": "Sb1c520d2",
+    "week_number": 19,
+    "team1_id": "Ta8a84569",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M293c87b0": {
+    "id": "M293c87b0",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "Tfec82916",
+    "team2_id": "T1d14bd57",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mca6f486a": {
+    "id": "Mca6f486a",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "Tf4914769",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M21d4cc41": {
+    "id": "M21d4cc41",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1315b177": {
+    "id": "M1315b177",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M0990cd1e": {
+    "id": "M0990cd1e",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M8dd1fb6d": {
+    "id": "M8dd1fb6d",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M289a646c": {
+    "id": "M289a646c",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "T41556559",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfbc62c11": {
+    "id": "Mfbc62c11",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "T4fff423c",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M204df73f": {
+    "id": "M204df73f",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M43c54a74": {
+    "id": "M43c54a74",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "T21ec57ff",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfc068342": {
+    "id": "Mfc068342",
+    "season_id": "Sb1c520d2",
+    "week_number": 20,
+    "team1_id": "T9ef1733b",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mbb3e282c": {
+    "id": "Mbb3e282c",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "Tfec82916",
+    "team2_id": "Tedbb3f8b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mffcd8df1": {
+    "id": "Mffcd8df1",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T1d14bd57",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M60ebb02a": {
+    "id": "M60ebb02a",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "Tf4914769",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfe7cf643": {
+    "id": "Mfe7cf643",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3b303ba7": {
+    "id": "M3b303ba7",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T6606d041",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M94904325": {
+    "id": "M94904325",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4b0a72f0": {
+    "id": "M4b0a72f0",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mdb11544b": {
+    "id": "Mdb11544b",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T41556559",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mfeb92797": {
+    "id": "Mfeb92797",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T4fff423c",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M7e68e91b": {
+    "id": "M7e68e91b",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M1855e26e": {
+    "id": "M1855e26e",
+    "season_id": "Sb1c520d2",
+    "week_number": 21,
+    "team1_id": "T21ec57ff",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M566a7ff8": {
+    "id": "M566a7ff8",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "Tfec82916",
+    "team2_id": "T4b14d83f",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M47e96a5c": {
+    "id": "M47e96a5c",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M04d30531": {
+    "id": "M04d30531",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "Tf4914769",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mad2355d1": {
+    "id": "Mad2355d1",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4e571f7e": {
+    "id": "M4e571f7e",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M6ff09f29": {
+    "id": "M6ff09f29",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "T6606d041",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M7b7b6612": {
+    "id": "M7b7b6612",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc15ebe44": {
+    "id": "Mc15ebe44",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M4c2bcaf5": {
+    "id": "M4c2bcaf5",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "T41556559",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M10a06b93": {
+    "id": "M10a06b93",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "T4fff423c",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M118c8f83": {
+    "id": "M118c8f83",
+    "season_id": "Sb1c520d2",
+    "week_number": 22,
+    "team1_id": "T9cad0dcd",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M39c9348e": {
+    "id": "M39c9348e",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "Tfec82916",
+    "team2_id": "T721fec25",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mf0622d66": {
+    "id": "Mf0622d66",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "Tedbb3f8b",
+    "team2_id": "T682fb4c6",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Med1adbd4": {
+    "id": "Med1adbd4",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "T1d14bd57",
+    "team2_id": "T03fc3c11",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mce8fb469": {
+    "id": "Mce8fb469",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "Tf4914769",
+    "team2_id": "T7da640c3",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mefca7478": {
+    "id": "Mefca7478",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "Tae5bd6be",
+    "team2_id": "T954b37cf",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mc2b19a6d": {
+    "id": "Mc2b19a6d",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "Tbaf81b0e",
+    "team2_id": "T7c861691",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Mabcd3606": {
+    "id": "Mabcd3606",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "T6606d041",
+    "team2_id": "Ta009cd20",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M3d946460": {
+    "id": "M3d946460",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "Tf76b27c5",
+    "team2_id": "Ta8a84569",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M98a2b5de": {
+    "id": "M98a2b5de",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "T8c41fbb6",
+    "team2_id": "T9ef1733b",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "Ma1957d0f": {
+    "id": "Ma1957d0f",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "T41556559",
+    "team2_id": "T21ec57ff",
+    "date_played": "2026-04-06",
+    "completed": false
+  },
+  "M97cc6368": {
+    "id": "M97cc6368",
+    "season_id": "Sb1c520d2",
+    "week_number": 23,
+    "team1_id": "T4fff423c",
+    "team2_id": "T9cad0dcd",
+    "date_played": "2026-04-06",
+    "completed": false
+  }
+}

@@ -1,0 +1,365 @@
+{% extends "base.html" %} {% block title %}Players - Golf League Manager{% endblock %} {% block body_class %}page-players{% endblock %} {% block extra_css %}
+<style>
+  .players-table-card {
+    background: rgba(10, 63, 54, 0.8);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .players-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+  }
+
+  .players-table thead {
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  .players-table th {
+    color: #d4af37;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .players-table tbody tr {
+    transition: background 0.2s ease;
+  }
+
+  .players-table tbody tr:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .players-table tbody tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  .players-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .players-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .players-table .player-checkbox {
+    accent-color: #d4af37;
+  }
+
+  .players-table .action-btn {
+    transition: color 0.2s ease;
+  }
+
+  .players-table .action-btn:hover {
+    color: #d4af37;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10 flex flex-wrap gap-4 items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+        <div>
+          <h1 class="text-3xl font-black text-white tracking-tight">PLAYERS</h1>
+          <p class="text-masters-gold font-semibold mt-1">Manage player roster</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="deleteSelectedPlayers()" class="bg-masters-gold hover:bg-yellow-600 text-masters-green font-bold py-2 px-4 rounded-lg transition-colors text-sm" id="delete-selected-players-btn" disabled>
+          🗑️ Delete Selected
+        </button>
+        <button onclick="openAddPlayerModal()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+          + Add Player
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Players Table -->
+  <div class="players-table-card">
+    <div class="overflow-x-auto">
+      <table class="min-w-full players-table">
+        <thead>
+          <tr>
+            <th class="px-4 py-4 text-left text-xs sm:text-sm">
+              <input type="checkbox" id="select-all-players" class="w-5 h-5 accent-masters-gold cursor-pointer" onchange="toggleSelectAllPlayers()" />
+            </th>
+            <th class="px-4 py-4 text-left cursor-pointer text-xs sm:text-sm" onclick="sortPlayers('name')">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Name</span>
+                <span id="sort-name" class="text-masters-gold">↕</span>
+              </div>
+            </th>
+            <th class="px-4 py-4 text-left cursor-pointer text-xs sm:text-sm" onclick="sortPlayers('handicap')">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Hcp</span>
+                <span id="sort-handicap" class="text-masters-gold">↕</span>
+              </div>
+            </th>
+            <th class="px-4 py-4 text-left text-xs sm:text-sm">
+              <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Phone</span>
+            </th>
+            <th class="px-4 py-4 text-left text-xs sm:text-sm">
+              <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Email</span>
+            </th>
+            <th class="px-4 py-4 text-right text-xs sm:text-sm">
+              <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Actions</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="players-tbody" class="divide-y divide-white/5">
+          <!-- Will be populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Player Modal -->
+<div id="player-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden overflow-y-auto h-full w-full z-50">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="results-content-glass w-full max-w-md p-8 border-2 border-masters-gold/30">
+      <div class="mt-3">
+        <h3 id="modal-title" class="text-2xl font-black text-white mb-6 tracking-tight flex items-center gap-2">
+          <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+          Add Player
+        </h3>
+        <form id="player-form" onsubmit="savePlayer(event)">
+          <input type="hidden" id="player-id" />
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Name *</label>
+              <input type="text" id="player-name" required class="glass-input w-full text-white text-lg py-3 px-4" placeholder="Player name" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Handicap *</label>
+              <input type="number" id="player-handicap" required min="0" max="36" step="0.1" class="glass-input w-full text-white text-lg py-3 px-4" placeholder="0.0" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Phone</label>
+              <input type="tel" id="player-phone" class="glass-input w-full text-white text-lg py-3 px-4" placeholder="(555) 555-5555" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Email</label>
+              <input type="email" id="player-email" class="glass-input w-full text-white text-lg py-3 px-4" placeholder="email@example.com" />
+            </div>
+          </div>
+          <div class="mt-8 flex justify-end space-x-3">
+            <button type="button" onclick="closePlayerModal()" class="btn-secondary py-3 px-6">Cancel</button>
+            <button type="submit" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark">Save Player</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  let players = [];
+  let sortColumn = "name";
+  let sortReverse = false;
+  let selectedPlayers = new Set();
+
+  async function loadPlayers() {
+    try {
+      const response = await fetch("/api/players");
+      players = await response.json();
+      renderPlayers();
+    } catch (error) {
+      console.error("Error loading players:", error);
+      showAlert("Failed to load players");
+    }
+  }
+
+  function renderPlayers() {
+    players.sort((a, b) => {
+      let valA = a[sortColumn];
+      let valB = b[sortColumn];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = valB.toLowerCase();
+      }
+      if (valA < valB) return sortReverse ? 1 : -1;
+      if (valA > valB) return sortReverse ? -1 : 1;
+      return 0;
+    });
+
+    const tbody = document.getElementById("players-tbody");
+    tbody.innerHTML = "";
+
+    players.forEach((player, index) => {
+      const row = document.createElement("tr");
+      row.className = index % 2 === 0 ? "bg-white/5" : "bg-white/2";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "player-checkbox w-5 h-5 accent-masters-gold cursor-pointer";
+      checkbox.value = player.id;
+      checkbox.onchange = () => handleCheckboxChange(player.id, checkbox.checked);
+
+      const checkboxCell = document.createElement("td");
+      checkboxCell.className = "px-4 py-4 whitespace-nowrap";
+      checkboxCell.appendChild(checkbox);
+
+      const nameCell = document.createElement("td");
+      nameCell.className = "px-4 py-4 whitespace-nowrap text-sm font-semibold text-white";
+      nameCell.textContent = player.name;
+
+      const handicapCell = document.createElement("td");
+      handicapCell.className = "px-4 py-4 whitespace-nowrap text-sm";
+      handicapCell.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-masters-gold/20 text-masters-gold border border-masters-gold/30">${player.handicap.toFixed(1)}</span>`;
+
+      const phoneCell = document.createElement("td");
+      phoneCell.className = "px-4 py-4 whitespace-nowrap text-sm text-white/70";
+      phoneCell.textContent = player.phone || "—";
+
+      const emailCell = document.createElement("td");
+      emailCell.className = "px-4 py-4 whitespace-nowrap text-sm text-white/70";
+      emailCell.textContent = player.email || "—";
+
+      const actionsCell = document.createElement("td");
+      actionsCell.className = "px-4 py-4 whitespace-nowrap text-right";
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "✏️ Edit";
+      editBtn.className = "action-btn text-masters-gold hover:text-yellow-400 mr-3 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-masters-gold/10 transition-all";
+      editBtn.onclick = () => editPlayer(player.id);
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "🗑️";
+      deleteBtn.className = "action-btn text-red-400 hover:text-red-300 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-red-500/10 transition-all";
+      deleteBtn.onclick = () => deletePlayer(player.id, player.name);
+      actionsCell.appendChild(editBtn);
+      actionsCell.appendChild(deleteBtn);
+
+      row.appendChild(checkboxCell);
+      row.appendChild(nameCell);
+      row.appendChild(handicapCell);
+      row.appendChild(phoneCell);
+      row.appendChild(emailCell);
+      row.appendChild(actionsCell);
+      tbody.appendChild(row);
+    });
+
+    document.getElementById("sort-name").textContent = sortColumn === "name" ? (sortReverse ? "↓" : "↑") : "↕";
+    document.getElementById("sort-handicap").textContent = sortColumn === "handicap" ? (sortReverse ? "↓" : "↑") : "↕";
+  }
+
+  function handleCheckboxChange(playerId, isChecked) {
+    if (isChecked) selectedPlayers.add(playerId);
+    else selectedPlayers.delete(playerId);
+    updateDeleteSelectedButton();
+  }
+
+  function toggleSelectAllPlayers() {
+    const selectAllCheckbox = document.getElementById("select-all-players");
+    const checkboxes = document.querySelectorAll(".player-checkbox");
+    const isChecked = selectAllCheckbox.checked;
+    checkboxes.forEach((cb) => {
+      cb.checked = isChecked;
+      if (isChecked) selectedPlayers.add(cb.value);
+      else selectedPlayers.delete(cb.value);
+    });
+    updateDeleteSelectedButton();
+  }
+
+  function updateDeleteSelectedButton() {
+    const btn = document.getElementById("delete-selected-players-btn");
+    btn.disabled = selectedPlayers.size === 0;
+  }
+
+  function sortPlayers(column) {
+    if (sortColumn === column) sortReverse = !sortReverse;
+    else { sortColumn = column; sortReverse = false; }
+    renderPlayers();
+  }
+
+  function openAddPlayerModal() {
+    document.getElementById("modal-title").innerHTML = '<div class="w-1 h-6 bg-masters-gold rounded-full"></div> Add Player';
+    document.getElementById("player-form").reset();
+    document.getElementById("player-id").value = "";
+    document.getElementById("player-modal").classList.remove("hidden");
+  }
+
+  function editPlayer(playerId) {
+    const player = players.find((p) => p.id === playerId);
+    if (!player) return;
+    document.getElementById("modal-title").innerHTML = '<div class="w-1 h-6 bg-masters-gold rounded-full"></div> Edit Player';
+    document.getElementById("player-id").value = player.id;
+    document.getElementById("player-name").value = player.name;
+    document.getElementById("player-handicap").value = player.handicap;
+    document.getElementById("player-phone").value = player.phone || "";
+    document.getElementById("player-email").value = player.email || "";
+    document.getElementById("player-modal").classList.remove("hidden");
+  }
+
+  function closePlayerModal() {
+    document.getElementById("player-modal").classList.add("hidden");
+  }
+
+  async function savePlayer(event) {
+    event.preventDefault();
+    const playerId = document.getElementById("player-id").value;
+    const data = {
+      name: document.getElementById("player-name").value,
+      handicap: parseFloat(document.getElementById("player-handicap").value),
+      phone: document.getElementById("player-phone").value,
+      email: document.getElementById("player-email").value,
+    };
+    try {
+      const url = playerId ? `/api/players/${playerId}` : "/api/players";
+      const method = playerId ? "PUT" : "POST";
+      const response = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!response.ok) throw new Error("Failed to save player");
+      await loadPlayers();
+      closePlayerModal();
+      showAlert("Player saved successfully");
+    } catch (error) {
+      console.error("Error saving player:", error);
+      showAlert("Failed to save player");
+    }
+  }
+
+  async function deletePlayer(playerId, playerName) {
+    showConfirm(`Delete player "${playerName}"?`, "Delete Player", async () => {
+      try {
+        const response = await fetch(`/api/players/${playerId}`, { method: "DELETE" });
+        if (!response.ok) throw new Error("Failed to delete player");
+        await loadPlayers();
+        showAlert("Player deleted successfully");
+      } catch (error) {
+        console.error("Error deleting player:", error);
+        showAlert("Failed to delete player");
+      }
+    });
+  }
+
+  async function deleteSelectedPlayers() {
+    if (selectedPlayers.size === 0) return;
+    const count = selectedPlayers.size;
+    showConfirm(`Delete ${count} selected player${count > 1 ? "s" : ""}?`, "Delete Players", async () => {
+      try {
+        const playerIds = Array.from(selectedPlayers);
+        const promises = playerIds.map((id) => fetch(`/api/players/${id}`, { method: "DELETE" }));
+        await Promise.all(promises);
+        showAlert(`Deleted ${playerIds.length} players`);
+        selectedPlayers.clear();
+        updateDeleteSelectedButton();
+        await loadPlayers();
+      } catch (error) {
+        console.error("Error deleting players:", error);
+        showAlert("Failed to delete players");
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { loadPlayers(); });
+</script>
+{% endblock %}

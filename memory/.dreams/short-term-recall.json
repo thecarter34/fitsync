@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-23T15:15:21.841Z",
+  "entries": {
+    "memory:memory/2026-04-22.md:24:49": {
+      "key": "memory:memory/2026-04-22.md:24:49",
+      "path": "memory/2026-04-22.md",
+      "startLine": 24,
+      "endLine": 49,
+      "source": "memory",
+      "snippet": "- Team (last names of 2 players, formatted as \"Last1/Last2\") - Total Score | Hndcp | Net Score | Team Pts | Hole Pts | Total Pts - Team column: 62pt wide; data columns equal size (~65pt), total width matches scorecard table - Last names dynamically extracted from full names ### Workflow (Manual for Now) 1. Josh drops PDF in `input/` 2. Josh tells me to process 3. I parse PDF → write `data.json` → run `generate_scorecards.py` 4. Output HTML written to `output/Week_N_print.html` 5. Input files cleaned up (PDF + data.json deleted after processing) ### Files Created/Modified - `generate_scorecards.py` — rebuilt as PDF+CSV hybrid with summary table - `Week_2_data.json` in `input/` — mock",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4206182926893234,
+      "maxScore": 0.4206182926893234,
+      "firstRecalledAt": "2026-04-23T15:15:21.841Z",
+      "lastRecalledAt": "2026-04-23T15:15:21.841Z",
+      "queryHashes": [
+        "ba8ae2be8d54"
+      ],
+      "recallDays": [
+        "2026-04-23"
+      ],
+      "conceptTags": [
+        "last1/last2",
+        "data.json",
+        "generate-scorecards.py",
+        "output/week-n-print.html",
+        "created/modified",
+        "week-2-data.json",
+        "team",
+        "last"
+      ]
+    },
+    "memory:memory/2026-04-22.md:1:31": {
+      "key": "memory:memory/2026-04-22.md:1:31",
+      "path": "memory/2026-04-22.md",
+      "startLine": 1,
+      "endLine": 31,
+      "source": "memory",
+      "snippet": "# 2026-04-22 ## Golf Scorecard Automation — Hickory Hills ### Session Summary Worked with Josh all day on the Hickory Hills Wednesday Night Men's League scorecard generator. ### Discord Bot Setup - Josh configured a Discord bot using a bot token (`MTQ5NjU5MzczMTYxMTEzMjIwNg...`) and server ID `1306707942300454932` - User ID: `324726656067567617` - `groupPolicy: open` — bot responds in all server channels - Bot is working for DMs but NOT for server channels — needed Message Content Intent enabled in Discord Developer Portal (bot has connect permission but can't read message content without it) ### Scorecard Generator — Final State - **Script**: `/home/thecarter34/.openclaw/workspace/devel",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4192212730646133,
+      "maxScore": 0.4192212730646133,
+      "firstRecalledAt": "2026-04-23T15:15:21.841Z",
+      "lastRecalledAt": "2026-04-23T15:15:21.841Z",
+      "queryHashes": [
+        "ba8ae2be8d54"
+      ],
+      "recallDays": [
+        "2026-04-23"
+      ],
+      "conceptTags": [
+        "home/thecarter34",
+        "openclaw/workspace/devel",
+        "golf",
+        "scorecard",
+        "automation",
+        "hickory",
+        "hills",
+        "summary"
+      ]
+    }
+  }
+}

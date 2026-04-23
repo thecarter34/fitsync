@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  golf-league:
+    build: .
+    container_name: golf-league-app
+    ports:
+      - "1234:1234"
+    volumes:
+      # Mount the data directory to persist JSON files
+      # On Synology NAS, adjust this path to your actual data location
+      # Example: /volume1/data/golf-league:/app/data
+      - ./data:/app/data
+      # Or for a specific NAS path:
+      # - /volume1/docker/golf-league/data:/app/data
+    environment:
+      - DATA_DIR=/app/data
+      - ENVIRONMENT=production
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:1234/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

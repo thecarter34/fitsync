@@ -1,0 +1,205 @@
+{% extends "base.html" %} {% block title %}Course Settings - Golf League Manager{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10 flex items-center gap-3 mb-2">
+      <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+      <h1 class="text-3xl font-black text-white tracking-tight">COURSE SETTINGS</h1>
+    </div>
+    <p class="text-masters-gold font-semibold ml-5">Configure stroke index and hole pars for Hickory Hills</p>
+  </div>
+
+  <!-- Course Info -->
+  <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+      <h2 class="text-2xl font-black text-white tracking-tight">Course Information</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-bold text-masters-gold mb-2">Course Name</label>
+        <input type="text" id="course-name" class="glass-input w-full text-white text-lg py-3 px-4" />
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-masters-gold mb-2">Location</label>
+        <input type="text" id="course-location" class="glass-input w-full text-white text-lg py-3 px-4" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Stroke Index Settings -->
+  <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+        <h2 class="text-2xl font-black text-white tracking-tight">Stroke Index Order</h2>
+      </div>
+      <button id="si-save-btn" onclick="saveStrokeIndex()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+        Save Stroke Index
+      </button>
+    </div>
+    <p class="text-white/60 mb-6">Stroke index indicates hole difficulty (1 = hardest, 9 = easiest). These values are used for handicap stroke allocation in match play.</p>
+    <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-3" id="stroke-index-grid"></div>
+  </div>
+
+  <!-- Hole Pars Settings -->
+  <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+        <h2 class="text-2xl font-black text-white tracking-tight">Hole Pars</h2>
+      </div>
+      <button id="par-save-btn" onclick="saveHolePars()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+        Save Hole Pars
+      </button>
+    </div>
+    <p class="text-white/60 mb-6">Set the par for each hole (typically 3, 4, or 5).</p>
+    <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-3" id="hole-pars-grid"></div>
+    <div class="mt-6 p-4 glass-card bg-gradient-to-r from-masters-gold/20 to-transparent border-2 border-masters-gold/30">
+      <div class="text-lg font-black text-white">Total Par: <span id="total-par" class="text-masters-gold">--</span></div>
+    </div>
+  </div>
+
+  <!-- Scoring Settings -->
+  <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+      <h2 class="text-2xl font-black text-white tracking-tight">Scoring Configuration</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-bold text-masters-gold mb-2">Hole Points (per matchup)</label>
+        <input type="number" id="hole-points" min="0.5" max="5" step="0.5" value="1.0" class="glass-input w-full text-white text-lg py-3 px-4" />
+        <p class="text-xs text-white/50 mt-2">Points awarded for winning a single hole matchup (default: 1.0). Each hole has 2 matchups.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-masters-gold mb-2">Team Bonus Points</label>
+        <input type="number" id="team-bonus" min="0" max="20" step="0.5" value="5.0" class="glass-input w-full text-white text-lg py-3 px-4" />
+        <p class="text-xs text-white/50 mt-2">Bonus points for team with lower combined net score (default: 5.0).</p>
+      </div>
+    </div>
+    <div class="mt-6">
+      <button onclick="saveScoringSettings()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+        Save Scoring Settings
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-4 right-4 z-50 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark px-6 py-3 rounded-lg shadow-lg shadow-masters-gold/20 font-bold hidden transition-opacity">
+  Settings saved successfully!
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  let courseSettings = null;
+  let strokeIndex = [];
+  let holePars = {};
+
+  async function loadCourseSettings() {
+    try {
+      const response = await fetch("/api/course-settings");
+      courseSettings = await response.json();
+      document.getElementById("course-name").value = courseSettings.course_name || "";
+      document.getElementById("course-location").value = courseSettings.course_location || "";
+      strokeIndex = courseSettings.stroke_index || [];
+      renderStrokeIndex();
+      holePars = courseSettings.hole_pars || {};
+      renderHolePars();
+      document.getElementById("hole-points").value = courseSettings.hole_points || 1.0;
+      document.getElementById("team-bonus").value = courseSettings.team_bonus_points || 5.0;
+    } catch (error) {
+      console.error("Error loading course settings:", error);
+      showAlert("Failed to load course settings");
+    }
+  }
+
+  function renderStrokeIndex() {
+    const grid = document.getElementById("stroke-index-grid");
+    grid.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+      const hole = i + 1;
+      const si = strokeIndex[i] || hole;
+      const div = document.createElement("div");
+      div.className = "flex flex-col items-center p-3 glass-card bg-masters-green-dark/50 border border-masters-gold/10";
+      div.innerHTML = `
+        <div class="text-xs font-bold text-masters-gold mb-2">Hole ${hole}</div>
+        <input type="number" id="si-${hole}" value="${si}" min="1" max="9" class="glass-input w-14 text-center text-white text-lg py-2">
+        <div class="text-xs text-white/40 mt-1">SI</div>
+      `;
+      grid.appendChild(div);
+    }
+  }
+
+  function renderHolePars() {
+    const grid = document.getElementById("hole-pars-grid");
+    grid.innerHTML = "";
+    let totalPar = 0;
+    for (let i = 1; i <= 9; i++) {
+      const par = holePars[i] || 4;
+      totalPar += par;
+      const div = document.createElement("div");
+      div.className = "flex flex-col items-center p-3 glass-card bg-masters-green-dark/50 border border-masters-gold/10";
+      div.innerHTML = `
+        <div class="text-xs font-bold text-masters-gold mb-2">Hole ${i}</div>
+        <input type="number" id="par-${i}" value="${par}" min="3" max="5" class="glass-input w-14 text-center text-white text-lg py-2">
+        <div class="text-xs text-white/40 mt-1">Par</div>
+      `;
+      grid.appendChild(div);
+    }
+    document.getElementById("total-par").textContent = totalPar;
+  }
+
+  async function saveStrokeIndex() {
+    const newStrokeIndex = [];
+    for (let i = 1; i <= 9; i++) {
+      const value = parseInt(document.getElementById(`si-${i}`).value);
+      if (value < 1 || value > 9) { showAlert(`Stroke index for hole ${i} must be between 1 and 9`); return; }
+      newStrokeIndex.push(value);
+    }
+    if (new Set(newStrokeIndex).size !== 9) { showAlert("All stroke index values must be unique"); return; }
+    try {
+      await fetch("/api/course-settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ stroke_index: newStrokeIndex }) });
+      showToast("Stroke index saved successfully!");
+    } catch (error) { console.error("Error saving stroke index:", error); showAlert("Failed to save stroke index"); }
+  }
+
+  async function saveHolePars() {
+    const newHolePars = {};
+    let totalPar = 0;
+    for (let i = 1; i <= 9; i++) {
+      const value = parseInt(document.getElementById(`par-${i}`).value);
+      if (value < 3 || value > 5) { showAlert(`Par for hole ${i} must be 3, 4, or 5`); return; }
+      newHolePars[i] = value;
+      totalPar += value;
+    }
+    try {
+      await fetch("/api/course-settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hole_pars: newHolePars }) });
+      document.getElementById("total-par").textContent = totalPar;
+      showToast("Hole pars saved successfully!");
+    } catch (error) { console.error("Error saving hole pars:", error); showAlert("Failed to save hole pars"); }
+  }
+
+  async function saveScoringSettings() {
+    const holePoints = parseFloat(document.getElementById("hole-points").value);
+    const teamBonus = parseFloat(document.getElementById("team-bonus").value);
+    if (holePoints < 0 || teamBonus < 0) { showAlert("Points must be non-negative"); return; }
+    try {
+      await fetch("/api/course-settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hole_points: holePoints, team_bonus_points: teamBonus }) });
+      showToast("Scoring settings saved successfully!");
+    } catch (error) { console.error("Error saving scoring settings:", error); showAlert("Failed to save scoring settings"); }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.remove("hidden");
+    setTimeout(() => { toast.classList.add("hidden"); }, 3000);
+  }
+
+  document.addEventListener("DOMContentLoaded", loadCourseSettings);
+</script>
+{% endblock %}

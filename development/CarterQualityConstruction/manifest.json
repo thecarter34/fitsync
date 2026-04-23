@@ -1,0 +1,27 @@
+{
+  "name": "Carter Quality Construction",
+  "short_name": "Carter Quality",
+  "description": "Professional construction services in Chippewa Valley, Wisconsin",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "services"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

@@ -1,0 +1,388 @@
+{% extends "base.html" %} {% block title %}Teams - Golf League Manager{% endblock %} {% block body_class %}page-teams{% endblock %} {% block extra_css %}
+<style>
+  .teams-table-card {
+    background: rgba(10, 63, 54, 0.8);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .teams-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+  }
+
+  .teams-table thead {
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  .teams-table th {
+    color: #d4af37;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .teams-table tbody tr {
+    transition: background 0.2s ease;
+  }
+
+  .teams-table tbody tr:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .teams-table tbody tr:hover {
+    background: rgba(212, 175, 55, 0.12);
+  }
+
+  .teams-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .teams-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .teams-table .team-checkbox {
+    accent-color: #d4af37;
+  }
+
+  .teams-table .action-btn {
+    transition: color 0.2s ease;
+  }
+
+  .teams-table .action-btn:hover {
+    color: #d4af37;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10 flex flex-wrap gap-4 items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+        <div>
+          <h1 class="text-3xl font-black text-white tracking-tight">TEAMS</h1>
+          <p class="text-masters-gold font-semibold mt-1">Manage golf teams and pairings</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="deleteSelectedTeams()" class="bg-masters-gold hover:bg-yellow-600 text-masters-green-dark font-bold py-2 px-4 rounded-lg transition-colors text-sm" id="delete-selected-btn" disabled>
+          🗑️ Delete Selected
+        </button>
+        <button onclick="openTeamModal()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+          + Create Teams
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teams Table -->
+  <div class="teams-table-card">
+    <div class="overflow-x-auto">
+      <table class="min-w-full teams-table">
+        <thead>
+          <tr>
+            <th class="px-4 py-4 text-left text-xs sm:text-sm">
+              <input type="checkbox" id="select-all-teams" class="w-5 h-5 accent-masters-gold cursor-pointer" onchange="toggleSelectAll()" />
+            </th>
+            <th class="px-4 py-4 text-left cursor-pointer text-xs sm:text-sm" onclick="sortTeams('name')">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Team Name</span>
+                <span id="sort-name" class="text-masters-gold">↕</span>
+              </div>
+            </th>
+            <th class="px-4 py-4 text-left text-xs sm:text-sm">
+              <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Players</span>
+            </th>
+            <th class="px-4 py-4 text-left cursor-pointer text-xs sm:text-sm" onclick="sortTeams('avg_handicap')">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Avg Hcp</span>
+                <span id="sort-avg_handicap" class="text-masters-gold">↕</span>
+              </div>
+            </th>
+            <th class="px-4 py-4 text-right text-xs sm:text-sm">
+              <span class="text-xs font-bold text-masters-gold uppercase tracking-wider">Actions</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="teams-tbody" class="divide-y divide-white/5">
+          <!-- Will be populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Create Teams Modal -->
+<div id="team-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden overflow-y-auto h-full w-full z-50">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="results-content-glass w-full max-w-lg p-8 border-2 border-masters-gold/30">
+      <div class="mt-3">
+        <h3 class="text-2xl font-black text-white mb-6 tracking-tight flex items-center gap-2">
+          <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+          Create Teams
+        </h3>
+        <form id="team-form" onsubmit="saveTeam(event)">
+          <input type="hidden" id="team-id" />
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Team Name *</label>
+              <input type="text" id="team-name" required class="glass-input w-full text-white text-lg py-3 px-4" placeholder="Team name" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Player 1 *</label>
+              <select id="player1-select" required class="glass-select w-full text-white text-lg py-3 px-4">
+                <option value="">Select player 1...</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-masters-gold mb-2">Player 2 *</label>
+              <select id="player2-select" required class="glass-select w-full text-white text-lg py-3 px-4">
+                <option value="">Select player 2...</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-8 flex justify-end space-x-3">
+            <button type="button" onclick="closeTeamModal()" class="btn-secondary py-3 px-6">Cancel</button>
+            <button type="submit" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark">Save Team</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  let teams = [];
+  let players = [];
+  let sortColumn = "name";
+  let sortReverse = false;
+  let selectedTeams = new Set();
+
+  async function loadTeams() {
+    try {
+      const [teamsRes, playersRes] = await Promise.all([fetch("/api/teams"), fetch("/api/players")]);
+      teams = await teamsRes.json();
+      players = await playersRes.json();
+      renderTeams();
+      populatePlayerSelects();
+    } catch (error) {
+      console.error("Error loading teams:", error);
+      showAlert("Failed to load teams");
+    }
+  }
+
+  function populatePlayerSelects() {
+    const player1Select = document.getElementById("player1-select");
+    const player2Select = document.getElementById("player2-select");
+    player1Select.innerHTML = '<option value="">Select player 1...</option>';
+    player2Select.innerHTML = '<option value="">Select player 2...</option>';
+    players.forEach((player) => {
+      const option1 = document.createElement("option");
+      option1.value = player.id;
+      option1.textContent = `${player.name} (Hcp: ${player.handicap.toFixed(1)})`;
+      player1Select.appendChild(option1);
+      const option2 = document.createElement("option");
+      option2.value = player.id;
+      option2.textContent = `${player.name} (Hcp: ${player.handicap.toFixed(1)})`;
+      player2Select.appendChild(option2);
+    });
+  }
+
+  function renderTeams() {
+    teams.sort((a, b) => {
+      let valA = a[sortColumn];
+      let valB = b[sortColumn];
+      if (typeof valA === "string") {
+        valA = valA.toLowerCase();
+        valB = valB.toLowerCase();
+      }
+      if (valA < valB) return sortReverse ? 1 : -1;
+      if (valA > valB) return sortReverse ? -1 : 1;
+      return 0;
+    });
+
+    const tbody = document.getElementById("teams-tbody");
+    tbody.innerHTML = "";
+
+    if (teams.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-white/40 text-lg">No teams created yet</td></tr>';
+      return;
+    }
+
+    teams.forEach((team, index) => {
+      const row = document.createElement("tr");
+      row.className = index % 2 === 0 ? "bg-white/5" : "bg-white/2";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "team-checkbox w-5 h-5 accent-masters-gold cursor-pointer";
+      checkbox.value = team.id;
+      checkbox.onchange = () => handleCheckboxChange(team.id, checkbox.checked);
+
+      const checkboxCell = document.createElement("td");
+      checkboxCell.className = "px-4 py-4 whitespace-nowrap";
+      checkboxCell.appendChild(checkbox);
+
+      const nameCell = document.createElement("td");
+      nameCell.className = "px-4 py-4 whitespace-nowrap text-sm font-bold text-white";
+      nameCell.textContent = team.name;
+
+      const playersCell = document.createElement("td");
+      playersCell.className = "px-4 py-4 whitespace-nowrap";
+      const player1 = players.find((p) => p.id === team.player1_id);
+      const player2 = players.find((p) => p.id === team.player2_id);
+      playersCell.innerHTML = `
+        <div class="flex flex-wrap gap-2">
+          ${player1 ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-masters-green text-white border border-masters-gold/20">${player1.name}</span>` : ""}
+          ${player2 ? `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-masters-green text-white border border-masters-gold/20">${player2.name}</span>` : ""}
+        </div>
+      `;
+
+      const handicapCell = document.createElement("td");
+      handicapCell.className = "px-4 py-4 whitespace-nowrap text-sm";
+      const avgHcp = team.avg_handicap !== undefined ? team.avg_handicap : team.average_handicap;
+      handicapCell.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-masters-gold/20 text-masters-gold border border-masters-gold/30">${avgHcp != null ? avgHcp.toFixed(1) : "—"}</span>`;
+
+      const actionsCell = document.createElement("td");
+      actionsCell.className = "px-4 py-4 whitespace-nowrap text-right";
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "✏️ Edit";
+      editBtn.className = "action-btn text-masters-gold hover:text-yellow-400 mr-3 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-masters-gold/10 transition-all";
+      editBtn.onclick = () => editTeam(team.id);
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "🗑️";
+      deleteBtn.className = "action-btn text-red-400 hover:text-red-300 font-semibold text-sm px-3 py-2 rounded-lg hover:bg-red-500/10 transition-all";
+      deleteBtn.onclick = () => deleteTeam(team.id, team.name);
+      actionsCell.appendChild(editBtn);
+      actionsCell.appendChild(deleteBtn);
+
+      row.appendChild(checkboxCell);
+      row.appendChild(nameCell);
+      row.appendChild(playersCell);
+      row.appendChild(handicapCell);
+      row.appendChild(actionsCell);
+      tbody.appendChild(row);
+    });
+
+    document.getElementById("sort-name").textContent = sortColumn === "name" ? (sortReverse ? "↓" : "↑") : "↕";
+    document.getElementById("sort-avg_handicap").textContent = sortColumn === "avg_handicap" ? (sortReverse ? "↓" : "↑") : "↕";
+  }
+
+  function handleCheckboxChange(teamId, isChecked) {
+    if (isChecked) selectedTeams.add(teamId);
+    else selectedTeams.delete(teamId);
+    updateDeleteSelectedButton();
+  }
+
+  function toggleSelectAll() {
+    const selectAllCheckbox = document.getElementById("select-all-teams");
+    const checkboxes = document.querySelectorAll(".team-checkbox");
+    const isChecked = selectAllCheckbox.checked;
+    checkboxes.forEach((cb) => {
+      cb.checked = isChecked;
+      if (isChecked) selectedTeams.add(cb.value);
+      else selectedTeams.delete(cb.value);
+    });
+    updateDeleteSelectedButton();
+  }
+
+  function updateDeleteSelectedButton() {
+    const btn = document.getElementById("delete-selected-btn");
+    btn.disabled = selectedTeams.size === 0;
+  }
+
+  function sortTeams(column) {
+    if (sortColumn === column) sortReverse = !sortReverse;
+    else { sortColumn = column; sortReverse = false; }
+    renderTeams();
+  }
+
+  function openTeamModal() {
+    document.getElementById("team-form").reset();
+    document.getElementById("team-id").value = "";
+    populatePlayerSelects();
+    document.getElementById("team-modal").classList.remove("hidden");
+  }
+
+  function editTeam(teamId) {
+    const team = teams.find((t) => t.id === teamId);
+    if (!team) return;
+    document.getElementById("team-id").value = team.id;
+    document.getElementById("team-name").value = team.name;
+    populatePlayerSelects();
+    document.getElementById("player1-select").value = team.player1_id;
+    document.getElementById("player2-select").value = team.player2_id;
+    document.getElementById("team-modal").classList.remove("hidden");
+  }
+
+  function closeTeamModal() {
+    document.getElementById("team-modal").classList.add("hidden");
+  }
+
+  async function saveTeam(event) {
+    event.preventDefault();
+    const teamId = document.getElementById("team-id").value;
+    const data = {
+      name: document.getElementById("team-name").value,
+      player1_id: document.getElementById("player1-select").value,
+      player2_id: document.getElementById("player2-select").value,
+    };
+    try {
+      const url = teamId ? `/api/teams/${teamId}` : "/api/teams";
+      const method = teamId ? "PUT" : "POST";
+      const response = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!response.ok) throw new Error("Failed to save team");
+      await loadTeams();
+      closeTeamModal();
+      showAlert("Team saved successfully");
+    } catch (error) {
+      console.error("Error saving team:", error);
+      showAlert("Failed to save team");
+    }
+  }
+
+  async function deleteTeam(teamId, teamName) {
+    showConfirm(`Delete team "${teamName}"?`, "Delete Team", async () => {
+      try {
+        const response = await fetch(`/api/teams/${teamId}`, { method: "DELETE" });
+        if (!response.ok) throw new Error("Failed to delete team");
+        await loadTeams();
+        showAlert("Team deleted successfully");
+      } catch (error) {
+        console.error("Error deleting team:", error);
+        showAlert("Failed to delete team");
+      }
+    });
+  }
+
+  async function deleteSelectedTeams() {
+    if (selectedTeams.size === 0) return;
+    const count = selectedTeams.size;
+    showConfirm(`Delete ${count} selected team${count > 1 ? "s" : ""}?`, "Delete Teams", async () => {
+      try {
+        const teamIds = Array.from(selectedTeams);
+        const promises = teamIds.map((id) => fetch(`/api/teams/${id}`, { method: "DELETE" }));
+        await Promise.all(promises);
+        showAlert(`Deleted ${teamIds.length} teams`);
+        selectedTeams.clear();
+        updateDeleteSelectedButton();
+        await loadTeams();
+      } catch (error) {
+        console.error("Error deleting teams:", error);
+        showAlert("Failed to delete teams");
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { loadTeams(); });
+</script>
+{% endblock %}

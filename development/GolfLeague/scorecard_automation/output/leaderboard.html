@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hickory Hills Men's League — Standings</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #0d2318;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .wrapper {
+    width: 7.5in;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    padding: 18px 24px 20px;
+  }
+  .header {
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #0d2318;
+    margin-bottom: 12px;
+  }
+  .league-name {
+    font-size: 13pt;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #0d2318;
+  }
+  .subtitle {
+    font-size: 9pt;
+    font-weight: 400;
+    color: #666;
+    margin-top: 2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    background: #0d2318;
+    color: #d4af37;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 5px 8px;
+    border: 1px solid #0d2318;
+  }
+  thead th.pos-col { text-align: left; width: 40px; }
+  thead th.player-col { text-align: left; }
+  thead th.total-col { text-align: center; width: 68px; }
+  tbody tr { border-bottom: 1px solid #dcdcdc; }
+  tbody tr:nth-child(even) { background: #f6f6f6; }
+  tbody td {
+    padding: 4px 8px;
+    font-size: 9pt;
+    color: #111;
+    vertical-align: middle;
+  }
+  tbody td.td-pos {
+    font-size: 10pt;
+    font-weight: 900;
+    color: #0d2318;
+    text-align: left;
+  }
+  tr.rank-1 td.td-pos { color: #8b7000; }
+  tr.rank-2 td.td-pos { color: #666; }
+  tr.rank-3 td.td-pos { color: #8b5000; }
+  tbody td.td-player { font-weight: 700; font-size: 9.5pt; }
+  tbody td.td-total {
+    text-align: center;
+    font-size: 11pt;
+    font-weight: 900;
+    color: #0d2318;
+  }
+  tr.rank-1 td.td-total { color: #8b7000; }
+  tr.rank-2 td.td-total { color: #666; }
+  tr.rank-3 td.td-total { color: #8b5000; }
+  tr.rank-1 { background: #fdf5e0; }
+  tr.rank-2 { background: #f4f4f4; }
+  tr.rank-3 { background: #faf5ef; }
+  .footer-note {
+    margin-top: 10px;
+    font-size: 7pt;
+    color: #aaa;
+    text-align: center;
+  }
+  @media print {
+    body { background: white; padding: 0; }
+    @page { size: letter; margin: 0.2in; }
+    .wrapper { box-shadow: none; width: 7.5in; padding: 10px 16px; }
+    tbody tr:nth-child(even) { background: #f6f6f6; }
+    tr.rank-1, tr.rank-2, tr.rank-3 { background: inherit !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="league-name">Hickory Hills Wednesday Night Men's League</div>
+    <div class="subtitle">Season Standings — Through Week 1</div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th class="pos-col">Pos</th>
+        <th class="player-col">Team</th>
+        <th class="total-col">Total Pts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rank-1"><td class="td-pos">T1</td><td class="td-player">VanderWegen-Carter</td><td class="td-total">17.0</td></tr>
+      <tr class="rank-1"><td class="td-pos">T1</td><td class="td-player">Sessions-Plomedahl</td><td class="td-total">17.0</td></tr>
+      <tr class="rank-3"><td class="td-pos">3</td><td class="td-player">Walker-Dodge</td><td class="td-total">16.5</td></tr>
+      <tr class=""><td class="td-pos">4</td><td class="td-player">Verbracken-Larson</td><td class="td-total">6.5</td></tr>
+      <tr class=""><td class="td-pos">T5</td><td class="td-player">Steffen-Steffen</td><td class="td-total">6.0</td></tr>
+      <tr class=""><td class="td-pos">T5</td><td class="td-player">Sorenson-Biermeier</td><td class="td-total">6.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Hanson-Topper</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Hoyord-Wollum</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Kelm-Holden</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Blackburn-Degrasse</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Fladten-Everhart</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Johnson-Hill</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Maher-Fladten</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Malnory-Freseth</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Brantner-Ehrhard</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Wold-Anderson</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Tyler-Sorenson</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Welke-Berg</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Thompson-Kjelstad</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Bilyeu-Young</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Schretenthaler-Schretenthaler</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Christy-Blattner</td><td class="td-total">0.0</td></tr>
+      <tr class=""><td class="td-pos">T7</td><td class="td-player">Nussbaum-Carlson</td><td class="td-total">0.0</td></tr>
+    </tbody>
+  </table>
+  <div class="footer-note">Hickory Hills Wednesday Night Men's League 2026</div>
+</div>
+</body>
+</html>

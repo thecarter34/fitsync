@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --bg-dark: #0f1419;
+            --bg-card: #1a2332;
+            --bg-hover: #243044;
+            --accent: #00d4aa;
+            --accent-dim: #00d4aa33;
+            --text: #e8eaed;
+            --text-dim: #8899a6;
+            --danger: #f4212e;
+            --success: #00d4aa;
+            --warning: #ffad33;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #2a3a4d;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 0.875rem;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .automations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid #2a3a4d;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-icon {
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+        
+        .card-details {
+            background: #151d28;
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .detail-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+            align-items: flex-start;
+        }
+        
+        .detail-row:last-child { margin-bottom: 0; }
+        
+        .detail-label {
+            color: var(--text-dim);
+            min-width: 70px;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            color: var(--text);
+        }
+        
+        .detail-value code {
+            background: #0f1419;
+            padding: 0.1rem 0.35rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .detail-value .badge {
+            display: inline-block;
+            background: var(--accent-dim);
+            color: var(--accent);
+            padding: 0.1rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .detail-value .badge.optional {
+            background: #2a3a4d;
+            color: var(--text-dim);
+        }
+        
+        .detail-divider {
+            border: none;
+            border-top: 1px solid #2a3a4d;
+            margin: 0.75rem 0;
+        }
+        
+        .card-body {
+            margin-bottom: 1rem;
+        }
+        
+        .file-drop {
+            border: 2px dashed #3a4a5d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 0.75rem;
+        }
+        
+        .file-drop:hover, .file-drop.dragover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+        
+        .file-drop input {
+            display: none;
+        }
+        
+        .file-drop-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        
+        .file-name {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 0.65rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        
+        .btn:active { transform: scale(0.98); }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+        
+        .btn-primary:hover { opacity: 0.9; }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: #2a3a4d;
+            color: var(--text);
+        }
+        
+        .btn-secondary:hover { background: #3a4a5d; }
+        
+        .runs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .runs-table th {
+            text-align: left;
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #2a3a4d;
+        }
+        
+        .runs-table td {
+            padding: 0.85rem 0.75rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #1e2a3a;
+        }
+        
+        .runs-table tr:hover td {
+            background: var(--bg-hover);
+        }
+        
+        .run-success { color: var(--success); }
+        .run-fail { color: var(--danger); }
+        
+        .run-time {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+        
+        .view-log {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        
+        .view-log:hover { text-decoration: underline; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--bg-dark);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            padding: 0.85rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.error { border-color: var(--danger); }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .btn-clear {
+            background: transparent;
+            border: 1px solid #3a4a5d;
+            color: var(--text-dim);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        
+        .btn-clear:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        /* WalkScape Advisor Styles */
+        .ws-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid #2a3a4d;
+            grid-column: 1 / -1;
+        }
+        
+        .ws-card:hover {
+            border-color: var(--accent);
+        }
+        
+        .ws-logo-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .ws-logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        
+        .ws-logo-text .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        
+        .ws-logo-text .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+        
+        .ws-upload-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .ws-upload-box {
+            flex: 1;
+            border: 2px dashed #3a4a5d;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            position: relative;
+        }
+        
+        .ws-upload-box:hover, .ws-upload-box.dragover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+        
+        .ws-upload-box input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .ws-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ws-upload-text {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        
+        .ws-upload-filename {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+        
+        .ws-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .ws-btn:hover { opacity: 0.9; }
+        
+        .ws-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .ws-player-info {
+            background: #151d28;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .ws-player-info.visible { display: block; }
+        
+        .ws-player-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .ws-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .ws-skill-badge {
+            background: #0f1419;
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ws-skill-name {
+            color: var(--text-dim);
+            text-transform: capitalize;
+        }
+        
+        .ws-skill-xp {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .ws-recommendation {
+            margin-top: 1rem;
+            background: linear-gradient(135deg, #1a2a3a 0%, #152030 100%);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: none;
+        }
+        
+        .ws-recommendation.visible { display: block; }
+        
+        .ws-rec-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .ws-rec-icon {
+            font-size: 1.5rem;
+        }
+        
+        .ws-rec-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .ws-rec-activity {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .ws-rec-reason {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        
+        .ws-rec-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #2a3a4d;
+        }
+        
+        .ws-rec-meta-item {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        
+        .ws-rec-meta-item span {
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .ws-empty-state {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        
+        .ws-chat-section {
+            margin-top: 1rem;
+            border-top: 1px solid #2a3a4d;
+            padding-top: 1rem;
+        }
+        
+        .ws-chat-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dim);
+        }
+        
+        .ws-chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            background: #0f1419;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .ws-chat-msg {
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            max-width: 85%%;
+        }
+        
+        .ws-chat-msg.user {
+            background: #1a3a2a;
+            color: var(--text);
+            align-self: flex-end;
+        }
+        
+        .ws-chat-msg.bot {
+            background: #1a2a3a;
+            color: var(--accent);
+            align-self: flex-start;
+        }
+        
+        .ws-chat-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .ws-chat-input {
+            flex: 1;
+            background: #0f1419;
+            border: 1px solid #2a3a4d;
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+            color: var(--text);
+            font-size: 0.85rem;
+            resize: none;
+            font-family: inherit;
+        }
+        
+        .ws-chat-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .ws-chat-input::placeholder {
+            color: var(--text-dim);
+        }
+        
+        .ws-chat-send {
+            padding: 0.65rem 1rem;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .ws-chat-send:hover { opacity: 0.9; }
+        
+        .ws-chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .ws-chat-thinking {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            padding: 0.5rem;
+            align-self: flex-start;
+        }
+        
+        .ws-analyze-section {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        
+        .ws-analyze-btn {
+            padding: 0.65rem 1.25rem;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .ws-analyze-btn:hover { opacity: 0.9; }
+        
+        .ws-analyze-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .ws-context-note {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🎛️</span>
+                <div>
+                    <h1>Mission Control</h1>
+                    <p class="subtitle">General-Purpose Automation Hub</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <span class="status-badge">System Online</span>
+            </div>
+        </header>
+        
+        <section class="section">
+            <h2>⚡ Automations</h2>
+            <div class="automations">
+                {% for auto in automations %}
+                {% if auto.id == 'walkscape_advisor' %}
+                <div class="ws-card" id="walkscape-card">
+                    <div class="ws-logo-header">
+                        <img src="/static/ws_logo.png" alt="WalkScape" class="ws-logo-img">
+                        <div class="ws-logo-text">
+                            <div class="card-title">WalkScape Advisor</div>
+                            <div class="card-desc">Upload your player export → get a clear next action with reasoning. No more analysis paralysis.</div>
+                        </div>
+                    </div>
+                    <div class="ws-upload-row">
+                        <div class="ws-upload-box" id="ws-drop">
+                            <input type="file" id="ws-file" accept=".json">
+                            <div class="ws-upload-icon">📁</div>
+                            <div class="ws-upload-text">Drop your WalkScape JSON export here</div>
+                            <div class="ws-upload-filename" id="ws-filename"></div>
+                        </div>
+                        <button class="ws-btn" id="ws-upload-btn" onclick="wsUpload()">Import</button>
+                    </div>
+                    <div class="ws-player-info" id="ws-player-info">
+                        <div class="ws-player-name" id="ws-player-name"></div>
+                        <div class="ws-skills-grid" id="ws-skills-grid"></div>
+                        <div class="ws-analyze-section">
+                            <button class="ws-analyze-btn" id="ws-analyze-btn" onclick="wsGetRecommendation()">Get Recommendation</button>
+                            <div class="ws-context-note">Analyzes your stats, gear, bank, and game knowledge to pick the best next activity for you.</div>
+                        </div>
+                    </div>
+                    <div class="ws-recommendation" id="ws-recommendation">
+                        <div class="ws-rec-header">
+                            <span class="ws-rec-icon">🎯</span>
+                            <div class="ws-rec-title">Recommended Next Activity</div>
+                        </div>
+                        <div class="ws-rec-activity" id="ws-rec-activity"></div>
+                        <div class="ws-rec-reason" id="ws-rec-reason"></div>
+                        <div class="ws-rec-meta" id="ws-rec-meta"></div>
+                    </div>
+                    <div class="ws-empty-state" id="ws-empty-state">Upload your player export to get started</div>
+                    <div class="ws-chat-section" id="ws-chat-section">
+                        <div class="ws-chat-header">💬 Tell me about your WalkScape goals</div>
+                        <div class="ws-chat-messages" id="ws-chat-messages"></div>
+                        <div class="ws-chat-input-row">
+                            <textarea class="ws-chat-input" id="ws-chat-input" placeholder="e.g. 'What should I work on for Agility?'" rows="1"></textarea>
+                            <button class="ws-chat-send" id="ws-chat-send" onclick="wsChatSend()">Send</button>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="card" id="card-{{ auto.id }}">
+                    <div class="card-header">
+                        <span class="card-icon">{{ auto.icon }}</span>
+                        <div>
+                            <div class="card-title">{{ auto.name }}</div>
+                            <div class="card-desc">{{ auto.description }}</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if auto.id == 'scorecards' %}
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Input</span>
+                                <span class="detail-value">Drop files in <code>input/</code> folder</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Files</span>
+                                <span class="detail-value">PDF (matchups) + <span class="badge optional">CSV (handicaps)</span></span>
+                            </div>
+                            <hr class="detail-divider">
+                            <div class="detail-row">
+                                <span class="detail-label">Output</span>
+                                <span class="detail-value"><code>output/Week_X_print.html</code></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Notes</span>
+                                <span class="detail-value">Both PDF + CSV must be in <code>input/</code> before running</span>
+                            </div>
+                        </div>
+                        {% elif auto.id == 'leaderboard' %}
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Input</span>
+                                <span class="detail-value"><span class="badge">None</span> — reads directly from data files</span>
+                            </div>
+                            <hr class="detail-divider">
+                            <div class="detail-row">
+                                <span class="detail-label">Reads</span>
+                                <span class="detail-value"><code>matches.json</code>, <code>scores.json</code>, <code>teams.json</code></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Output</span>
+                                <span class="detail-value"><code>output/leaderboard.html</code></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Notes</span>
+                                <span class="detail-value">Pulls all completed match data automatically</span>
+                            </div>
+                        </div>
+                        {% elif auto.id == 'scorecards_batch' %}
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Input</span>
+                                <span class="detail-value"><span class="badge">None</span> — watches <code>input/</code> folder</span>
+                            </div>
+                            <hr class="detail-divider">
+                            <div class="detail-row">
+                                <span class="detail-label">Reads</span>
+                                <span class="detail-value">All <code>Week_X_data.json</code> + <code>Week_X.csv</code> pairs in <code>input/</code></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Output</span>
+                                <span class="detail-value"><code>output/Week_X_print.html</code> for each week</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="btn-row">
+                        {% if auto.input_type == 'none' %}
+                        <button class="btn btn-primary" onclick="runAutomation('{{ auto.id }}')" id="btn-{{ auto.id }}">
+                            Run Now
+                        </button>
+                        {% else %}
+                        <button class="btn btn-primary" onclick="runUpload('{{ auto.id }}')" id="btn-{{ auto.id }}">
+                            Execute
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        
+
+        <section class="section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>📋 Recent Runs</h2>
+                <button class="btn-clear" onclick="clearRuns()">Clear History</button>
+            </div>
+            <div id="runs-container">
+                {% if runs %}
+                <table class="runs-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Automation</th>
+                            <th>Time</th>
+                            <th>Duration</th>
+                            <th>Input</th>
+                            <th>Log</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for run in runs %}
+                        <tr>
+                            <td>
+                                {% if run.success %}
+                                <span class="run-success">✓ Success</span>
+                                {% else %}
+                                <span class="run-fail">✗ Failed</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ run.automation_name }}</td>
+                            <td class="run-time">{{ run.timestamp[:16].replace('T', ' ') }}</td>
+                            <td class="run-time">{{ run.elapsed_seconds }}s</td>
+                            <td class="run-time" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                {{ run.input_file or '-' }}
+                            </td>
+                            <td><a class="view-log" href="/log/{{ run.id }}" target="_blank">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="empty-state">No runs yet. Execute an automation to get started.</div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+    
+    <div id="toast" class="toast" style="display: none;"></div>
+    
+    <script>
+        // File input handlers
+        document.querySelectorAll('.upload-form input[type="file"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const id = input.id.replace('file-', '').replace('files-', '');
+                const nameEl = document.getElementById('filename-' + id);
+                if (e.target.files.length > 1) {
+                    nameEl.textContent = Array.from(e.target.files).map(f => f.name).join(', ');
+                } else {
+                    nameEl.textContent = e.target.files[0]?.name || '';
+                }
+            });
+        });
+        
+        // Drag and drop
+        document.querySelectorAll('.file-drop').forEach(drop => {
+            drop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                drop.classList.add('dragover');
+            });
+            drop.addEventListener('dragleave', () => {
+                drop.classList.remove('dragover');
+            });
+            drop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                drop.classList.remove('dragover');
+                const input = drop.querySelector('input[type="file"]');
+                input.files = e.dataTransfer.files;
+                const id = input.id.replace('file-', '').replace('files-', '');
+                if (e.dataTransfer.files.length > 1) {
+                    document.getElementById('filename-' + id).textContent = 
+                        Array.from(e.dataTransfer.files).map(f => f.name).join(', ');
+                } else {
+                    document.getElementById('filename-' + id).textContent = e.dataTransfer.files[0]?.name || '';
+                }
+            });
+        });
+        
+        async function runUpload(automationId) {
+            // Check both single and multi file inputs
+            const input = document.getElementById('files-' + automationId) || document.getElementById('file-' + automationId);
+            const btn = document.getElementById('btn-' + automationId);
+            
+            if (!input || !input.files.length) {
+                showToast('Please select file(s) first', 'error');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Running...';
+            
+            const formData = new FormData();
+            for (const f of input.files) {
+                formData.append('files', f);
+            }
+            
+            try {
+                const resp = await fetch('/upload/' + automationId, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await resp.json();
+                
+                if (result.success) {
+                    showToast(`✓ Completed in ${result.elapsed.toFixed(1)}s`);
+                    input.value = '';
+                    document.getElementById('filename-' + automationId).textContent = '';
+                } else {
+                    showToast('✗ ' + (result.error || 'Failed'), 'error');
+                }
+            } catch (e) {
+                showToast('✗ Error: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'Execute';
+            refreshRuns();
+        }
+        
+        async function runAutomation(automationId) {
+            const btn = document.getElementById('btn-' + automationId);
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Running...';
+            
+            try {
+                const resp = await fetch('/run/' + automationId, { method: 'POST' });
+                const result = await resp.json();
+                
+                if (result.success) {
+                    showToast(`✓ Completed in ${result.elapsed.toFixed(1)}s`);
+                } else {
+                    showToast('✗ ' + (result.error || 'Failed'), 'error');
+                }
+            } catch (e) {
+                showToast('✗ Error: ' + e.message, 'error');
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'Run Now';
+            refreshRuns();
+        }
+        
+        async function refreshRuns() {
+            try {
+                const resp = await fetch('/runs');
+                const runs = await resp.json();
+                // Simple reload for now
+                location.reload();
+            } catch (e) {
+                console.error('Failed to refresh:', e);
+            }
+        }
+        
+        async function clearRuns() {
+            if (!confirm('Clear all run history?')) return;
+            await fetch('/clear_runs', { method: 'POST' });
+            location.reload();
+        }
+        
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+    
+
+        // WalkScape Advisor Functions
+        let wsPlayerData = null;
+
+        document.getElementById("ws-file").addEventListener("change", function(e) {
+            const file = e.target.files[0];
+            document.getElementById("ws-filename").textContent = file ? file.name : "";
+        });
+
+        function wsUpload() {
+            const fileInput = document.getElementById("ws-file");
+            const file = fileInput.files[0];
+            if (!file) {
+                showToast("Please select a JSON file first", "error");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const btn = document.getElementById("ws-upload-btn");
+            btn.disabled = true;
+            btn.textContent = "Importing...";
+
+            fetch("/walkscape/upload", { method: "POST", body: formData })
+                .then(r => r.json())
+                .then(result => {
+                    if (result.success) {
+                        wsPlayerData = result;
+                        showToast("Player data imported!");
+                        document.getElementById("ws-empty-state").style.display = "none";
+                        document.getElementById("ws-player-info").classList.add("visible");
+                        document.getElementById("ws-player-name").textContent = result.player_name;
+
+                        const skillsGrid = document.getElementById("ws-skills-grid");
+                        skillsGrid.innerHTML = "";
+                        Object.entries(result.skills || {}).forEach(([name, xp]) => {
+                            const badge = document.createElement("div");
+                            badge.className = "ws-skill-badge";
+                            badge.innerHTML = `<span class="ws-skill-name">${name}</span><span class="ws-skill-xp">${Number(xp).toLocaleString()}</span>`;
+                            skillsGrid.appendChild(badge);
+                        });
+
+                        // Load saved recommendation if exists
+                        loadSavedRecommendation();
+                    } else {
+                        showToast(result.error || "Import failed", "error");
+                    }
+                    btn.disabled = false;
+                    btn.textContent = "Import";
+                })
+                .catch(e => {
+                    showToast("Error: " + e.message, "error");
+                    btn.disabled = false;
+                    btn.textContent = "Import";
+                });
+        }
+
+        function loadSavedRecommendation() {
+            fetch("/walkscape_advisor")
+                .then(r => r.json())
+                .then(data => {
+                    // Always populate player info if data exists
+                    if (data.player && Object.keys(data.player).length > 0) {
+                        document.getElementById("ws-player-name").textContent = data.player.name || "";
+                        const skillsGrid = document.getElementById("ws-skills-grid");
+                        skillsGrid.innerHTML = "";
+                        if (data.player.skills) {
+                            Object.entries(data.player.skills).forEach(([name, xp]) => {
+                                const badge = document.createElement("div");
+                                badge.className = "ws-skill-badge";
+                                badge.innerHTML = `<span class="ws-skill-name">${name}</span><span class="ws-skill-xp">${Number(xp).toLocaleString()}</span>`;
+                                skillsGrid.appendChild(badge);
+                            });
+                        }
+                        document.getElementById("ws-player-info").classList.add("visible");
+                        document.getElementById("ws-empty-state").style.display = "none";
+                    }
+                    // Show recommendation if it exists (independent of player data check)
+                    if (data.recommendation && data.recommendation.activity) {
+                        document.getElementById("ws-recommendation").classList.add("visible");
+                        document.getElementById("ws-rec-activity").textContent = data.recommendation.activity;
+                        document.getElementById("ws-rec-reason").textContent = data.recommendation.reason;
+
+                        let metaHtml = "";
+                        if (data.recommendation.skill) metaHtml += `<div class="ws-rec-meta-item"><span>Skill:</span> ${data.recommendation.skill}</div>`;
+                        if (data.recommendation.location) metaHtml += `<div class="ws-rec-meta-item"><span>Location:</span> ${data.recommendation.location}</div>`;
+                        if (data.recommendation.est_xp) metaHtml += `<div class="ws-rec-meta-item"><span>Est. XP/action:</span> ${data.recommendation.est_xp}</div>`;
+                        if (data.recommendation.why) metaHtml += `<div class="ws-rec-meta-item"><span>Why:</span> ${data.recommendation.why}</div>`;
+                        document.getElementById("ws-rec-meta").innerHTML = metaHtml;
+                        document.getElementById("ws-empty-state").style.display = "none";
+                    }
+                });
+        }
+
+        function wsGetRecommendation() {
+            if (!wsPlayerData) {
+                showToast("Please import your player data first", "error");
+                return;
+            }
+
+            const btn = document.getElementById("ws-analyze-btn");
+            btn.disabled = true;
+            btn.textContent = "Analyzing...";
+
+            // Show analyzing state in the recommendation card
+            document.getElementById("ws-recommendation").classList.add("visible");
+            document.getElementById("ws-rec-activity").textContent = "🤖 Analyzing your character...";
+            document.getElementById("ws-rec-reason").textContent = "Reading your full stats, skills, gear, bank, currencies, and achievements to find the optimal next move for your current level.";
+            document.getElementById("ws-rec-meta").innerHTML = "";
+            document.getElementById("ws-empty-state").style.display = "none";
+
+            // Spawn AI sub-agent with a comprehensive optimization request
+            fetch("/ai/answer", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: "Give me a comprehensive activity recommendation. Analyze my full character — my top skills, weakest skills, equipped gear, bank inventory, currencies, achievement points, and step count. Tell me the single best next activity for me right now and exactly why. Include any skill level requirements or gear requirements I don't meet."
+                })
+            })
+            .then(r => r.json())
+            .then(result => {
+                if (result.success) {
+                    showToast("AI is analyzing your character — checking back shortly...", "success");
+                    startRecommendationPoll();
+                } else {
+                    showToast(result.error || "Failed to reach AI", "error");
+                    btn.disabled = false;
+                    btn.textContent = "Get Recommendation";
+                }
+            })
+            .catch(e => {
+                showToast("Error: " + e.message, "error");
+                btn.disabled = false;
+                btn.textContent = "Get Recommendation";
+            });
+        }
+
+        function startRecommendationPoll() {
+            let pollCount = 0;
+            var pollInterval = setInterval(function() {
+                fetch("/walkscape_advisor")
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.recommendation && data.recommendation.activity) {
+                            const recTime = data.recommendation.updated_at ? new Date(data.recommendation.updated_at).getTime() : 0;
+                            if (Date.now() - recTime < 120000) {
+                                clearInterval(pollInterval);
+                                document.getElementById("ws-rec-activity").textContent = data.recommendation.activity;
+                                document.getElementById("ws-rec-reason").textContent = data.recommendation.reason;
+                                let metaHtml = "";
+                                if (data.recommendation.skill) {
+                                    const skill = Array.isArray(data.recommendation.skill) ? data.recommendation.skill.join(", ") : data.recommendation.skill;
+                                    metaHtml += '<div class="ws-rec-meta-item"><span>🎯 Skill:</span> ' + skill + '</div>';
+                                }
+                                if (data.recommendation.location) metaHtml += '<div class="ws-rec-meta-item"><span>📍 Location:</span> ' + data.recommendation.location + '</div>';
+                                if (data.recommendation.est_xp) metaHtml += '<div class="ws-rec-meta-item"><span>⚡ Est. XP:</span> ' + data.recommendation.est_xp + '</div>';
+                                if (data.recommendation.missing_requirements) metaHtml += '<div class="ws-rec-meta-item"><span>⚠️ Missing:</span> ' + data.recommendation.missing_requirements + '</div>';
+                                if (data.recommendation.why) metaHtml += '<div class="ws-rec-meta-item"><span>💡 Why:</span> ' + data.recommendation.why + '</div>';
+                                document.getElementById("ws-rec-meta").innerHTML = metaHtml;
+                                const btn = document.getElementById("ws-analyze-btn");
+                                btn.disabled = false;
+                                btn.textContent = "Get Recommendation";
+                                showToast("✅ Recommendation ready!", "success");
+                            }
+                        }
+                        pollCount++;
+                        if (pollCount >= 40) {
+                            clearInterval(pollInterval);
+                            document.getElementById("ws-rec-activity").textContent = "Analysis timed out";
+                            document.getElementById("ws-rec-reason").textContent = "The AI took too long. Try again or ask in the chat.";
+                            const btn = document.getElementById("ws-analyze-btn");
+                            btn.disabled = false;
+                            btn.textContent = "Get Recommendation";
+                        }
+                    });
+            }, 3000);
+        }
+
+
+
+        // WalkScape Chat Functions
+        let wsChatMessages = [];
+
+        function wsChatAddMessage(role, text) {
+            const container = document.getElementById('ws-chat-messages');
+            const msg = document.createElement('div');
+            msg.className = `ws-chat-msg ${role}`;
+            msg.textContent = text;
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+            wsChatMessages.push({ role, text });
+        }
+
+        function wsChatAddThinking() {
+            const container = document.getElementById('ws-chat-messages');
+            const thinking = document.createElement('div');
+            thinking.className = 'ws-chat-thinking';
+            thinking.id = 'ws-chat-thinking';
+            thinking.textContent = '🤖 Thinking...';
+            container.appendChild(thinking);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function wsChatRemoveThinking() {
+            const el = document.getElementById('ws-chat-thinking');
+            if (el) el.remove();
+        }
+
+        function wsChatSend() {
+            const input = document.getElementById('ws-chat-input');
+            const sendBtn = document.getElementById('ws-chat-send');
+            const message = input.value.trim();
+            if (!message) return;
+
+            wsChatAddMessage('user', message);
+            input.value = '';
+            wsChatAddThinking();
+            sendBtn.disabled = true;
+
+            // Send to AI answer endpoint - it delivers to OpenClaw and saves to card
+            fetch('/ai/answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            })
+            .then(r => r.json())
+            .then(result => {
+                wsChatRemoveThinking();
+                sendBtn.disabled = false;
+                if (result.success) {
+                    wsChatAddMessage('bot', '🤖 Got it — prioritizing your goal. I\'ll analyze your stats and find the best path to that goal, then update the card.');
+                    
+                    // Poll for BOTH chat answer and recommendation card update
+                    let pollCount = 0;
+                    let chatAnswerShown = false;
+                    var pollInterval = setInterval(function() {
+                        fetch('/walkscape_advisor')
+                            .then(r => r.json())
+                            .then(data => {
+                                // Show chat answer as soon as it arrives
+                                if (!chatAnswerShown && data.chat_answer) {
+                                    chatAnswerShown = true;
+                                    wsChatRemoveThinking();
+                                    // Strip markdown bold (**text**) for plain display
+                                    const cleanAnswer = data.chat_answer.replace(/\*\*(.*?)\*\*/g, '$1');
+                                    wsChatAddMessage('bot', cleanAnswer);
+                                }
+                                // Update recommendation card
+                                if (data.recommendation && data.recommendation.activity) {
+                                    const recTime = data.recommendation.updated_at ? new Date(data.recommendation.updated_at).getTime() : 0;
+                                    if (Date.now() - recTime < 120000) { // Updated in last 2 min
+                                        clearInterval(pollInterval);
+                                        sendBtn.disabled = false;
+                                        document.getElementById('ws-recommendation').classList.add('visible');
+                                        document.getElementById('ws-rec-activity').textContent = data.recommendation.activity;
+                                        document.getElementById('ws-rec-reason').textContent = data.recommendation.reason;
+                                        let metaHtml = '';
+                                        if (data.recommendation.skill) metaHtml += '<div class="ws-rec-meta-item"><span>Skill:</span> ' + data.recommendation.skill + '</div>';
+                                        if (data.recommendation.location) metaHtml += '<div class="ws-rec-meta-item"><span>Location:</span> ' + data.recommendation.location + '</div>';
+                                        if (data.recommendation.est_xp) metaHtml += '<div class="ws-rec-meta-item"><span>Est. XP/action:</span> ' + data.recommendation.est_xp + '</div>';
+                                        document.getElementById('ws-rec-meta').innerHTML = metaHtml;
+                                    }
+                                }
+                                pollCount++;
+                                if (pollCount >= 40) {
+                                    clearInterval(pollInterval);
+                                    sendBtn.disabled = false;
+                                    if (!chatAnswerShown) {
+                                        wsChatRemoveThinking();
+                                        wsChatAddMessage('bot', 'Analysis timed out. Try again or refresh.');
+                                    }
+                                }
+                            });
+                    }, 3000);
+                } else {
+                    wsChatAddMessage('bot', 'Error: ' + (result.error || 'Failed to reach AI'));
+                }
+            })
+            .catch(e => {
+                wsChatRemoveThinking();
+                sendBtn.disabled = false;
+                wsChatAddMessage('bot', 'Error: ' + e.message);
+            });
+        }
+
+        // Enter key sends chat (Shift+Enter for newline)
+        document.getElementById('ws-chat-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                wsChatSend();
+            }
+        });
+
+        // Init: load saved recommendation + player data on page load
+        loadSavedRecommendation();
+        </script>
+</body>
+</html>

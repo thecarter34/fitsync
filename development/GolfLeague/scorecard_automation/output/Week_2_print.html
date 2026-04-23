@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hickory Hills Scorecards — Week 2</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif; }
+body { background: #1a3d2e; padding: 30px; margin: 0; min-height: 100vh; }
+.paper { background: white; width: 8.5in; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.4); padding: 20px; }
+.cards-wrapper { display: flex; flex-direction: column; gap: 15px; }
+.card { width: 100%; height: auto; min-height: 4.5in; border: 1px solid #d4af37; padding: 0 12px 12px; }
+.card-header { background: #1a3d2e; color: white; display: flex; justify-content: space-between; align-items: center; padding: 8px 12px 7px; border-bottom: 1px solid #d4af37; }
+.course-name { font-size: 11pt; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; color: #d4af37; }
+.header-right { text-align: right; }
+.week-info { font-size: 9pt; font-weight: 700; color: #d4af37; }
+.group-info { font-size: 8.5pt; color: rgba(255,255,255,0.7); }
+table.scorecard { width: 100%; border-collapse: collapse; }
+col.name-col  { width: 62pt; }
+col.h1-col, col.h2-col, col.h3-col, col.h4-col, col.h5-col, col.h6-col, col.h7-col, col.h8-col, col.h9-col { width: 30pt; }
+col.out-col   { width: 34pt; }
+col.hdcp-col  { width: 34pt; }
+col.pts-col   { width: 48pt; }
+table.scorecard td { border: 1px solid #222; text-align: center; vertical-align: middle; color: #111; height: 26pt !important; min-height: 26pt !important; padding: 1px 2px; font-size: 9pt; font-weight: 700; overflow: hidden; white-space: nowrap; }
+table.scorecard tr { height: 26pt !important; }
+table.scorecard td.row-label { background: #1a3d2e; color: #d4af37; font-size: 6.5pt; font-weight: 900; text-transform: uppercase; letter-spacing: 0.03em; text-align: left; padding: 1px 5px; border: 1px solid #222; border-right-color: #d4af37; }
+table.scorecard td.hole-cell { background: #f0f8f5; color: #1a3d2e; font-size: 12pt; font-weight: 900; padding: 2px 0 1px; vertical-align: bottom; border: 1px solid #222; }
+table.scorecard td.out-col { background: #e8f0ec; color: #1a3d2e; font-size: 7.5pt; font-weight: 900; border: 1px solid #222; }
+table.scorecard td.hdcp-col { background: #e8f0ec; color: #1a3d2e; font-size: 7.5pt; font-weight: 900; border: 1px solid #222; }
+table.scorecard td.pts-col { background: #e8f0ec; color: #1a3d2e; font-size: 7.5pt; font-weight: 900; border: 1px solid #222; }
+table.scorecard td.player-name { background: #fff; color: #111; font-size: 9pt; font-weight: 800; text-align: left; padding: 2px 4px; vertical-align: middle; border: 1px solid #222; white-space: nowrap; overflow: hidden; }
+table.scorecard td.stroke { background: #fff; color: #111; font-size: 5pt; font-weight: 700; vertical-align: top; padding-top: 2px; border: 1px solid #222; }
+table.scorecard td.write { background: #fff; color: #111; font-size: 9pt; font-weight: 700; border: 1px solid #222; }
+table.scorecard td.pts-cell { background: #fff; color: #111; font-size: 9pt; font-weight: 700; border: 1px solid #222; }
+table.scorecard td.player-hdcp { background: #fff; color: #111; font-size: 9pt; font-weight: 700; border: 1px solid #222; }
+/* Summary table at bottom of card — 6 columns: name + 5 data cells */
+.summary-table { width: 100%; margin-top: 8px; border-collapse: collapse; border: 1px solid #222; }
+table.summary-table td { border: 1px solid #222; text-align: center; vertical-align: top; color: #111; font-size: 7pt; font-weight: 700; padding: 2px 3px; }
+table.summary-table td.sum-header-label { background: #1a3d2e; color: #d4af37; font-size: 6.5pt; font-weight: 900; text-transform: uppercase; text-align: left; padding: 1px 5px; border: 1px solid #222; border-right-color: #d4af37; }
+table.summary-table td.sum-header { background: #e8f0ec; color: #1a3d2e; font-size: 7pt; font-weight: 900; padding: 2px 2px 1px; border: 1px solid #222; }
+table.summary-table td.sum-team-name { background: #fff; color: #111; font-size: 8pt; font-weight: 800; text-align: left; padding: 2px 4px; border: 1px solid #222; white-space: nowrap; overflow: hidden; }
+table.summary-table td.sum-cell { background: #fff; color: #111; border: 1px solid #222; }
+.print-btn { display: block; margin: 20px auto; padding: 10px 28px; font-size: 14pt; font-weight: 700; background: #d4af37; color: #1a3d2e; border: none; border-radius: 6px; cursor: pointer; letter-spacing: 0.04em; text-transform: uppercase; }
+.print-btn:hover { background: #b8962e; }
+@media print {
+  body { background: white; padding: 0; margin: 0; }
+  .paper { box-shadow: none; width: 8.5in; margin: 0 auto; padding: 20px; }
+  .print-btn { display: none; }
+  @page { size: 8.5in 11in; margin: 0.4in; }
+  .card { width: 100%; height: auto; min-height: 4.5in; border: 1px solid black; padding: 0 12px 12px; page-break-after: auto; page-break-inside: avoid; margin-bottom: 0.2in; }
+  table.summary-table td.sum-header-label, table.summary-table td.sum-header { background: white !important; color: black !important; border: 1px solid black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  table.summary-table td.sum-team-name, table.summary-table td.sum-cell { background: white !important; color: black !important; border: 1px solid black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .card:last-child { margin-bottom: 0; }
+  .card-header { background: white !important; color: black !important; border-bottom: 1px solid black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .course-name, .week-info, .group-info { color: black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  table.scorecard { width: 100%; border-collapse: collapse; }
+  table.scorecard td { border: 1px solid black !important; color: black !important; background: white !important; height: 26pt !important; min-height: 26pt !important; overflow: hidden; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  table.scorecard tr { height: 26pt !important; }
+  table.scorecard td.row-label { background: white !important; color: black !important; border: 1px solid black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">Print Scorecards</button>
+<div class="paper">
+  <div class="cards-wrapper">
+        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 1 &nbsp;·&nbsp; Hole 1a &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Whitey</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">4</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Terry Young</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Dan Everhart</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">11</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Mike Bilyeu</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">13</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Everhart/Whitey</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">15</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Bilyeu/Young</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">20</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 2 &nbsp;·&nbsp; Hole 1b &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Dan Plomedahl</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">6</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Mark Becker</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Bill Brantner</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Joe Sessions</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">12</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Plomedahl/Sessions</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">18</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Becker/Brantner</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">14</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 3 &nbsp;·&nbsp; Hole 2 &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Jason Dodge</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">1</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Brandon Topper</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">3</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">LAW</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">6</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Gene Hanson</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">8</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Dodge/LAW</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">7</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Hanson/Topper</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">11</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 4 &nbsp;·&nbsp; Hole 3 &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Chad Hoyord</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Dan Sorenson</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Pete Wollum</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">10</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Bob Tyler</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">13</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Hoyord/Wollum</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">17</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Sorenson/Tyler</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">22</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 5 &nbsp;·&nbsp; Hole 4a &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Travis Berg</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">4</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Dan Kelm</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">5</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Jeff Holden</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Dennis Welke</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">12</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Berg/Welke</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">16</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Holden/Kelm</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">14</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 6 &nbsp;·&nbsp; Hole 4b &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Matt VanderWegen</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">2</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Ryan Larson</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Josh Carter</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Brandon Verbracken</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">11</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Carter/VanderWegen</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">9</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Larson/Verbracken</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">18</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 7 &nbsp;·&nbsp; Hole 5 &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Mike Prasher</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">3</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Kerry Kjelstad</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">10</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Bill Blackburn</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">5</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Darren Thompson</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">12</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Blackburn/Prasher</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">8</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Kjelstad/Thompson</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">22</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 8 &nbsp;·&nbsp; Hole 6a &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Ben Steffen</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">3</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Marty Goss</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">8</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Bart Steffen</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">5</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Jim Wold</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">11</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Steffen/Steffen</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">8</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Goss/Wold</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">19</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 9 &nbsp;·&nbsp; Hole 6b &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Chad Anderson</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">11</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Joe Brummond</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">14</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Frank Biermeier</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">12</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">John Kohlhepp</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">18</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Anderson/Biermeier</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">23</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Brummond/Kohlhepp</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">32</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 10 &nbsp;·&nbsp; Hole 7 &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Frank Hill</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">6</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Keith Schretenthaler</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">11</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Marquell Johnson</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">6</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Sam Schretenthaler</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">11</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Hill/Johnson</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">12</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Schretenthaler/Schretenthaler</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">22</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 11 &nbsp;·&nbsp; Hole 8 &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Matt Fladten</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">0</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Craig Blattner</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Steve Maher</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Darrell Christy</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">17</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Fladten/Maher</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">9</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Blattner/Christy</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">26</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 12 &nbsp;·&nbsp; Hole 9a &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Jeff Nussbaum</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">8</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Curt Freseth</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Randy Carlson</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">10</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Mark Malnory</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">10</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Carlson/Nussbaum</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">18</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Freseth/Malnory</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">19</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>        <div class="card">
+          <div class="card-header">
+            <span class="course-name">Hickory Hills Wednesday Night Men's League</span>
+            <div class="header-right">
+              <div class="week-info">Week 2 &nbsp;·&nbsp; April 22, 2026</div>
+              <div class="group-info">Group 13 &nbsp;·&nbsp; Hole 9b &nbsp;·&nbsp; 5:30 PM</div>
+            </div>
+          </div>
+          <table class="scorecard">
+            <colgroup>
+              <col class="name-col" />
+              <col class="h1-col" />
+              <col class="h2-col" />
+              <col class="h3-col" />
+              <col class="h4-col" />
+              <col class="h5-col" />
+              <col class="h6-col" />
+              <col class="h7-col" />
+              <col class="h8-col" />
+              <col class="h9-col" />
+              <col class="out-col" />
+              <col class="hdcp-col" />
+              <col class="pts-col" />
+            </colgroup>
+            <tr><td class="row-label">Hole</td><td class="hole-cell">1</td><td class="hole-cell">2</td><td class="hole-cell">3</td><td class="hole-cell">4</td><td class="hole-cell">5</td><td class="hole-cell">6</td><td class="hole-cell">7</td><td class="hole-cell">8</td><td class="hole-cell">9</td><td class="out-col">Out</td><td class="hdcp-col">HDCP</td><td class="pts-col">Hole Pts</td></tr>
+            <tr><td class="row-label">Blue</td><td>338</td><td>158</td><td>365</td><td>268</td><td>160</td><td>289</td><td>146</td><td>330</td><td>334</td><td class="out-col">2388</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">Par</td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>4</td><td>3</td><td>4</td><td>4</td><td class="out-col">33</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="row-label">SI</td><td>4</td><td>7</td><td>2</td><td>6</td><td>8</td><td>5</td><td>9</td><td>1</td><td>3</td><td class="out-col">—</td><td class="hdcp-col"></td><td class="pts-col"></td></tr>
+            <tr><td class="player-name">Gary Holt</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">5</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Frank Irvine</td><td class="stroke">●</td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="stroke">●</td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Eric Boehne</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">7</td><td class="pts-cell"></td></tr>
+            <tr><td class="player-name">Logan Irvine</td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="write"></td><td class="write"></td><td class="write"></td><td class="stroke">●</td><td class="write"></td><td class="out-col"></td><td class="player-hdcp">9</td><td class="pts-cell"></td></tr>
+          </table>
+                    <table class="summary-table">
+            <colgroup>
+              <col style="width: 62pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 55pt" />
+              <col style="width: 56pt" />
+            </colgroup>
+            <tr>
+              <td class="sum-header-label">Team</td>
+              <td class="sum-header">Total<br/>Score</td>
+              <td class="sum-header">Handicap</td>
+              <td class="sum-header">Net<br/>Score</td>
+              <td class="sum-header">Team<br/>Pts</td>
+              <td class="sum-header">Hole<br/>Pts</td>
+              <td class="sum-header">Total<br/>Points</td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Boehne/Holt</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">12</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+            <tr>
+              <td class="sum-team-name">Irvine</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell">9</td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+              <td class="sum-cell"></td>
+            </tr>
+          </table>
+        </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+{% extends "base.html" %} {% block title %}Season Setup - Golf League Manager{% endblock %} {% block content %}
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="glass-card p-6 bg-gradient-to-r from-masters-green-dark via-masters-green to-masters-green-dark border-2 border-masters-gold/40 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-2 right-4 text-6xl font-black text-masters-gold">MASTERS</div>
+    </div>
+    <div class="relative z-10 flex items-center gap-3 mb-2">
+      <div class="w-2 h-8 bg-masters-gold rounded-full"></div>
+      <h1 class="text-3xl font-black text-white tracking-tight">SEASON SETUP</h1>
+    </div>
+    <p class="text-masters-gold font-semibold ml-5">Create seasons and configure scoring</p>
+  </div>
+
+  <!-- Create Season Section -->
+  <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+      <h2 class="text-2xl font-black text-white tracking-tight">Create New Season</h2>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3 w-full">
+      <input
+        type="text"
+        id="season-name"
+        placeholder="Season name (e.g., 2026 Season)"
+        class="glass-input flex-1 w-full sm:w-auto text-lg py-3 px-4"
+      />
+      <button onclick="createSeason()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+        Create Season
+      </button>
+    </div>
+  </div>
+
+  <!-- Season Configuration -->
+  <div id="season-config" class="space-y-6 hidden">
+    <!-- Scoring Settings -->
+    <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+        <h2 class="text-2xl font-black text-white tracking-tight">Scoring Configuration</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-bold text-masters-gold mb-2">Hole Points (per matchup)</label>
+          <input
+            type="number"
+            id="edit-hole-points"
+            min="0.5"
+            max="5"
+            step="0.5"
+            value="1.0"
+            class="glass-input w-full text-lg py-3 px-4"
+          />
+          <p class="text-xs text-white/50 mt-2">Points for winning a single hole matchup (default: 1.0)</p>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-masters-gold mb-2">Team Bonus Points</label>
+          <input
+            type="number"
+            id="edit-team-bonus"
+            min="0"
+            max="20"
+            step="0.5"
+            value="5.0"
+            class="glass-input w-full text-lg py-3 px-4"
+          />
+          <p class="text-xs text-white/50 mt-2">Bonus for team with lower combined net score (default: 5.0)</p>
+        </div>
+      </div>
+      <div class="mt-6">
+        <button onclick="saveSeasonSettings()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+          Save Scoring Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- Team Selection -->
+    <div class="glass-card p-6 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-6 bg-masters-gold rounded-full"></div>
+        <h2 class="text-2xl font-black text-white tracking-tight">Teams in Season</h2>
+      </div>
+      <div class="mb-6">
+        <button
+          onclick="generateFullSchedule()"
+          class="bg-gradient-to-r from-masters-gold to-yellow-600 hover:shadow-lg hover:shadow-masters-gold/30 text-masters-green-dark font-bold py-3 px-6 rounded-lg transition-all font-bold"
+        >
+          🗓️ Generate Full Schedule
+        </button>
+        <p class="text-sm text-white/50 mt-2">Creates round-robin matches for all selected teams</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-bold text-masters-gold mb-2">Available Teams</label>
+          <select
+            id="available-teams"
+            multiple
+            size="8"
+            class="glass-select w-full text-white py-3 px-4"
+            style="min-height: 180px"
+          >
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-masters-gold mb-2">Selected Teams</label>
+          <div class="flex space-x-2 mb-3">
+            <button onclick="addTeamToSeason()" class="btn-primary py-2 px-4 text-sm bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark">Add →</button>
+            <button onclick="removeTeamFromSeason()" class="btn-secondary py-2 px-4 text-sm">← Remove</button>
+          </div>
+          <select
+            id="selected-teams"
+            multiple
+            size="8"
+            class="glass-select w-full text-white py-3 px-4"
+            style="min-height: 180px"
+          >
+          </select>
+        </div>
+      </div>
+      <div class="mt-6">
+        <button onclick="saveSeasonTeams()" class="btn-primary py-3 px-6 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark hover:shadow-lg hover:shadow-masters-gold/30">
+          Save Season Teams
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Season Selector (shown when seasons exist) -->
+<div class="glass-card p-5 bg-gradient-to-br from-masters-green-dark to-masters-charcoal border-2 border-masters-gold/20">
+  <div class="flex flex-wrap gap-4 items-center justify-between">
+    <div class="flex items-center gap-3">
+      <label class="text-sm font-bold text-masters-gold">Load Season:</label>
+      <select id="season-select" onchange="loadSeason()" class="glass-select text-white font-semibold py-3 px-4 min-w-[200px]">
+        <option value="">Select a season...</option>
+      </select>
+    </div>
+    <button id="delete-season-btn" onclick="deleteSeason()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm hidden">
+      🗑️ Delete Season
+    </button>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-4 right-4 bg-gradient-to-r from-masters-gold to-yellow-600 text-masters-green-dark px-6 py-3 rounded-lg shadow-lg shadow-masters-gold/20 font-bold hidden transition-opacity z-50">
+  Settings saved successfully!
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  let seasons = [];
+  let teams = [];
+  let currentSeason = null;
+
+  async function loadData() {
+    try {
+      const [seasonsRes, teamsRes] = await Promise.all([fetch("/api/seasons"), fetch("/api/teams")]);
+      seasons = await seasonsRes.json();
+      teams = await teamsRes.json();
+      const seasonSelect = document.getElementById("season-select");
+      seasonSelect.innerHTML = '<option value="">Select a season...</option>';
+      seasons.forEach((season) => {
+        const option = document.createElement("option");
+        option.value = season.id;
+        option.textContent = season.name;
+        seasonSelect.appendChild(option);
+      });
+      populateTeamSelects();
+    } catch (error) {
+      console.error("Error loading data:", error);
+      showAlert("Failed to load data");
+    }
+  }
+
+  function populateTeamSelects() {
+    const available = document.getElementById("available-teams");
+    available.innerHTML = "";
+    const selectedIds = currentSeason?.team_ids || [];
+    teams.forEach((team) => {
+      if (!selectedIds.includes(team.id)) {
+        const option = document.createElement("option");
+        option.value = team.id;
+        option.textContent = team.name;
+        available.appendChild(option);
+      }
+    });
+    const selected = document.getElementById("selected-teams");
+    selected.innerHTML = "";
+    teams.forEach((team) => {
+      if (selectedIds.includes(team.id)) {
+        const option = document.createElement("option");
+        option.value = team.id;
+        option.textContent = team.name;
+        selected.appendChild(option);
+      }
+    });
+  }
+
+  async function createSeason() {
+    const name = document.getElementById("season-name").value.trim();
+    if (!name) { showAlert("Please enter a season name"); return; }
+    try {
+      const response = await fetch("/api/seasons", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name }),
+      });
+      if (!response.ok) throw new Error("Failed to create season");
+      const season = await response.json();
+      await loadData();
+      document.getElementById("season-name").value = "";
+      document.getElementById("season-select").value = season.id;
+      await loadSeason();
+      showAlert("Season created successfully!");
+    } catch (error) {
+      console.error("Error creating season:", error);
+      showAlert("Failed to create season");
+    }
+  }
+
+  async function deleteSeason() {
+    const seasonId = document.getElementById("season-select").value;
+    if (!seasonId) { showAlert("Please select a season to delete"); return; }
+    const seasonSelect = document.getElementById("season-select");
+    const seasonName = seasonSelect.options[seasonSelect.selectedIndex].text;
+    showConfirm(
+      `Delete season "${seasonName}"? This will permanently delete all associated matches and scores. This action cannot be undone.`,
+      "Delete Season",
+      async () => {
+        try {
+          const response = await fetch(`/api/seasons/${seasonId}`, { method: "DELETE" });
+          if (!response.ok) { const error = await response.json(); throw new Error(error.detail || "Failed to delete season"); }
+          await loadData();
+          document.getElementById("season-select").value = "";
+          document.getElementById("season-config").classList.add("hidden");
+          showAlert("Season deleted successfully!");
+        } catch (error) {
+          console.error("Error deleting season:", error);
+          showAlert("Failed to delete season: " + error.message);
+        }
+      },
+    );
+  }
+
+  async function loadSeason() {
+    const seasonId = document.getElementById("season-select").value;
+    const deleteBtn = document.getElementById("delete-season-btn");
+    if (!seasonId) {
+      document.getElementById("season-config").classList.add("hidden");
+      deleteBtn.classList.add("hidden");
+      currentSeason = null;
+      return;
+    }
+    try {
+      const response = await fetch(`/api/seasons/${seasonId}`);
+      currentSeason = await response.json();
+      const settingsRes = await fetch("/api/course-settings");
+      const settings = await settingsRes.json();
+      document.getElementById("edit-hole-points").value = settings.hole_points || 1.0;
+      document.getElementById("edit-team-bonus").value = settings.team_bonus_points || 5.0;
+      populateTeamSelects();
+      document.getElementById("season-config").classList.remove("hidden");
+      deleteBtn.classList.remove("hidden");
+    } catch (error) {
+      console.error("Error loading season:", error);
+      showAlert("Failed to load season");
+    }
+  }
+
+  async function saveSeasonSettings() {
+    const holePoints = parseFloat(document.getElementById("edit-hole-points").value);
+    const teamBonus = parseFloat(document.getElementById("edit-team-bonus").value);
+    try {
+      await fetch("/api/course-settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ hole_points: holePoints, team_bonus_points: teamBonus }),
+      });
+      showToast("Scoring settings saved!");
+    } catch (error) {
+      console.error("Error saving settings:", error);
+      showAlert("Failed to save settings");
+    }
+  }
+
+  function addTeamToSeason() {
+    const available = document.getElementById("available-teams");
+    const selected = document.getElementById("selected-teams");
+    Array.from(available.selectedOptions).forEach((option) => { selected.appendChild(option); });
+  }
+
+  function removeTeamFromSeason() {
+    const available = document.getElementById("available-teams");
+    const selected = document.getElementById("selected-teams");
+    Array.from(selected.selectedOptions).forEach((option) => { available.appendChild(option); });
+  }
+
+  function saveSeasonTeams() {
+    if (!currentSeason) { showAlert("Please select a season first"); return; }
+    const selected = document.getElementById("selected-teams");
+    const teamIds = Array.from(selected.options).map((option) => option.value);
+    showToast(`Season teams updated! (${teamIds.length} teams selected)`);
+  }
+
+  async function generateFullSchedule() {
+    if (!currentSeason) { showAlert("Please select a season first"); return; }
+    const selected = document.getElementById("selected-teams");
+    const teamIds = Array.from(selected.options).map((option) => option.value);
+    if (teamIds.length < 2) { showAlert("At least 2 teams are required to generate a schedule"); return; }
+    showConfirm(
+      `Generate full round-robin schedule for ${teamIds.length} teams? This will create matches for all team combinations.`,
+      "Generate Schedule",
+      async () => {
+        try {
+          const response = await fetch(`/api/schedule/generate?season_id=${currentSeason.id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(teamIds),
+          });
+          if (!response.ok) throw new Error("Failed to generate schedule");
+          const result = await response.json();
+          showAlert(`Generated ${result.schedule.length} matches!`);
+        } catch (error) {
+          console.error("Error generating schedule:", error);
+          showAlert("Failed to generate schedule");
+        }
+      },
+    );
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.remove("hidden");
+    setTimeout(() => { toast.classList.add("hidden"); }, 3000);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { loadData(); });
+</script>
+{% endblock %}

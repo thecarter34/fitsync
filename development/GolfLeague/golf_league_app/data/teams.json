@@ -1,0 +1,209 @@
+{
+  "Tfec82916": {
+    "id": "Tfec82916",
+    "name": "Hanson-Topper",
+    "player1_id": "P32b462b5",
+    "player2_id": "Paf1e58f7",
+    "team_number": 1,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T721fec25": {
+    "id": "T721fec25",
+    "name": "Walker-Dodge",
+    "player1_id": "P5c86a9f4",
+    "player2_id": "P0618d2d6",
+    "team_number": 2,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T4b14d83f": {
+    "id": "T4b14d83f",
+    "name": "Steffen-Steffen",
+    "player1_id": "Pe41f1688",
+    "player2_id": "Pf2bf2359",
+    "team_number": 3,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Tedbb3f8b": {
+    "id": "Tedbb3f8b",
+    "name": "Hoyord-Wollum",
+    "player1_id": "P3f8c9626",
+    "player2_id": "P8aa51960",
+    "team_number": 4,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T1d14bd57": {
+    "id": "T1d14bd57",
+    "name": "Kelm-Holden",
+    "player1_id": "P93f7395f",
+    "player2_id": "Pb558a9d3",
+    "team_number": 5,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Tf4914769": {
+    "id": "Tf4914769",
+    "name": "Blackburn-Degrasse",
+    "player1_id": "Pda7b74b6",
+    "player2_id": "Pc8f3a3e9",
+    "team_number": 6,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Tae5bd6be": {
+    "id": "Tae5bd6be",
+    "name": "Fladten-Everhart",
+    "player1_id": "P74e3b9ca",
+    "player2_id": "P2c15e867",
+    "team_number": 7,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Tbaf81b0e": {
+    "id": "Tbaf81b0e",
+    "name": "Johnson-Hill",
+    "player1_id": "P0c34b7f0",
+    "player2_id": "P2aa25b9a",
+    "team_number": 8,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T6606d041": {
+    "id": "T6606d041",
+    "name": "Maher-Fladten",
+    "player1_id": "P2a677e75",
+    "player2_id": "Pa954f5d6",
+    "team_number": 9,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Tf76b27c5": {
+    "id": "Tf76b27c5",
+    "name": "Malnory-Freseth",
+    "player1_id": "Pc5f5b492",
+    "player2_id": "Pc1a08c8d",
+    "team_number": 10,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T8c41fbb6": {
+    "id": "T8c41fbb6",
+    "name": "Brantner-Ehrhard",
+    "player1_id": "P6adccc85",
+    "player2_id": "Pdcfa2dc6",
+    "team_number": 11,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T41556559": {
+    "id": "T41556559",
+    "name": "VanderWegen-Carter",
+    "player1_id": "Pa66e18cb",
+    "player2_id": "P835a231d",
+    "team_number": 12,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T4fff423c": {
+    "id": "T4fff423c",
+    "name": "Sorenson-Biermeier",
+    "player1_id": "P3fda9f4d",
+    "player2_id": "P7d006ece",
+    "team_number": 13,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T9cad0dcd": {
+    "id": "T9cad0dcd",
+    "name": "Wold-Anderson",
+    "player1_id": "Pd00618bf",
+    "player2_id": "Pcc2d0be6",
+    "team_number": 14,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T21ec57ff": {
+    "id": "T21ec57ff",
+    "name": "Tyler-Sorenson",
+    "player1_id": "Pd781980a",
+    "player2_id": "P35fd4c7c",
+    "team_number": 15,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T9ef1733b": {
+    "id": "T9ef1733b",
+    "name": "Welke-Berg",
+    "player1_id": "Pb83fa9c0",
+    "player2_id": "Pa9ef6adf",
+    "team_number": 16,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Ta8a84569": {
+    "id": "Ta8a84569",
+    "name": "Thompson-Kjelstad",
+    "player1_id": "Pfc6d616c",
+    "player2_id": "P92611461",
+    "team_number": 17,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Ta009cd20": {
+    "id": "Ta009cd20",
+    "name": "Bilyeu-Young",
+    "player1_id": "Pd20a8ec8",
+    "player2_id": "P79e964ce",
+    "team_number": 18,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T7c861691": {
+    "id": "T7c861691",
+    "name": "Schretenthaler-Schretenthaler",
+    "player1_id": "P2c92e0af",
+    "player2_id": "Padc45b5a",
+    "team_number": 19,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T954b37cf": {
+    "id": "T954b37cf",
+    "name": "Christy-Blattner",
+    "player1_id": "Pf05cb851",
+    "player2_id": "Pae911592",
+    "team_number": 20,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T7da640c3": {
+    "id": "T7da640c3",
+    "name": "Nussbaum-Carlson",
+    "player1_id": "P54362415",
+    "player2_id": "P2826c9a5",
+    "team_number": 21,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T03fc3c11": {
+    "id": "T03fc3c11",
+    "name": "Sessions-Plomedahl",
+    "player1_id": "Pa87a16b3",
+    "player2_id": "Pe87d4d1b",
+    "team_number": 22,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "T682fb4c6": {
+    "id": "T682fb4c6",
+    "name": "Verbracken-Larson",
+    "player1_id": "P6a762550",
+    "player2_id": "Pdfa2dc81",
+    "team_number": 23,
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  }
+}

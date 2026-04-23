@@ -1,0 +1,462 @@
+{
+  "P32b462b5": {
+    "id": "P32b462b5",
+    "name": "Gene Hanson",
+    "handicap": 8.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Paf1e58f7": {
+    "id": "Paf1e58f7",
+    "name": "Brandon Topper",
+    "handicap": 3.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P5c86a9f4": {
+    "id": "P5c86a9f4",
+    "name": "Luke Walker",
+    "handicap": 6.0,
+    "phone": "(715)-210-5622",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P0618d2d6": {
+    "id": "P0618d2d6",
+    "name": "Jason Dodge",
+    "handicap": 1.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pe41f1688": {
+    "id": "Pe41f1688",
+    "name": "Ben Steffen",
+    "handicap": 3.0,
+    "phone": "(715)-379-4115",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pf2bf2359": {
+    "id": "Pf2bf2359",
+    "name": "Bart Steffen",
+    "handicap": 5.0,
+    "phone": "(715)-456-7868",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P3f8c9626": {
+    "id": "P3f8c9626",
+    "name": "Chad Hoyord",
+    "handicap": 7.0,
+    "phone": "(715)-225-4830",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P8aa51960": {
+    "id": "P8aa51960",
+    "name": "Pete Wollum",
+    "handicap": 10.0,
+    "phone": "(715)-491-0265",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P93f7395f": {
+    "id": "P93f7395f",
+    "name": "Dan Kelm",
+    "handicap": 5.0,
+    "phone": "(715)-579-7923",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pb558a9d3": {
+    "id": "Pb558a9d3",
+    "name": "Jeff Holden",
+    "handicap": 9.0,
+    "phone": "(715)-214-3797",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pda7b74b6": {
+    "id": "Pda7b74b6",
+    "name": "Bill Blackburn",
+    "handicap": 5.0,
+    "phone": "(715)-456-6987",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pc8f3a3e9": {
+    "id": "Pc8f3a3e9",
+    "name": "Dave Degrasse",
+    "handicap": 8.0,
+    "phone": "(715)-215-1557",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P74e3b9ca": {
+    "id": "P74e3b9ca",
+    "name": "Craig (Whitey) Fladten",
+    "handicap": 4.0,
+    "phone": "(715)-559-0177",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P2c15e867": {
+    "id": "P2c15e867",
+    "name": "Dan Everhart",
+    "handicap": 11.0,
+    "phone": "(715)-456-6984",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P0c34b7f0": {
+    "id": "P0c34b7f0",
+    "name": "Marquell Johnson",
+    "handicap": 6.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P2aa25b9a": {
+    "id": "P2aa25b9a",
+    "name": "Frank Hill",
+    "handicap": 6.0,
+    "phone": "(715)-533-5618",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P2a677e75": {
+    "id": "P2a677e75",
+    "name": "Steve Maher",
+    "handicap": 9.0,
+    "phone": "(715)-559-4411",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pa954f5d6": {
+    "id": "Pa954f5d6",
+    "name": "Matt Fladten",
+    "handicap": 0.0,
+    "phone": "(715)-492-1371",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pc5f5b492": {
+    "id": "Pc5f5b492",
+    "name": "Mark Malnory",
+    "handicap": 10.0,
+    "phone": "(715)-379-3926",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pc1a08c8d": {
+    "id": "Pc1a08c8d",
+    "name": "Curt Freseth",
+    "handicap": 9.0,
+    "phone": "(715)-829-8477",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P6adccc85": {
+    "id": "P6adccc85",
+    "name": "Bill Brantner",
+    "handicap": 7.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pdcfa2dc6": {
+    "id": "Pdcfa2dc6",
+    "name": "Mike Ehrhard",
+    "handicap": 17.0,
+    "phone": "(715)-828-1993",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pa66e18cb": {
+    "id": "Pa66e18cb",
+    "name": "Matt VanderWegen",
+    "handicap": 2.0,
+    "phone": "(715)-379-7068",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P835a231d": {
+    "id": "P835a231d",
+    "name": "Josh Carter",
+    "handicap": 7.0,
+    "phone": "(715)-828-6179",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P3fda9f4d": {
+    "id": "P3fda9f4d",
+    "name": "Scott Sorenson",
+    "handicap": 10.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P7d006ece": {
+    "id": "P7d006ece",
+    "name": "Frank Biermeier",
+    "handicap": 12.0,
+    "phone": "(715)-563-7011",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pd00618bf": {
+    "id": "Pd00618bf",
+    "name": "Jim Wold",
+    "handicap": 11.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pcc2d0be6": {
+    "id": "Pcc2d0be6",
+    "name": "Rick Anderson",
+    "handicap": 10.0,
+    "phone": "(715)-271-5431",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pd781980a": {
+    "id": "Pd781980a",
+    "name": "Bob Tyler",
+    "handicap": 13.0,
+    "phone": "(715)-828-8334",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P35fd4c7c": {
+    "id": "P35fd4c7c",
+    "name": "Dan Sorenson",
+    "handicap": 9.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pb83fa9c0": {
+    "id": "Pb83fa9c0",
+    "name": "Dennis Welke",
+    "handicap": 12.0,
+    "phone": "(715)-210-5527",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pa9ef6adf": {
+    "id": "Pa9ef6adf",
+    "name": "Travis Berg",
+    "handicap": 4.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pfc6d616c": {
+    "id": "Pfc6d616c",
+    "name": "Darren Thompson",
+    "handicap": 12.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P92611461": {
+    "id": "P92611461",
+    "name": "Kerry Kjelstad",
+    "handicap": 10.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pd20a8ec8": {
+    "id": "Pd20a8ec8",
+    "name": "Mike Bilyeu",
+    "handicap": 13.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P79e964ce": {
+    "id": "P79e964ce",
+    "name": "Terry Young",
+    "handicap": 7.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P2c92e0af": {
+    "id": "P2c92e0af",
+    "name": "Keith Schretenthaler",
+    "handicap": 11.0,
+    "phone": "(715)-829-6812",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Padc45b5a": {
+    "id": "Padc45b5a",
+    "name": "Sam Schretenthaler",
+    "handicap": 18.0,
+    "phone": "(715)-497-7619",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pf05cb851": {
+    "id": "Pf05cb851",
+    "name": "Darrell Christy",
+    "handicap": 17.0,
+    "phone": "(715)-579-6180",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pae911592": {
+    "id": "Pae911592",
+    "name": "Craig Blattner",
+    "handicap": 9.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P54362415": {
+    "id": "P54362415",
+    "name": "Jeff Nussbaum",
+    "handicap": 8.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P2826c9a5": {
+    "id": "P2826c9a5",
+    "name": "Randy Carlson",
+    "handicap": 10.0,
+    "phone": "(715)-559-3305",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pa87a16b3": {
+    "id": "Pa87a16b3",
+    "name": "Joe Sessions",
+    "handicap": 12.0,
+    "phone": "(715)-829-0986",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pe87d4d1b": {
+    "id": "Pe87d4d1b",
+    "name": "Dan Plomedahl",
+    "handicap": 6.0,
+    "phone": "(715)-538-3238",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "P6a762550": {
+    "id": "P6a762550",
+    "name": "Brandon Verbracken",
+    "handicap": 11.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  },
+  "Pdfa2dc81": {
+    "id": "Pdfa2dc81",
+    "name": "Ryan Larson",
+    "handicap": 7.0,
+    "phone": "",
+    "email": "",
+    "address": "",
+    "created_at": "2026-04-06T13:46:45.087210",
+    "updated_at": "2026-04-06T13:46:45.087210"
+  }
+}

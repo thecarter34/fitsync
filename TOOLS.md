@@ -2,44 +2,58 @@
 
 ## What Goes Here
 
-Things like:
-
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+Environment-specific settings, project state, credentials, device configs. Update as projects grow.
 
 ---
 
-# CODING SETUP (Josh)
+# WORKSPACE (Josh)
 
-## Editor & Workflow
-- **Editor:** VS Code with Roo Coder extension
-- **Style:** Vibe coding — stack-agnostic, whatever works best for the task
-- **Philosophy:** No rigid stack. Pick the right tool per project.
-
-## Workspace Structure
-```
-development/
-├── CarterQualityConstruction/   # Active project (construction co. website)
-├── GolfLeague/                   # Golf league management app (Josh's project)
-├── fitness/                      # Gym/health tracking
-└── [future projects]
-```
+## Workspace Root
+`/home/thecarter34/.openclaw/workspace/`
 
 ## Projects
 
-- **CarterQualityConstruction** — `/workspace/development/CarterQualityConstruction/` | `http://localhost:8080` | tmux session: `dev-servers:cqc`
-- **GolfLeague** — `/workspace/development/GolfLeague/`
-- **Mission Control** — `/workspace/mission_control/` | `http://localhost:5050` | General-purpose automation dashboard
+```
+workspace/
+├── development/
+│   ├── CarterQualityConstruction/   # Construction co. website
+│   ├── GolfLeague/                  # Golf league management app
+│   ├── fitness/                      # Gym/health tracking (future)
+│   └── [future projects]
+├── mission_control/                  # Automation dashboard — http://localhost:5050
+└── [root level files: MEMORY.md, AGENTS.md, SOUL.md, USER.md, etc.]
+```
 
-## Dev Servers (tmux: dev-servers)
+---
 
-Dev servers run in a persistent tmux session called `dev-servers`. This keeps them alive between turns.
+# PROJECTS
 
-**Managing dev servers:**
+## CarterQualityConstruction
+- **Path:** `development/CarterQualityConstruction/`
+- **Dev Server:** `http://localhost:8080`
+- **tmux session:** `dev-servers:cqc` (or start with `python3 -m http.server 8080`)
+
+## GolfLeague
+- **Path:** `development/GolfLeague/`
+- **Golf League App:** `golf_league_app/` — Flask app, runs separately
+- **Scorecard Automation:** `scorecard_automation/` — generate scorecards + leaderboards
+
+## Mission Control
+- **Path:** `mission_control/`
+- **URL:** `http://localhost:5050`
+- **Purpose:** General automation hub (Flask-based)
+- **Automations:**
+  - 🏌️ Scorecard Generator
+  - 📊 Season Standings (leaderboard from Squabbit CSV)
+  - 📚 Scorecards (Batch)
+  - 🎮 WalkScape Advisor
+
+---
+
+# DEV SERVERS (tmux: dev-servers)
+
+Dev servers run in a persistent tmux session so they survive between turns.
+
 ```bash
 # List running servers
 tmux list-windows -t dev-servers
@@ -49,27 +63,70 @@ tmux capture-pane -t dev-servers -p
 
 # Kill a server
 tmux kill-window -t dev-servers:PROJECT_NAME
+
+# Start a new dev server
+cd /path/to/project && python3 -m http.server PORT
+# Then: Ctrl+B, D to detach
 ```
 
-**Starting a new dev server:**
-```bash
-# From project directory, e.g.:
-cd /home/thecarter34/.openclaw/workspace/development/CarterQualityConstruction
-python3 -m http.server 8080
-# Then: Ctrl+B, D to detach (or just let me background it)
-```
+---
 
-## Browser Testing
-- Browser plugin is configured for localhost testing
-- I can open pages, take screenshots, click around, fill forms, verify changes
+# AUTOMATIONS (Mission Control — http://localhost:5050)
 
-## Key Commands I Should Know
-- Run dev server: `python3 -m http.server PORT` or project-specific (Vite, Next.js, etc.)
-- Open in browser: browser tool (headless or headed)
-- File edits: direct read/write/edit in `/home/thecarter34/.openclaw/workspace/development/`
+## Scorecard Generator (🏌️)
+- **Input:** PDF (matchups) + CSV (handicaps) → drop in `scorecard_automation/input/`
+- **Output:** `scorecard_automation/output/Week_X_print.html`
+- **Script:** `generate_scorecards.py`
 
-## Stack-Agnostic Approach
+## Season Standings / Leaderboard (📊)
+- **Input:** Squabbit CSV export (standings section at bottom of file)
+- **Output:** `scorecard_automation/output/leaderboard.html` — auto-downloads after run
+- **Week detection:** Uses the week column with the most scores (ignores empty/zero columns)
+- **Script:** `generate_leaderboard.py`
+
+## Scorecards (Batch) (📚)
+- Processes all ready `Week_X_data.json` + `Week_X.csv` pairs in `input/`
+
+---
+
+# BROWSER TESTING
+- Browser plugin configured for localhost
+- Can open pages, take screenshots, click, fill forms, verify changes
+
+---
+
+# KEY PATHS
+
+| Purpose | Path |
+|---------|------|
+| Mission Control | `/workspace/mission_control/` |
+| Mission Control uploads | `/workspace/mission_control/uploads/` |
+| Scorecard input | `/workspace/development/GolfLeague/scorecard_automation/input/` |
+| Scorecard output | `/workspace/development/GolfLeague/scorecard_automation/output/` |
+| Golf league app data | `/workspace/development/GolfLeague/golf_league_app/data/` |
+| Leaderboard (latest) | `/workspace/development/GolfLeague/scorecard_automation/output/leaderboard.html` |
+
+---
+
+# STACK-AGNOSTIC APPROACH
 - Plain HTML/CSS/JS → fast, simple, no build step
 - Need a framework? → suggest one based on the task
 - Database? → SQLite for lightweight, Postgres for real projects
 - Hosting? → local dev first, then suggest deployment options
+
+---
+
+# REMOTE ACCESS
+
+- **Mission Control:** `http://localhost:5050` (local only for now)
+- **CarterQualityConstruction:** `http://localhost:8080` (local only)
+
+---
+
+# ENVIRONMENT
+
+- **WSL2** on Windows (Ubuntu-based)
+- **Node:** v22.22.2
+- **Python:** 3.12 (in `.venv` within scorecard_automation)
+- **Shell:** bash
+- **Discord:** Primary communication channel with Josh

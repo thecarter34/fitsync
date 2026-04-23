@@ -8,7 +8,7 @@
 ### **Personal Life**
 * **Wife:** Also works remotely, earns $120,000/year
 * **Combined Net Worth:** Crossed $1 million milestone a few months ago
-* **Ages:** J is 34, wife just turned 30
+* **Ages:** Josh is 34, wife just turned 30
 * **Location:** America/Chicago timezone
 
 ### **Interests**
@@ -16,40 +16,75 @@ Tech, fitness, and finance
 
 ---
 
-### **User Profile & Objective**
- * **Stats:** 34-year-old Male | 5'10" | 180 lbs.
- * **Background:** 15 years Bodybuilding experience; marathon finisher (Spring 2025).
- * **Goal:** Transitioning from a "Mexico Shred" to a "Summer Aesthetic." Priorities are looking "strong but not fluffy," maintaining mobility, and avoiding the "stiff lunk" weightlifter feel.
- * **Activity Shift:** Volleyball is ending; **Men's Golf League (9 holes with a cart)** on Wednesday nights is the new primary athletic focus.
+### **Coding & Projects**
 
-### **Injury Status: Snapping Hip Syndrome**
- * **Current State:** **Resolved/Stable.** The external snap (IT Band over greater trochanter) has been silenced through Glute Medius activation and functional stability work.
- * **Maintenance Strategy:** Rehab is no longer a "stand-alone" focus but is baked into the warm-ups and exercise selection (e.g., Bulgarian Split Squats and Banded Walks) to ensure the "Software" stays updated.
+Josh is a **vibe coder** — he talks to me (Jules) and I do all the code work. He doesn't manually edit code in VS Code. I handle reading, analyzing, writing, and executing code through the browser tool and file operations.
 
-### **Training Philosophy: The "Athletic Aesthetic"**
- * **Split:** 3–4 Days per week | **Full-Body Frequency.**
- * **Logic:** Hits every muscle group 3x/week for a constant "pump" and high metabolic burn (leanness) without the joint tax of a traditional "heavy" body part split.
- * **Golf Integration:** Includes rotational core work (anti-rotation) and thoracic mobility to protect the spine and increase clubhead speed.
+#### Active Projects
 
-### **Current Weekly Schedule**
-| Day | Focus | Description |
-|---|---|---|
-| **Monday** | **Full Body (Power/Stability)** | Hinge, Push, Pull, Single-leg stability. |
-| **Tuesday** | **Active Recovery / Golf Prep** | Core, rotational mobility, and walking. |
-| **Wednesday** | **GOLF LEAGUE (9 Holes)** | Rotational torque + 2 hours of social activity. |
-| **Thursday** | **Rest** | Total recovery / Spine decompression. |
-| **Friday** | **Full Body (Hypertrophy/Pump)** | Focus on "The Frame" (Shoulders/Upper Chest). |
-| **Saturday** | **Full Body (Metabolic)** | High-rep circuit to stay lean for summer. |
-| **Sunday** | **Rest** | Active recovery/Outdoors. |
+| Project | Path | Status |
+|---------|------|--------|
+| **CarterQualityConstruction** | `development/CarterQualityConstruction/` | Website dev — `http://localhost:8080` |
+| **GolfLeague** | `development/GolfLeague/` | App + automations |
+| **Mission Control** | `mission_control/` | `http://localhost:5050` — general automation hub |
+| **fitness** | `development/fitness/` | Future |
+| **WalkScape Advisor** | Mission Control tab | Character advisor automation |
 
-### **Key Exercise Mechanics**
- * **Lower Body:** KB Swings (Golf power), Bulgarian Split Squats (Hip stability), RDLs (Posterior chain).
- * **Upper Body:** Incline DB Press (Upper chest), Lean-away Lateral Raises (Shoulder width), Single-arm Rows (Thoracic mobility).
- * **Core/Health:** Pallof Press (Anti-rotation), Dead Hangs (Spinal decompression), Tibialis Raises (Knee insurance).
+#### Mission Control (http://localhost:5050)
+A Flask-based automation dashboard Josh uses weekly for:
+- **🏌️ Scorecard Generator** — generates print-ready scorecards from CSV
+- **📊 Season Standings** — generates leaderboard HTML from Squabbit CSV export; auto-downloads after run
+- **📚 Scorecards (Batch)** — batch scorecard generation
+- **🎮 WalkScape Advisor** — character optimization advice
 
-### **Nutrition & Lifestyle**
- * **Protein:** ~180g (1g per lb of body weight).
- * **Leanness Strategy:** Focus on NEAT (8k-10k daily steps) and metabolic Saturdays rather than aggressive calorie cutting.
- * **Joint Care:** High hydration levels to keep fascia "slippery" and prevent the return of the hip snap.
+#### Golf League Context
+- **League:** Hickory Hills Wednesday Night Men's Golf League
+- **Current week:** Week 2 (as of Apr 23, 2026)
+- **Data:** Squabbit CSV exports uploaded to Mission Control → leaderboard generated
+- **Scorecards:** PDF + CSV dropped in `scorecard_automation/input/`
 
-**Instruction for New Thread:** *"I am a 180-lb bodybuilder/athlete with 15 years of experience. I have successfully resolved a snapping hip issue and am now training for 'Summer Aesthetics' and a Wednesday night Golf League. I prefer Full-Body workouts that prioritize mobility and a V-taper look without being a 'lunk.' Use this context to continue my 4-day Athletic Aesthetic program."*"
+---
+
+### **Fitness & Training**
+
+* **Stats:** 34-year-old Male | 5'10" | 180 lbs.
+* **Background:** 15 years Bodybuilding; marathon finisher (Spring 2025)
+* **Goal:** "Summer Aesthetic" — strong but not fluffy, V-taper, mobile
+* **Injury:** Snapping Hip Syndrome — **resolved/stable**
+
+#### Weekly Schedule
+| Day | Focus |
+|-----|-------|
+| Monday | Full Body (Power/Stability) |
+| Tuesday | Active Recovery / Golf Prep |
+| Wednesday | **Golf League** (9 holes + cart) |
+| Thursday | Rest |
+| Friday | Full Body (Hypertrophy/Pump) — Shoulders/Upper Chest |
+| Saturday | Full Body (Metabolic) |
+| Sunday | Rest |
+
+#### Key Exercises
+- KB Swings, Bulgarian Split Squats, RDLs (lower)
+- Incline DB Press, Lean-away Lateral Raises, Single-arm Rows (upper)
+- Pallof Press, Dead Hangs, Tibialis Raises (core/health)
+
+#### Nutrition
+- ~180g protein/day (1g/lb body weight)
+- NEAT focus: 8k-10k steps/day
+
+---
+
+### **Preferences & Style**
+
+- **Communication:** Discord DM for quick stuff; Mission Control for automations
+- **Coding:** Stack-agnostic vibe coding — picks the right tool per project
+- **Decision-making:** Quick, practical — doesn't over-engineer
+- **Projects:** Prefers local-first, simple solutions over complex frameworks
+
+---
+
+### **Important Rules**
+- `trash` > `rm` — recoverable beats gone forever
+- Ask before external actions (emails, public posts)
+- Don't exfiltrate private data
+- Group chats: quality > quantity — don't dominate conversations

@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission Control</title>
+    <title>JJC Tech — Mission Control</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg-dark: #0f1419;
-            --bg-sidebar: #0b1017;
-            --bg-card: #1a2332;
-            --bg-hover: #243044;
-            --accent: #00d4aa;
-            --accent-dim: #00d4aa33;
-            --text: #e8eaed;
-            --text-dim: #8899a6;
-            --danger: #f4212e;
-            --success: #00d4aa;
-            --warning: #ffad33;
-            --border: #2a3a4d;
+            --bg-dark: #050508;
+            --bg-sidebar: #080810;
+            --bg-card: #0d0d1a;
+            --bg-hover: #141428;
+            --accent-cyan: #00c4cc;
+            --accent-blue: #1a5fc9;
+            --accent-purple: #8822cc;
+            --accent: #00c4cc;
+            --accent-dim: rgba(0, 196, 204, 0.1);
+            --accent-glow: rgba(0, 196, 204, 0.2);
+            --text: #c8cdd8;
+            --text-dim: #6a6a88;
+            --danger: #e8334a;
+            --success: #00c4cc;
+            --warning: #cc8800;
+            --border: #181828;
         }
 
         body {
@@ -28,9 +32,10 @@
             color: var(--text);
             min-height: 100vh;
             display: flex;
+            overflow-x: hidden;
         }
 
-        /* ── Sidebar ─────────────────────────────────────── */
+        /* -- Sidebar --------------------------------------- */
         .sidebar {
             width: 220px;
             min-height: 100vh;
@@ -45,20 +50,32 @@
         }
 
         .sidebar-logo {
-            padding: 0 1.25rem 1.5rem;
+            padding: 0 1rem 1.5rem;
             border-bottom: 1px solid var(--border);
             margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .sidebar-logo h1 {
-            font-size: 1.1rem;
+        .sidebar-logo img {
+            width: 160px;
+            height: auto;
+        }
+
+        .sidebar-logo .brand-name {
+            font-size: 0.85rem;
             font-weight: 700;
-            color: var(--text);
+            letter-spacing: 0.25em;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
         }
 
-        .sidebar-logo span {
-            font-size: 0.75rem;
+        .sidebar-logo .brand-tagline {
+            font-size: 0.65rem;
             color: var(--text-dim);
+            letter-spacing: 0.1em;
         }
 
         .nav-item {
@@ -81,7 +98,8 @@
         .nav-item.active {
             background: var(--accent-dim);
             color: var(--accent);
-            border-left-color: var(--accent);
+            border-left-color: var(--accent-cyan);
+            box-shadow: inset 3px 0 12px -4px var(--accent-glow);
         }
 
         .nav-item .nav-icon {
@@ -90,12 +108,13 @@
             text-align: center;
         }
 
-        /* ── Main content ───────────────────────────────── */
+        /* -- Main content --------------------------------- */
         .main {
             flex: 1;
             padding: 2.5rem 3rem;
             min-width: 0;
             max-width: 900px;
+            overflow-x: hidden;
         }
 
         .tab-content {
@@ -117,7 +136,7 @@
             margin-bottom: 2.5rem;
         }
 
-        /* ── Dashboard ─────────────────────────────────── */
+        /* -- Dashboard ----------------------------------- */
         .welcome-card {
             background: var(--bg-card);
             border-radius: 12px;
@@ -130,8 +149,8 @@
             margin-bottom: 0.5rem;
         }
 
-        .welcome-card .tagline {
-            color: var(--accent);
+        .tagline {
+            color: var(--accent-cyan);
             font-size: 1rem;
             margin-bottom: 1.5rem;
         }
@@ -144,7 +163,7 @@
 
         .welcome-card p:last-child { margin-bottom: 0; }
 
-        /* ── Automations grid ───────────────────────────── */
+        /* -- Automations grid ----------------------------- */
         .automations {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -214,10 +233,11 @@
 
         .badge {
             background: var(--accent-dim);
-            color: var(--accent);
+            color: var(--accent-cyan);
             padding: 1px 6px;
             border-radius: 4px;
             font-size: 0.75rem;
+
         }
 
         .badge.optional {
@@ -246,8 +266,9 @@
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .btn-primary {
-            background: var(--accent);
-            color: #000;
+            background: var(--accent-cyan);
+            color: #050508;
+            box-shadow: 0 0 14px rgba(0, 196, 204, 0.2);
         }
 
         .btn-row {
@@ -255,7 +276,7 @@
             gap: 0.5rem;
         }
 
-        /* ── Runs table ─────────────────────────────────── */
+        /* -- Runs table ----------------------------------- */
         .runs-table {
             width: 100%;
             border-collapse: collapse;
@@ -280,7 +301,7 @@
             background: var(--bg-hover);
         }
 
-        .run-success { color: var(--success); }
+        .run-success { color: var(--accent-cyan); text-shadow: 0 0 8px var(--accent-glow); }
         .run-fail { color: var(--danger); }
 
         .run-time {
@@ -289,8 +310,9 @@
         }
 
         .view-log {
-            color: var(--accent);
+            color: var(--accent-cyan);
             text-decoration: none;
+
         }
 
         .view-log:hover { text-decoration: underline; }
@@ -319,7 +341,7 @@
             color: var(--text);
         }
 
-        /* ── WalkScape Advisor ───────────────────────────── */
+        /* -- WalkScape Advisor ----------------------------- */
         .ws-card {
             background: var(--bg-card);
             border-radius: 12px;
@@ -392,8 +414,8 @@
         }
 
         .ws-btn {
-            background: var(--accent);
-            color: #000;
+            background: var(--accent-cyan);
+            color: #050508;
             border: none;
             border-radius: 8px;
             padding: 0 1.25rem;
@@ -401,6 +423,7 @@
             font-size: 0.875rem;
             font-weight: 600;
             transition: opacity 0.15s;
+            box-shadow: 0 0 15px rgba(0, 196, 204, 0.2);
         }
 
         .ws-btn:hover { opacity: 0.85; }
@@ -413,7 +436,8 @@
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
-            color: var(--accent);
+            color: var(--accent-cyan);
+
         }
 
         .ws-skills-grid {
@@ -439,8 +463,8 @@
         .ws-analyze-section { margin-bottom: 0; }
 
         .ws-analyze-btn {
-            background: linear-gradient(135deg, #00d4aa, #00b894);
-            color: #000;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            color: #050508;
             border: none;
             border-radius: 8px;
             padding: 0.65rem 1.5rem;
@@ -448,6 +472,8 @@
             font-size: 0.9rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
+            box-shadow: 0 0 12px rgba(0, 196, 204, 0.2);
+            transition: opacity 0.15s;
         }
 
         .ws-analyze-btn:hover { opacity: 0.9; }
@@ -459,8 +485,8 @@
         }
 
         .ws-recommendation {
-            background: rgba(0,212,170,0.08);
-            border: 1px solid rgba(0,212,170,0.25);
+            background: rgba(0, 196, 204, 0.04);
+            border: 1px solid rgba(0, 196, 204, 0.15);
             border-radius: 10px;
             padding: 1.1rem 1.25rem;
             margin-bottom: 1rem;
@@ -482,8 +508,9 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--accent);
+            color: var(--accent-cyan);
             font-weight: 600;
+
         }
 
         .ws-rec-activity {
@@ -561,9 +588,10 @@
         }
 
         .ws-chat-msg.user {
-            background: rgba(0,212,170,0.15);
-            color: var(--accent);
+            background: rgba(0, 196, 204, 0.08);
+            color: var(--accent-cyan);
             align-self: flex-end;
+            border: 1px solid rgba(0, 196, 204, 0.15);
         }
 
         .ws-chat-msg.bot {
@@ -616,7 +644,7 @@
         .ws-chat-send:hover { opacity: 0.85; }
         .ws-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* ── Golf tab ───────────────────────────────────── */
+        /* -- Golf tab ------------------------------------- */
         .golf-card {
             background: var(--bg-card);
             border-radius: 10px;
@@ -663,7 +691,7 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ── Toast ──────────────────────────────────────── */
+        /* -- Toast ---------------------------------------- */
         #toast {
             position: fixed;
             bottom: 1.5rem;
@@ -672,14 +700,267 @@
             color: var(--text);
             padding: 0.75rem 1.25rem;
             border-radius: 8px;
-            border: 1px solid var(--accent);
+            border: 1px solid var(--accent-cyan);
             font-size: 0.875rem;
             z-index: 1000;
             display: none;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 0 20px rgba(0, 196, 204, 0.15), 0 4px 20px rgba(0,0,0,0.5);
         }
 
         #toast.error { border-color: var(--danger); color: var(--danger); }
+
+        /* ── Chat Tab ───────────────────────────────────── */
+        #tab-chat {
+            padding: 1rem 0 0 0;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+        #tab-chat .chat-container {
+            height: calc(100vh - 90px);
+            width: 100%;
+            max-width: 100%;
+        }
+        #tab-chat .section-header {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        #tab-chat .section-header h2 {
+            font-size: 1.1rem;
+            margin: 0;
+            color: var(--text);
+        }
+        #tab-chat .section-header p {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        #tab-chat .section-header .chat-jules-badge {
+            background: var(--accent-dim);
+            color: var(--accent-cyan);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+
+            border: 1px solid rgba(0, 196, 204, 0.2);
+        }
+
+        .chat-container {
+            background: #0c0c1a;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 140px);
+            min-height: 500px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Chat header bar */
+        .chat-header {
+            background: #0d0d1a;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: #070710;
+        }
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        .chat-welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            text-align: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+        }
+        .chat-welcome-icon { font-size: 2.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 12px var(--accent-glow)); }
+        .chat-welcome h3 { font-size: 1.1rem; color: var(--accent-cyan); }
+        .chat-welcome p { color: var(--text-dim); font-size: 0.85rem; max-width: 320px; line-height: 1.5; }
+
+        /* Date divider */
+        .chat-date {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            background: #141428;
+            border-radius: 8px;
+            padding: 3px 10px;
+            align-self: center;
+            margin: 8px 0;
+        }
+
+        /* Individual message bubbles */
+        .chat-msg-wrap {
+            display: flex;
+            flex-direction: column;
+            max-width: 65%;
+            align-self: flex-end;
+        }
+        .chat-msg-wrap.jules {
+            align-self: flex-start;
+        }
+
+        .chat-msg {
+            padding: 6px 8px 2px 9px;
+            border-radius: 7px 7px 0 7px;
+            font-size: 0.875rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-break: break-word;
+            position: relative;
+        }
+
+        /* User bubble - WhatsApp green outgoing */
+        .chat-msg-wrap:not(.jules) .chat-msg {
+            background: rgba(0, 196, 204, 0.07);
+            color: var(--text);
+            border: 1px solid rgba(0, 196, 204, 0.15);
+            border-bottom-right-radius: 0;
+        }
+
+        /* Jules bubble - dark incoming */
+        .chat-msg-wrap.jules .chat-msg {
+            background: #0d0d1a;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 0;
+        }
+
+        /* Message meta: time + status */
+        .chat-meta {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            justify-content: flex-end;
+            padding: 0 4px 4px;
+            font-size: 0.68rem;
+            color: var(--text-dim);
+        }
+        .chat-msg-wrap.jules .chat-meta { justify-content: flex-start; }
+
+        /* Typing indicator */
+        .chat-typing {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 8px 12px;
+            background: #141428;
+            border-radius: 7px 7px 7px 0;
+            align-self: flex-start;
+            max-width: 70px;
+        }
+        .chat-typing-dot {
+            width: 6px; height: 6px;
+            background: var(--text-dim);
+            border-radius: 50%;
+            animation: typingBounce 1.2s infinite;
+        }
+        .chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-5px); opacity: 1; }
+        }
+
+        /* Input area - dark WhatsApp style */
+        .chat-input-area {
+            background: #0d0d1a;
+            padding: 8px 12px;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            border-top: 1px solid var(--border);
+        }
+        .chat-attachment {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            padding-bottom: 2px;
+        }
+        .chat-attach-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 50%;
+            transition: background 0.15s;
+        }
+        .chat-attach-btn:hover { background: rgba(255,255,255,0.08); }
+        .chat-input-wrap {
+            flex: 1;
+            display: flex;
+            background: #10101f;
+            border-radius: 8px;
+            padding: 2px 4px;
+            border: 1px solid var(--border);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .chat-input-wrap:focus-within {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 196, 204, 0.1);
+        }
+        .chat-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 7px 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            resize: none;
+            max-height: 100px;
+            line-height: 1.4;
+        }
+        .chat-input::placeholder { color: var(--text-dim); }
+        .chat-send-btn {
+            background: var(--accent-cyan);
+            color: #050508;
+            font-size: 1rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: background 0.15s, box-shadow 0.15s;
+            box-shadow: 0 0 12px rgba(0, 196, 204, 0.2);
+        }
+        .chat-send-btn:hover { background: var(--accent-blue); }
+        .chat-send-btn:disabled { background: var(--bg-hover); color: var(--text-dim); cursor: not-allowed; }
+        .chat-file-name {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -687,8 +968,9 @@
 <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
 <nav class="sidebar">
     <div class="sidebar-logo">
-        <h1>⏱ Mission Control</h1>
-        <span>Automation HQ</span>
+        <img src="/static/jjc_logo.png" alt="JJC Tech" class="logo-img">
+        <span class="brand-name">JJC TECH</span>
+        <span class="brand-tagline">Mission Control</span>
     </div>
 
     <div class="nav-item active" onclick="switchTab('dashboard', this)">
@@ -711,7 +993,7 @@
 <!-- ═══════════════════ MAIN ═══════════════════ -->
 <main class="main">
 
-    <!-- ── Dashboard ─────────────────────────────────── -->
+    <!-- -- Dashboard ----------------------------------- -->
     <div id="tab-dashboard" class="tab-content active">
         <div class="welcome-card">
             <h2>Hey, I'm Jules 👋</h2>
@@ -722,7 +1004,7 @@
         </div>
     </div>
 
-    <!-- ── WalkScape ─────────────────────────────────── -->
+    <!-- -- WalkScape ----------------------------------- -->
     <div id="tab-walkscape" class="tab-content">
         <h2>👟 WalkScape Advisor</h2>
         <div class="ws-card" id="walkscape-card">
@@ -771,7 +1053,7 @@
         </div>
     </div>
 
-    <!-- ── Golf ──────────────────────────────────────── -->
+    <!-- -- Golf ---------------------------------------- -->
     <div id="tab-golf" class="tab-content">
         <h2>⛳ Golf League Tools</h2>
 
@@ -848,38 +1130,42 @@
         </div>
     </div>
 
-    <!-- ── Chat ─────────────────────────────────────────── -->
+    <!-- -- Chat ------------------------------------------- -->
     <div id="tab-chat" class="tab-content">
         <div class="section-header">
-            <h2>💬 Chat with Jules</h2>
-            <p>Ask me anything — I can read images, PDFs, and documents you upload.</p>
+            <h2>💬 Chat</h2>
+            <span class="chat-jules-badge">Jules</span>
+            <p>Ask me anything — images, PDFs, WalkScape exports, golf scorecards.</p>
         </div>
 
         <div class="chat-container">
+            <div class="chat-header">
+                <span style="font-size:1.2rem">🤖</span>
+                <span>Jules — Your Automation Copilot</span>
+            </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="chat-welcome">
                     <div class="chat-welcome-icon">🤖</div>
                     <h3>Hey, I'm Jules</h3>
-                    <p>Upload anything — screenshots, PDFs, WalkScape exports, golf scorecards — and ask me about it. I can analyze images and read documents, then give you a full answer.</p>
-                    <p style="margin-top:0.5rem;color:var(--text-dim);font-size:0.8rem">Or just chat — whatever's on your mind.</p>
+                    <p>Upload anything — screenshots, PDFs, WalkScape exports, golf scorecards — and ask me about it.</p>
+                    <p>Or just chat — whatever's on your mind.</p>
                 </div>
             </div>
-
             <div class="chat-input-area">
                 <div class="chat-attachment">
-                    <input type="file" id="chat-file" accept="image/*,.pdf" style="display:none" onchange="document.getElementById('chat-file-name').textContent = this.files[0]?.name || ''">
-                    <button class="btn" style="background:rgba(255,255,255,0.08);padding:6px 12px;font-size:0.8rem;cursor:pointer;border-radius:6px" onclick="document.getElementById('chat-file').click()">📎 Attach</button>
-                    <span id="chat-file-name" style="font-size:0.75rem;color:var(--text-dim);margin-left:6px"></span>
+                    <input type="file" id="chat-file" accept="image/*,.pdf" style="display:none" onchange="handleFileAttach(this)">
+                    <button class="chat-attach-btn" onclick="document.getElementById('chat-file').click()" title="Attach file">📎</button>
+                    <span id="chat-file-name" class="chat-file-name"></span>
                 </div>
-                <div class="chat-input-row">
-                    <input type="text" id="chat-input" placeholder="Ask Jules something..." onkeydown="if(event.key==='Enter' && !event.shiftKey){sendChatMessage();return false}">
-                    <button class="btn btn-primary" id="chat-send-btn" onclick="sendChatMessage()">Send</button>
+                <div class="chat-input-wrap">
+                    <textarea class="chat-input" id="chat-input" placeholder="Message Jules..." rows="1" onkeydown="if(event.key==='Enter' && !event.shiftKey){sendChatMessage();return false}" oninput="autoGrow(this)"></textarea>
                 </div>
+                <button class="chat-send-btn" id="chat-send-btn" onclick="sendChatMessage()">Send</button>
             </div>
         </div>
     </div>
 
-    <!-- ── Automations ────────────────────────────────── -->
+    <!-- -- Automations ---------------------------------- -->
     <div id="tab-automations" class="tab-content">
         <h2>⚡ Automations</h2>
         <div class="section">
@@ -1013,7 +1299,7 @@
 <!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
 <script>
 
-    // ── Tab Navigation ──────────────────────────────────
+    // ---- Tab Navigation -------------------------------------------------------
     function switchTab(name, el) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1023,7 +1309,7 @@
         if (name === 'golf') checkGolfData();
     }
 
-    // ── Toast ──────────────────────────────────────────
+    // -- Toast ------------------------------------------
     function showToast(msg, type) {
         const t = document.getElementById('toast');
         t.textContent = msg;
@@ -1032,7 +1318,7 @@
         setTimeout(() => { t.style.display = 'none'; }, 4000);
     }
 
-    // ── Automation Runners ──────────────────────────────
+    // -- Automation Runners ------------------------------
     async function runUpload(automationId) {
         const input = document.getElementById('files-' + automationId) || document.getElementById('file-' + automationId);
         const btn = document.getElementById('btn-' + automationId);
@@ -1096,7 +1382,7 @@
         fetch('/clear_runs', { method: 'POST' }).then(() => location.reload());
     }
 
-    // ── Golf Tools ─────────────────────────────────────
+    // -- Golf Tools -------------------------------------
     async function runGolfScorecards() {
         const fileInput = document.getElementById('golf-scorecard-file');
         const btn = document.getElementById('btn-scorecards');
@@ -1161,8 +1447,37 @@
         el.innerHTML = 'Data files should be at:<br><code>' + dataDir + '</code><br><br>Golf League app must be running to generate match data.';
     }
 
-    // ── Chat Functions ─────────────────────────────────
+    // -- Chat Functions ---------------------------------
     let chatPolling = null;
+
+    function autoGrow(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+    }
+
+    function handleFileAttach(input) {
+        const name = input.files[0]?.name || '';
+        document.getElementById('chat-file-name').textContent = name;
+    }
+
+    function showTypingIndicator() {
+        const container = document.getElementById('chat-messages');
+        // Remove any existing typing indicator first
+        const existing = document.getElementById('typing-indicator');
+        if (existing) existing.remove();
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-msg-wrap jules';
+        wrap.id = 'typing-indicator';
+        wrap.innerHTML = `<div class="chat-typing"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>`;
+        container.appendChild(wrap);
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+
+    function removeTypingIndicator() {
+        const el = document.getElementById('typing-indicator');
+        if (el) { el.remove(); return true; }
+        return false;
+    }
 
     async function sendChatMessage() {
         const input = document.getElementById('chat-input');
@@ -1174,34 +1489,72 @@
         fd.append('message', msg);
         if (fileInput.files[0]) fd.append('file', fileInput.files[0]);
 
-        // Show user message immediately
-        addChatMessage('user', msg);
-
-        // Reset
+        // Clear input immediately
+        const savedMsg = msg;
         input.value = '';
+        input.style.height = 'auto';
+        const attachmentName = fileInput.files[0]?.name || '';
         fileInput.value = '';
         document.getElementById('chat-file-name').textContent = '';
 
         const sendBtn = document.getElementById('chat-send-btn');
         sendBtn.disabled = true;
-        sendBtn.textContent = 'Thinking...';
+        sendBtn.textContent = '...';
+
+        // Remove welcome and add user message directly
+        const container = document.getElementById('chat-messages');
+        const welcome = container.querySelector('.chat-welcome');
+        if (welcome) welcome.remove();
+
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-msg-wrap';
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'chat-msg';
+        msgDiv.textContent = savedMsg;
+        const meta = document.createElement('div');
+        meta.className = 'chat-meta';
+        meta.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+        wrap.appendChild(msgDiv);
+        wrap.appendChild(meta);
+        container.appendChild(wrap);
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+        showTypingIndicator();
 
         try {
             const r = await fetch('/chat/send', { method: 'POST', body: fd });
             const result = await r.json();
             if (result.success) {
-                // Poll for completion
                 pollChat(result.request_id);
             } else {
-                addChatMessage('jules', '❌ ' + (result.error || 'Something went wrong.'));
+                removeTypingIndicator();
+                showError('jules', result.error || 'Something went wrong.');
                 sendBtn.disabled = false;
                 sendBtn.textContent = 'Send';
             }
         } catch(e) {
-            addChatMessage('jules', '❌ ' + e.message);
+            removeTypingIndicator();
+            showError('jules', e.message);
             sendBtn.disabled = false;
             sendBtn.textContent = 'Send';
         }
+    }
+
+    function showError(role, text) {
+        const container = document.getElementById('chat-messages');
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-msg-wrap ' + (role === 'jules' ? 'jules' : '');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'chat-msg';
+        msgDiv.style.cssText = 'background: rgba(244,33,46,0.15); color: #f4212e;';
+        msgDiv.textContent = text;
+        const meta = document.createElement('div');
+        meta.className = 'chat-meta';
+        meta.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+        wrap.appendChild(msgDiv);
+        wrap.appendChild(meta);
+        container.appendChild(wrap);
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     function pollChat(request_id) {
@@ -1212,25 +1565,17 @@
                 const s = await r.json();
                 if (s.status === 'done') {
                     clearInterval(chatPolling);
+                    removeTypingIndicator();
                     loadChatHistory();
-                    document.getElementById('chat-send-btn').textContent = 'Send';
-                    document.getElementById('chat-send-btn').disabled = false;
+                    const sendBtn = document.getElementById('chat-send-btn');
+                    sendBtn.disabled = false;
+                    sendBtn.textContent = 'Send';
                 }
-            } catch(e) { clearInterval(chatPolling); }
+            } catch(e) {
+                clearInterval(chatPolling);
+                removeTypingIndicator();
+            }
         }, 1500);
-    }
-
-    function addChatMessage(role, text) {
-        const container = document.getElementById('chat-messages');
-        // Remove welcome if present
-        const welcome = container.querySelector('.chat-welcome');
-        if (welcome) welcome.remove();
-
-        const div = document.createElement('div');
-        div.className = 'chat-msg ' + role;
-        div.innerHTML = text + '<div class="chat-time">' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + '</div>';
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
     }
 
     async function loadChatHistory() {
@@ -1240,15 +1585,22 @@
             const container = document.getElementById('chat-messages');
             container.innerHTML = '';
             if (history.length === 0) {
-                container.innerHTML = '<div class="chat-welcome"><div class="chat-welcome-icon">🤖</div><h3>Hey, I'm Jules</h3><p>Upload anything — screenshots, PDFs, WalkScape exports, golf scorecards — and ask me about it. I can analyze images and read documents, then give you a full answer.</p><p style="margin-top:0.5rem;color:var(--text-dim);font-size:0.8rem">Or just chat — whatever's on your mind.</p></div>';
+                container.innerHTML = `<div class="chat-welcome"><div class="chat-welcome-icon">🤖</div><h3>Hey, I'm Jules</h3><p>Upload anything — screenshots, PDFs, WalkScape exports, golf scorecards — and ask me about it.</p><p>Or just chat — whatever's on your mind.</p></div>`;
                 return;
             }
             history.forEach(msg => {
-                const div = document.createElement('div');
-                div.className = 'chat-msg ' + msg.role;
+                const wrap = document.createElement('div');
+                wrap.className = 'chat-msg-wrap ' + (msg.role === 'jules' ? 'jules' : '');
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'chat-msg';
+                msgDiv.textContent = msg.message;
+                const meta = document.createElement('div');
+                meta.className = 'chat-meta';
                 const time = msg.at ? new Date(msg.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
-                div.innerHTML = msg.message + '<div class="chat-time">' + time + '</div>';
-                container.appendChild(div);
+                meta.textContent = time;
+                wrap.appendChild(msgDiv);
+                wrap.appendChild(meta);
+                container.appendChild(wrap);
             });
             container.scrollTop = container.scrollHeight;
         } catch(e) { console.error('Failed to load chat history', e); }
@@ -1257,7 +1609,7 @@
     // Load chat history on page load
     loadChatHistory();
 
-    // ── WalkScape Functions ─────────────────────────────
+    // -- WalkScape Functions -----------------------------
     let wsPlayerData = null;
 
     document.getElementById('ws-file').addEventListener('change', function(e) {

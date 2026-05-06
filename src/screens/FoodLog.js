@@ -24,9 +24,23 @@ async function searchFoods(query) {
   if (!query || query.length < 2) return [];
   try {
     const response = await fetch(
-      `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=20&fields=code,product_name,nutriments,serving_size,serving_quantity`
+      `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=20&fields=code,product_name,nutriments,serving_size,serving_quantity`,
+      {
+        headers: {
+          'User-Agent': 'FitSync/1.0 (React Native; Android)',
+        },
+      }
     );
-    const data = await response.json();
+    if (!response.ok) {
+      console.error('Food search HTTP error:', response.status);
+      return [];
+    }
+    const text = await response.text();
+    if (!text || text.startsWith('<')) {
+      console.error('Food search invalid response');
+      return [];
+    }
+    const data = JSON.parse(text);
     if (!data.products) return [];
     return data.products
       .filter(p => p.product_name)
@@ -49,7 +63,7 @@ async function searchFoods(query) {
         };
       });
   } catch (e) {
-    console.error('Food search error:', e);
+    console.error('Food search error:', e.message || e);
     return [];
   }
 }

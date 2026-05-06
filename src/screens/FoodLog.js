@@ -7,9 +7,10 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FOOD_LOG_KEY = '@fitsync_food_log';
+const WATER_LOG_KEY = '@fitsync_water_log';
 const DAILY_TARGETS_KEY = '@fitsync_daily_targets';
 
-// Default daily targets (can be customized in Settings)
+// Default daily targets (can be customized)
 const DEFAULT_TARGETS = {
   calories: 2200,
   protein: 180,
@@ -18,6 +19,8 @@ const DEFAULT_TARGETS = {
   fiber: 35,
   water: 8, // glasses
 };
+
+const WATER_KEY = '@fitsync_water_target';
 
 // Search Open Food Facts API
 async function searchFoods(query) {
@@ -46,7 +49,6 @@ async function searchFoods(query) {
       .filter(p => p.product_name)
       .map(p => {
         const n = p.nutriments || {};
-        // Open Food Facts stores per 100g, normalize serving
         const serving_g = p.serving_quantity ? parseFloat(p.serving_quantity) : 100;
         const factor = serving_g / 100;
         return {
@@ -68,40 +70,11 @@ async function searchFoods(query) {
   }
 }
 
-// Lookup product by barcode
-async function lookupBarcode(barcode) {
-  try {
-    const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
-    const data = await response.json();
-    if (data.status !== 1 || !data.product) return null;
-    const p = data.product;
-    const n = p.nutriments || {};
-    const serving_g = p.serving_quantity ? parseFloat(p.serving_quantity) : 100;
-    const factor = serving_g / 100;
-    return {
-      id: p.code,
-      name: p.product_name,
-      brand: p.brands || '',
-      serving: p.serving_size || `${serving_g}g`,
-      calories: Math.round((n['energy-kcal_100g'] || 0) * factor),
-      protein: Math.round((n.proteins_100g || 0) * factor * 10) / 10,
-      carbs: Math.round((n.carbohydrates_100g || 0) * factor * 10) / 10,
-      fat: Math.round((n['fat_100g'] || 0) * factor * 10) / 10,
-      fiber: Math.round((n.fiber_100g || 0) * factor * 10) / 10,
-      barcode: p.code,
-    };
-  } catch (e) {
-    console.error('Barcode lookup error:', e);
-    return null;
-  }
-}
-
-// Get today's date string as key
 function getTodayKey() {
-  return new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  return new Date().toISOString().split('T')[0];
 }
 
-// Load food log from storage
+// Food log
 async function loadFoodLog() {
   try {
     const data = await AsyncStorage.getItem(FOOD_LOG_KEY);
@@ -111,7 +84,6 @@ async function loadFoodLog() {
   }
 }
 
-// Save food log to storage
 async function saveFoodLog(log) {
   try {
     await AsyncStorage.setItem(FOOD_LOG_KEY, JSON.stringify(log));
@@ -120,7 +92,25 @@ async function saveFoodLog(log) {
   }
 }
 
-// Load daily targets
+// Water log
+async function loadWaterLog() {
+  try {
+    const data = await AsyncStorage.getItem(WATER_LOG_KEY);
+    return data ? JSON.parse(data) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+async function saveWaterLog(log) {
+  try {
+    await AsyncStorage.setItem(WATER_LOG_KEY, JSON.stringify(log));
+  } catch (e) {
+    console.error('Save water log error:', e);
+  }
+}
+
+// Targets
 async function loadTargets() {
   try {
     const data = await AsyncStorage.getItem(DAILY_TARGETS_KEY);
@@ -130,7 +120,6 @@ async function loadTargets() {
   }
 }
 
-// Save daily targets
 async function saveTargets(targets) {
   try {
     await AsyncStorage.setItem(DAILY_TARGETS_KEY, JSON.stringify(targets));
@@ -139,68 +128,55 @@ async function saveTargets(targets) {
   }
 }
 
-function MealSection({ meal, time, items, onDelete, onEdit }) {
-  const totalCal = items.reduce((s, i) => s + (i.calories || 0), 0);
-  const totalProtein = items.reduce((s, i) => s + (i.protein || 0), 0);
-  const totalCarbs = items.reduce((s, i) => s + (i.carbs || 0), 0);
-  const totalFat = items.reduce((s, i) => s + (i.fat || 0), 0);
+function WaterTracker({ current, target, onAdd, onRemove }) {
+  const pct = Math.min(current / target, 1);
+  const size = 64;
+  const stroke = 6;
+  const r = (size - stroke) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ * (1 - pct);
 
   return (
-    <View style={styles.mealSection}>
-      <View style={styles.mealHeader}>
-        <View>
-          <Text style={styles.mealName}>{meal}</Text>
-          {time && <Text style={styles.mealTime}>{time}</Text>}
+    <View style={waterStyles.container}>
+      <View style={waterStyles.header}>
+        <View style={waterStyles.titleRow}>
+          <Ionicons name="water" size={18} color="#06B6D4" />
+          <Text style={waterStyles.title}>Water</Text>
         </View>
-        <View style={styles.mealTotals}>
-          <Text style={styles.mealCal}>{totalCal} kcal</Text>
-          <Text style={styles.mealProtein}>{totalProtein}g P · {totalCarbs}g C · {totalFat}g F</Text>
+        <View style={waterStyles.controls}>
+          <TouchableOpacity style={waterStyles.controlBtn} onPress={onRemove}>
+            <Ionicons name="remove" size={20} color="#6B7280" />
+          </TouchableOpacity>
+          <View style={waterStyles.countContainer}>
+            <Text style={waterStyles.count}>{current}</Text>
+            <Text style={waterStyles.target}>/ {target} glasses</Text>
+          </View>
+          <TouchableOpacity style={[waterStyles.controlBtn, waterStyles.addBtn]} onPress={onAdd}>
+            <Ionicons name="add" size={20} color="#06B6D4" />
+          </TouchableOpacity>
         </View>
       </View>
-      {items.map((item, idx) => (
-        <TouchableOpacity
-          key={idx}
-          style={styles.foodItem}
-          onPress={() => onEdit && onEdit(item, idx)}
-          onLongPress={() => onDelete && onDelete(item, idx)}
-        >
-          <View style={styles.foodInfo}>
-            <Text style={styles.foodName}>{item.name}</Text>
-            <Text style={styles.foodServing}>{item.serving} · {item.calories} kcal</Text>
-          </View>
-          <View style={styles.foodMacros}>
-            <Text style={styles.foodMacro}>{item.protein}g P</Text>
-            <TouchableOpacity onPress={() => onDelete && onDelete(item, idx)} style={styles.deleteBtn}>
-              <Ionicons name="trash-outline" size={15} color="#6B7280" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      ))}
-      {items.length === 0 && (
-        <Text style={styles.emptyMeal}>No foods logged</Text>
-      )}
+      <View style={waterStyles.barContainer}>
+        <View style={[waterStyles.barFill, { width: `${pct * 100}%` }]} />
+      </View>
     </View>
   );
 }
 
-function FoodSearchResult({ item, onAdd }) {
-  return (
-    <TouchableOpacity style={styles.searchResult} onPress={() => onAdd(item)}>
-      <View style={styles.searchResultInfo}>
-        <Text style={styles.searchResultName}>{item.name}</Text>
-        {item.brand ? <Text style={styles.searchResultBrand}>{item.brand}</Text> : null}
-        <Text style={styles.searchResultServing}>{item.serving}</Text>
-      </View>
-      <View style={styles.searchResultMacros}>
-        <Text style={styles.searchResultCal}>{item.calories} kcal</Text>
-        <Text style={styles.searchResultMacroText}>P: {item.protein} C: {item.carbs} F: {item.fat}</Text>
-        <TouchableOpacity style={styles.addBtn}>
-          <Ionicons name="add-circle" size={26} color="#6366F1" />
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
-  );
-}
+const waterStyles = StyleSheet.create({
+  container: { backgroundColor: '#1E3A5F', borderRadius: 16, padding: 14, marginBottom: 16 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  title: { fontSize: 15, fontWeight: '700', color: '#F9FAFB' },
+  controls: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  controlBtn: { width: 32, height: 32, borderRadius: 16, backgroundColor: '#0F172A', justifyContent: 'center', alignItems: 'center' },
+  addBtn: { backgroundColor: '#0F172A' },
+  countContainer: { flexDirection: 'row', alignItems: 'baseline', gap: 4 },
+  count: { fontSize: 20, fontWeight: '800', color: '#06B6D4' },
+  target: { fontSize: 13, color: '#6B7280' },
+  barContainer: { height: 6, backgroundColor: '#0F172A', borderRadius: 3, overflow: 'hidden' },
+  barFill: { height: '100%', backgroundColor: '#06B6D4', borderRadius: 3 },
+});
 
 function MacroRing({ current, target, color, label }) {
   const pct = Math.min(current / target, 1);
@@ -239,9 +215,11 @@ export default function FoodLog({ navigation }) {
   const [isSearching, setIsSearching] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [todayLog, setTodayLog] = useState([]);
+  const [waterCount, setWaterCount] = useState(0);
   const [targets, setTargets] = useState(DEFAULT_TARGETS);
-  const [editModal, setEditModal] = useState(null); // { item, index, meal }
-  const [addModal, setAddModal] = useState(null); // { food, meal }
+  const [editModal, setEditModal] = useState(null);
+  const [targetsModal, setTargetsModal] = useState(null);
+  const [localTargets, setLocalTargets] = useState(DEFAULT_TARGETS);
 
   const todayKey = getTodayKey();
   const today = new Date();
@@ -250,9 +228,11 @@ export default function FoodLog({ navigation }) {
   // Load saved data
   useEffect(() => {
     async function load() {
-      const [log, t] = await Promise.all([loadFoodLog(), loadTargets()]);
+      const [log, t, water] = await Promise.all([loadFoodLog(), loadTargets(), loadWaterLog()]);
       setTargets(t);
+      setLocalTargets(t);
       setTodayLog(log[todayKey] || []);
+      setWaterCount(water[todayKey] || 0);
     }
     load();
   }, []);
@@ -272,13 +252,30 @@ export default function FoodLog({ navigation }) {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Save log whenever it changes
+  // Save food log
   const saveLog = useCallback(async (log) => {
     setTodayLog(log);
     const all = await loadFoodLog();
     all[todayKey] = log;
     await saveFoodLog(all);
   }, [todayKey]);
+
+  // Save water
+  const saveWater = useCallback(async (count) => {
+    setWaterCount(count);
+    const all = await loadWaterLog();
+    all[todayKey] = count;
+    await saveWaterLog(all);
+  }, [todayKey]);
+
+  // Water controls
+  const addWater = useCallback(() => {
+    saveWater(Math.min(waterCount + 1, 20));
+  }, [waterCount, saveWater]);
+
+  const removeWater = useCallback(() => {
+    saveWater(Math.max(waterCount - 1, 0));
+  }, [waterCount, saveWater]);
 
   // Delete food item
   const deleteItem = useCallback((item, index) => {
@@ -296,7 +293,7 @@ export default function FoodLog({ navigation }) {
     setShowSearch(false);
   }, [saveLog]);
 
-  // Edit existing food (update serving size)
+  // Edit existing food
   const editFood = useCallback((item, index) => {
     setEditModal({ item, index });
   }, []);
@@ -309,6 +306,19 @@ export default function FoodLog({ navigation }) {
     saveLog(newLog);
     setEditModal(null);
   }, [editModal, todayLog, saveLog]);
+
+  // Open targets modal
+  const openTargetsModal = useCallback(() => {
+    setLocalTargets({ ...targets });
+    setTargetsModal(true);
+  }, [targets]);
+
+  // Save targets
+  const saveTargetsHandler = useCallback(async () => {
+    await saveTargets(localTargets);
+    setTargets(localTargets);
+    setTargetsModal(null);
+  }, [localTargets]);
 
   // Calculate daily totals
   const totals = todayLog.reduce((acc, item) => ({
@@ -334,9 +344,14 @@ export default function FoodLog({ navigation }) {
           <Text style={styles.title}>Food Log</Text>
           <Text style={styles.subtitle}>{dateStr}</Text>
         </View>
-        <TouchableOpacity style={styles.searchToggle} onPress={() => setShowSearch(!showSearch)}>
-          <Ionicons name={showSearch ? 'close' : 'search'} size={22} color="#6366F1" />
-        </TouchableOpacity>
+        <View style={styles.headerRight}>
+          <TouchableOpacity style={styles.searchToggle} onPress={() => setShowSearch(!showSearch)}>
+            <Ionicons name={showSearch ? 'close' : 'search'} size={22} color="#6366F1" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.searchToggle} onPress={openTargetsModal}>
+            <Ionicons name="options-outline" size={22} color="#6366F1" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Search Bar */}
@@ -385,12 +400,31 @@ export default function FoodLog({ navigation }) {
           </View>
         </View>
 
+        {/* Water Tracker */}
+        <WaterTracker
+          current={waterCount}
+          target={targets.water}
+          onAdd={addWater}
+          onRemove={removeWater}
+        />
+
         {/* Search Results */}
         {showSearch && searchResults.length > 0 && (
           <View style={styles.searchResultsContainer}>
             <Text style={styles.sectionTitle}>Search Results</Text>
             {searchResults.map((item) => (
-              <FoodSearchResult key={item.id} item={item} onAdd={addFood} />
+              <TouchableOpacity key={item.id} style={styles.searchResult} onPress={() => addFood(item)}>
+                <View style={styles.searchResultInfo}>
+                  <Text style={styles.searchResultName}>{item.name}</Text>
+                  {item.brand ? <Text style={styles.searchResultBrand}>{item.brand}</Text> : null}
+                  <Text style={styles.searchResultServing}>{item.serving}</Text>
+                </View>
+                <View style={styles.searchResultMacros}>
+                  <Text style={styles.searchResultCal}>{item.calories} kcal</Text>
+                  <Text style={styles.searchResultMacroText}>P: {item.protein} C: {item.carbs} F: {item.fat}</Text>
+                  <Ionicons name="add-circle" size={26} color="#6366F1" style={{ marginTop: 4 }} />
+                </View>
+              </TouchableOpacity>
             ))}
           </View>
         )}
@@ -543,6 +577,83 @@ export default function FoodLog({ navigation }) {
           </View>
         </KeyboardAvoidingView>
       </Modal>
+
+      {/* Targets Modal */}
+      <Modal visible={!!targetsModal} transparent animationType="slide">
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Daily Targets</Text>
+                <TouchableOpacity onPress={() => setTargetsModal(null)}>
+                  <Ionicons name="close" size={24} color="#9CA3AF" />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.modalFoodName}>Set your daily nutrition goals</Text>
+
+              <View style={styles.editRow}>
+                <Text style={styles.editLabel}>Calories</Text>
+                <TextInput
+                  style={styles.editInput}
+                  value={String(localTargets.calories)}
+                  keyboardType="numeric"
+                  placeholder="2200"
+                  placeholderTextColor="#6B7280"
+                  onChangeText={(text) => setLocalTargets(t => ({ ...t, calories: parseInt(text) || 0 }))}
+                />
+              </View>
+              <View style={styles.editRow}>
+                <Text style={styles.editLabel}>Protein (g)</Text>
+                <TextInput
+                  style={styles.editInput}
+                  value={String(localTargets.protein)}
+                  keyboardType="numeric"
+                  placeholder="180"
+                  placeholderTextColor="#6B7280"
+                  onChangeText={(text) => setLocalTargets(t => ({ ...t, protein: parseInt(text) || 0 }))}
+                />
+              </View>
+              <View style={styles.editRow}>
+                <Text style={styles.editLabel}>Carbs (g)</Text>
+                <TextInput
+                  style={styles.editInput}
+                  value={String(localTargets.carbs)}
+                  keyboardType="numeric"
+                  placeholder="220"
+                  placeholderTextColor="#6B7280"
+                  onChangeText={(text) => setLocalTargets(t => ({ ...t, carbs: parseInt(text) || 0 }))}
+                />
+              </View>
+              <View style={styles.editRow}>
+                <Text style={styles.editLabel}>Fat (g)</Text>
+                <TextInput
+                  style={styles.editInput}
+                  value={String(localTargets.fat)}
+                  keyboardType="numeric"
+                  placeholder="73"
+                  placeholderTextColor="#6B7280"
+                  onChangeText={(text) => setLocalTargets(t => ({ ...t, fat: parseInt(text) || 0 }))}
+                />
+              </View>
+              <View style={styles.editRow}>
+                <Text style={styles.editLabel}>Water (glasses)</Text>
+                <TextInput
+                  style={styles.editInput}
+                  value={String(localTargets.water)}
+                  keyboardType="numeric"
+                  placeholder="8"
+                  placeholderTextColor="#6B7280"
+                  onChangeText={(text) => setLocalTargets(t => ({ ...t, water: parseInt(text) || 0 }))}
+                />
+              </View>
+
+              <TouchableOpacity style={styles.saveBtn} onPress={saveTargetsHandler}>
+                <Text style={styles.saveBtnText}>Save Targets</Text>
+              </TouchableOpacity>
+            </>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
     </View>
   );
 }
@@ -550,6 +661,7 @@ export default function FoodLog({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0F172A' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingTop: 16, paddingBottom: 8 },
+  headerRight: { flexDirection: 'row', gap: 8 },
   title: { fontSize: 28, fontWeight: '700', color: '#F9FAFB' },
   subtitle: { fontSize: 14, color: '#9CA3AF', marginTop: 2 },
   searchToggle: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#1F2937', justifyContent: 'center', alignItems: 'center' },
@@ -559,7 +671,7 @@ const styles = StyleSheet.create({
   content: { padding: 16, paddingBottom: 100 },
 
   // Summary Card
-  summaryCard: { backgroundColor: '#1F2937', borderRadius: 20, padding: 20, marginBottom: 20 },
+  summaryCard: { backgroundColor: '#1F2937', borderRadius: 20, padding: 20, marginBottom: 16 },
   calorieSummary: { flexDirection: 'row', justifyContent: 'space-around', marginBottom: 16 },
   calorieMain: { alignItems: 'center' },
   calorieEaten: { fontSize: 26, fontWeight: '800', color: '#F9FAFB' },
@@ -582,7 +694,6 @@ const styles = StyleSheet.create({
   searchResultMacros: { alignItems: 'flex-end', gap: 4 },
   searchResultCal: { fontSize: 15, fontWeight: '700', color: '#6366F1' },
   searchResultMacroText: { fontSize: 11, color: '#9CA3AF' },
-  addBtn: { marginTop: 4 },
   searchingContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 20, gap: 12 },
   searchingText: { color: '#9CA3AF', fontSize: 15 },
   noResults: { alignItems: 'center', padding: 40, gap: 12 },
@@ -601,24 +712,6 @@ const styles = StyleSheet.create({
   loggedFoodMacros: { alignItems: 'flex-end' },
   loggedFoodCal: { fontSize: 15, fontWeight: '700', color: '#6366F1' },
   loggedFoodMacroText: { fontSize: 11, color: '#9CA3AF' },
-
-  // Meal Section (legacy compatibility)
-  mealSection: { backgroundColor: '#1F2937', borderRadius: 16, padding: 16, marginBottom: 12 },
-  mealHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: '#374151' },
-  mealName: { fontSize: 16, fontWeight: '700', color: '#F9FAFB' },
-  mealTime: { fontSize: 12, color: '#9CA3AF', marginTop: 2 },
-  mealTotals: { alignItems: 'flex-end' },
-  mealCal: { fontSize: 15, fontWeight: '700', color: '#6366F1' },
-  mealProtein: { fontSize: 12, color: '#9CA3AF', marginTop: 2 },
-  foodItem: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 8 },
-  foodInfo: {},
-  foodName: { fontSize: 15, fontWeight: '600', color: '#D1D5DB' },
-  foodServing: { fontSize: 12, color: '#6B7280', marginTop: 2 },
-  foodMacros: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  foodCal: { fontSize: 15, fontWeight: '600', color: '#F9FAFB' },
-  foodMacro: { fontSize: 13, color: '#9CA3AF' },
-  deleteBtn: { padding: 4 },
-  emptyMeal: { color: '#6B7280', fontSize: 13, textAlign: 'center', paddingVertical: 8 },
 
   addMealBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 16, borderRadius: 16, borderWidth: 2, borderColor: '#6366F1', borderStyle: 'dashed', gap: 8, marginBottom: 20 },
   addMealText: { color: '#6366F1', fontSize: 15, fontWeight: '600' },

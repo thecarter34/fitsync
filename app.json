@@ -22,7 +22,11 @@
         "backgroundColor": "#0F172A"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.fitsync.app"
+      "package": "com.fitsync.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -45,6 +49,11 @@
         }
       ],
       "react-native-health-connect"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6b421b4f-19c0-4548-ace6-8c2e59e47317"
+      }
+    }
   }
 }
